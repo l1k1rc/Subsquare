@@ -60,9 +60,4 @@ public class BoxFactory {
 //		logger.info("Obstacle Ground creat at : ("+abscisse+","+ordonne+")");
 		return new Obstacle(abscisse,ordonne,index);
 	}
-	
-	public static DistrictBox creatBuildZone(int abscisse,int ordonne) {
-//		logger.info("DistrictBox creat at : ("+abscisse+","+ordonne+")");
-		return new DistrictBox(abscisse,ordonne);
-	}
 }

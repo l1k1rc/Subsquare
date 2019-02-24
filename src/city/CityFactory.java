@@ -30,16 +30,16 @@ public class CityFactory {
 		return new Citizen(workDistrict, originDistrict, position);
 	}
 	
-	public static District createDistrict(Point position,String type) {
-		if(type == "pub") {
-			return new PublicDistrict(position);
+	public static void createDistrict(Point position,String type,City city) {
+		if(type.equals("pub")) {
+			PublicDistrict pub = new PublicDistrict(position);
+			city.addDistrictPub(pub);
+		}else if(type.equals("prv")) {
+			PrivateDistrict pri = new PrivateDistrict(position);
+			city.addDistrictPri(pri);
+		}else if(type.equals("res")) {
+			ResidentialDistrict res = new ResidentialDistrict(position);
+			city.addDistrictRes(res);
 		}
-		if(type == "prv") {
-			return new PrivateDistrict(position);
-		}
-		if(type == "res") {
-			return new ResidentialDistrict(position);
-		}
-		return null;
 	}
 }

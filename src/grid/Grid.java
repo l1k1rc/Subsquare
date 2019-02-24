@@ -2,6 +2,7 @@ package grid;
 
 import java.util.ArrayList;
 
+import city.City;
 import engine.GridParameters;
 import used.Point;
 
@@ -19,6 +20,7 @@ public class Grid {
 	private Box[][] boxs;
 	private ArrayList<Obstacle> obstacle;
 	private ArrayList<Lake> lake;
+	private City city;
 	private GridParameters parameters;
 	/**********		Construct		************/
 	/**
@@ -30,11 +32,17 @@ public class Grid {
 		boxs = new Box[height][width];
 		obstacle=new ArrayList<Obstacle>();
 		lake=new ArrayList<Lake>();
+		city = new City();
 	}
 
 	/**********		methodes		**********/
 	
 				//getters
+	
+	public City getCity() {
+		return city;
+	}
+	
 	/**
 	 * return the Box at the position abscisse,ordonne
 	 * @param abscisse
@@ -93,7 +101,10 @@ public class Grid {
 	public void setGridParameters(GridParameters parameters) {
 		this.parameters=parameters;
 	}
-
+	
+	public void setCity(City city) {
+		this.city = city;
+	}
 				//others
 	public boolean prefDistanceObstacle(Point p) {
 		

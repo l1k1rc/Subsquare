@@ -14,7 +14,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import engine.GridParameters;
 import engine.Simulation;
@@ -64,19 +63,11 @@ public class MainFrame extends JFrame implements Runnable {
 	public void init() {
 		setResizable(false);
 		getContentPane().setBackground(Color.darkGray);
-
 		setSize(1650,760);
-
 		setSize(1400, 760);
-
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
-		JScrollPane scrollPane = new JScrollPane(scene);
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBounds(205, 5, 1185, 600);
-		// TODO initialize your frame here
-
+		
 		scene.setBounds(205, 5, 1185, 600);
 		api.setBounds(200, 610, 1200, 125);
 		pScore.setBounds(0, 0, 200, 1150);
@@ -136,22 +127,18 @@ public class MainFrame extends JFrame implements Runnable {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
 			}
 
 			/*
@@ -174,25 +161,20 @@ public class MainFrame extends JFrame implements Runnable {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				// TODO Auto-generated method stub
 				Point position = new Point(e.getX() / 28, e.getY() / 28); // to know the exact position			
 				if(PanelAPI.getbuildPublicDistrict()) {
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
 				}
-
 			}
-
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 		getContentPane().add(api);
+		getContentPane().add(scene);
 		getContentPane().add(pScore);
 		getContentPane().add(pStat);
-		getContentPane().add(scrollPane);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
