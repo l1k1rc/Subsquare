@@ -16,7 +16,8 @@ public class Simulation {
 	}
 	
 	public void buildDistrict(Point center,String type){
-		CityFactory.createDistrict(center,type,grid.getCity());
+		if(!grid.isDistricPos(center))
+			CityFactory.createDistrict(center,type,grid.getCity());
 	}
 	
 	//getters

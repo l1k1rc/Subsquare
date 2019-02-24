@@ -61,14 +61,16 @@ public class Scene extends JPanel {
 		if(drawGrid) {
 			int x = pos_gridPoint.getAbscisse();
 			int y = pos_gridPoint.getOrdonne();
-					g2.drawRect(x*28, y*28, 28, 28);
+			if(grid.isDistricPos(pos_gridPoint))
+				g2.setColor(Color.RED);
+			g2.drawRect(x*28, y*28, 28, 28);
 		}
 		drawCity(g2);
 	}
 
 	private void drawCity(Graphics g) {
 		City city = grid.getCity();
-		System.out.println(city.getDistrictsPublic().size());
+
 		for(Iterator<PublicDistrict>it = city.getDistrictsPublic().iterator(); it.hasNext(); ) {
 			PublicDistrict dist = it.next();
 			g.drawImage(dist.getPublicDistrictImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);

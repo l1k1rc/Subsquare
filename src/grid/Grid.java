@@ -3,6 +3,9 @@ package grid;
 import java.util.ArrayList;
 
 import city.City;
+import city.PrivateDistrict;
+import city.PublicDistrict;
+import city.ResidentialDistrict;
 import engine.GridParameters;
 import used.Point;
 
@@ -106,6 +109,24 @@ public class Grid {
 		this.city = city;
 	}
 				//others
+	public boolean isDistricPos(Point pos) {
+		boolean isDistrict=false;
+			for(PublicDistrict pub : city.getDistrictsPublic()) {
+				if(pub.getPosition().equals(pos))
+					isDistrict=true;
+			}
+			if(!isDistrict)
+				for(PrivateDistrict pri : city.getDistrictsPrivate()) {
+					if(pri.getPosition().equals(pos))
+						isDistrict=true;
+				}
+			if(!isDistrict)
+				for(ResidentialDistrict res : city.getDistrictsResidential()) {
+					if(res.getPosition().equals(pos))
+						isDistrict=true;
+				}
+		return isDistrict;
+	}
 	public boolean prefDistanceObstacle(Point p) {
 		
 		boolean isInGoodPlace=true;
