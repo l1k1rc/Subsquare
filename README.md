@@ -33,7 +33,7 @@ CHEF
 ### download
 To download the project
 ```
-	git clone https://github.com/l1k1rc/Subsquare_GPI
+	git clone https://github.com/Ishak96/Subsquare
 ```
 Then go to your development environment (IDE)
 ```
