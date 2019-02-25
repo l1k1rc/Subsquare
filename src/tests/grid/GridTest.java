@@ -31,7 +31,7 @@ class GridTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		gridT = new Grid();
-		obsT = new Obstacle(1,1);
+		obsT = new Obstacle(1,1,10);
 	}
 	
 	@AfterEach

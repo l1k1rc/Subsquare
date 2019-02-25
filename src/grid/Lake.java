@@ -14,7 +14,7 @@ public class Lake extends Ground{
 	public Lake(int abscisse, int ordonne) {
 		super(abscisse, ordonne);
 		
-		ImageIcon img = new ImageIcon(getClass().getResource("/images/terrain/Lake.png"));
+		ImageIcon img = new ImageIcon(getClass().getResource("/images/Obstacle/Lake.png"));
 		image = img.getImage();
 	}
 	
@@ -39,11 +39,5 @@ public class Lake extends Ground{
 	@Override
 	public boolean isLake() {
 		return true;
-	}
-
-	@Override
-	public boolean isDistrictBox() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

@@ -2,8 +2,6 @@ package grid;
 
 import javax.swing.ImageIcon;
 
-import engine.GridParameters;
-
 /**
  * 
  * @author ishak
@@ -13,30 +11,31 @@ import engine.GridParameters;
 public class Obstacle extends Ground{
 
 	/**********		attributs		**********/
-	private ObstacleType type;
+	private int cout;
 	/**********		construct		**********/
-	public Obstacle(int abscisse, int ordonne) {
+	public Obstacle(int abscisse, int ordonne, int cout) {
 		super(abscisse, ordonne);
 		
-		type=ObstacleType.randomType();
-		ImageIcon img = new ImageIcon(getClass().getResource("/images/"+GridParameters.getInstance().getGround()+"Obstacle/"+type+".png"));
-		image = img.getImage();
-	}
-	public Obstacle(int abscisse, int ordonne,int index) {
-		super(abscisse, ordonne);
-		index=index+1;
-		ImageIcon img = new ImageIcon(getClass().getResource("/images/"+GridParameters.getInstance().getGround()+"Obstacle/Obstacle"+index+".png"));
+		String dist="";
+		this.cout=cout;
+		
+		if(cout >= 100)
+			dist="super";
+		else if(cout >= 80)
+			dist="hight";
+		else if(cout >= 60)
+			dist="medium+";
+		else if(cout >= 40)
+			dist="medium";
+		else if(cout >= 20)
+			dist="low";
+		else
+			dist="low+";
+			
+		ImageIcon img = new ImageIcon(getClass().getResource("/images/Obstacle/"+dist+".png"));
 		image = img.getImage();
 	}
 	/**********		methodes		**********/
-				//getters
-	public int getQuantity() {
-		return 0;
-	}
-				//setters
-	
-				//others
-	@Override
 	public boolean isGrass() {
 		return false;
 	}
@@ -52,9 +51,12 @@ public class Obstacle extends Ground{
 	public boolean isLake() {
 		return false;
 	}
-	@Override
-	public boolean isDistrictBox() {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public int getCout() {
+		return cout;
+	}
+	
+	public void setCout(int cout) {
+		this.cout = cout;
 	}
 }

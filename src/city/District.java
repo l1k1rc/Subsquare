@@ -36,7 +36,7 @@ public class District
 		density = 0;
 		prosperity = 0;
 		maintenanceCost = 0;
-		level = 0;
+		level = 1;
 		station = null;
 	}
 	

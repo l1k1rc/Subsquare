@@ -70,7 +70,8 @@ public class GridBuilder {
 				 p= new Point(x,y);
 			}
 			while(!grid.getBoxAt(x, y).getIsFree() || !grid.prefDistanceObstacle(p));
-			Obstacle o = BoxFactory.creatObstacle(x, y);
+			int cout = Random.randomInt(10, 100);
+			Obstacle o = BoxFactory.creatObstacle(x, y, cout);
 			grid.addObstacle(o);
 			grid.setBox(x,y,o);
 			grid.setBoxAtFree(x, y, false);

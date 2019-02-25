@@ -51,13 +51,9 @@ public class BoxFactory {
 	 * @param ordonne
 	 * @return Obstacle
 	 */
-	public static Obstacle creatObstacle(int abscisse,int ordonne) {
+	public static Obstacle creatObstacle(int abscisse,int ordonne,int cout) {
 //		logger.info("Obstacle Ground creat at : ("+abscisse+","+ordonne+")");
-		return new Obstacle(abscisse,ordonne);
+		return new Obstacle(abscisse,ordonne,cout);
 	}
 	
-	public static Obstacle creatObstacle(int abscisse,int ordonne,int index) {
-//		logger.info("Obstacle Ground creat at : ("+abscisse+","+ordonne+")");
-		return new Obstacle(abscisse,ordonne,index);
-	}
 }

@@ -36,5 +36,4 @@ public class Box {
 	public void setIsFree(boolean isFree) {
 		this.isFree = isFree;
 	}
-				//orthers
 }

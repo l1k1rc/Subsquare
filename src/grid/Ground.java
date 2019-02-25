@@ -42,5 +42,4 @@ public abstract class Ground {
 	public abstract boolean isWall();
 	public abstract boolean isLake();
 	public abstract boolean isObstacle();
-	public abstract boolean isDistrictBox();
 }
