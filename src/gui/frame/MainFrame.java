@@ -154,6 +154,16 @@ public class MainFrame extends JFrame implements Runnable {
 					PanelAPI.setbuildPublicDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
+				}else if(PanelAPI.getbuildPrivateDistrict()) {
+					simulation.buildDistrict(position, "prv");
+					PanelAPI.setbuildPrivateDistrict(false);
+					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+					scene.setDrawGrid(false);
+				}else if(PanelAPI.getbuildResidentialDistrict()) {
+					simulation.buildDistrict(position, "res");
+					PanelAPI.setbuildResidentialDistrict(false);
+					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+					scene.setDrawGrid(false);
 				}
 			}
 		});
@@ -162,7 +172,7 @@ public class MainFrame extends JFrame implements Runnable {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				Point position = new Point(e.getX() / 28, e.getY() / 28); // to know the exact position			
-				if(PanelAPI.getbuildPublicDistrict()) {
+				if(PanelAPI.getbuildPublicDistrict() || PanelAPI.getbuildPrivateDistrict() || PanelAPI.getbuildResidentialDistrict()) {
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
 				}

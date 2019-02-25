@@ -20,7 +20,7 @@ public class PanelAPI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private static boolean buildPublicDistrict = false;
+	private static boolean buildPublicDistrict = false, buildPrivateDisctrict = false, buildResidentialDistrict = false;
 	private GridBagConstraints gbc = new GridBagConstraints();
 
 	public PanelAPI() {
@@ -35,7 +35,6 @@ public class PanelAPI extends JPanel {
 				new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(),
 				new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(),
 				new JPanel(), new JPanel(), new JPanel() };
-		
 
 		setLayout(new GridBagLayout());
 		// ---------------------------Setting and placement of the cells from the
@@ -63,7 +62,10 @@ public class PanelAPI extends JPanel {
 			tabButtonAPI[index].setFont(Fonts.getF2());
 			tabButtonAPI[index].setBackground(Color.DARK_GRAY);
 		}
-		tabButtonAPI[0].setToolTipText("TODO");
+		tabButtonAPI[0].setToolTipText("Construire un quartier résidentiel");
+		tabButtonAPI[1].setToolTipText("Construire un quartier commercial (privé)");
+		tabButtonAPI[2].setToolTipText("Construire un quartier des services publics");
+
 		tabButtonAPI[0].addActionListener(new ActionListener() {
 
 			@Override
@@ -77,33 +79,69 @@ public class PanelAPI extends JPanel {
 				/* Method to change the icon to notify the user he's building a new place */
 
 				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
-						new ImageIcon(getClass().getResource("/images/cursor/click_build_house.png")).getImage(), new Point(0, 0), "custom cursor"));
+						new ImageIcon(getClass().getResource("/images/cursor/build_rsd.png")).getImage(),
+						new Point(0, 0), "custom cursor"));
 			}
 		});
-		
+		tabButtonAPI[1].addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				buildPrivateDisctrict = true;
+
+				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
+						new ImageIcon(getClass().getResource("/images/cursor/build_prv.png")).getImage(),
+						new Point(0, 0), "custom cursor"));
+			}
+		});
+		tabButtonAPI[2].addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				buildResidentialDistrict = true;
+				
+				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
+						new ImageIcon(getClass().getResource("/images/cursor/build_srvp.png")).getImage(),
+						new Point(0, 0), "custom cursor"));
+
+			}
+		});
 		tabButtonAPI[6].setToolTipText("Zoom Less");
 		tabButtonAPI[6].addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
-				
-				
-				
-				
-				
-				
-				
 				System.out.println("Zoom less");
 			}
-			
+
 		});
 	}
+
 	public static boolean getbuildPublicDistrict() {
 		return buildPublicDistrict;
 	}
+
 	public static void setbuildPublicDistrict(boolean b) {
-		buildPublicDistrict= b;
+		buildPublicDistrict = b;
 	}
+
+	public static boolean getbuildPrivateDistrict() {
+		return buildPrivateDisctrict;
+	}
+
+	public static void setbuildPrivateDistrict(boolean b) {
+		buildPrivateDisctrict = b;
+	}
+
+	public static boolean getbuildResidentialDistrict() {
+		return buildResidentialDistrict;
+	}
+
+	public static void setbuildResidentialDistrict(boolean b) {
+		buildResidentialDistrict = b;
+	}
+
 }
