@@ -138,8 +138,10 @@ public class MainFrame extends JFrame implements Runnable {
 				 */
 				if (buildMetroLine_click == false && PanelAPI.getbuildMetroLine() == true)
 					buildMetroLine_click = true;
-				else
+				else {
 					buildMetroLine_click = false;
+					PanelAPI.setbuildMetroLine(false);
+				}
 			}
 
 			@Override
