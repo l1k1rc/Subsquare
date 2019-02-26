@@ -12,7 +12,7 @@ public class GridParameters {
 	public static int HEIGHT=20;
 	public static int WIDTH=40;
 	public static int DIMENSION=5;
-	public static int speed=800;
+	public static int speed=400;
 	
 	/**********		attributs		**********/
 	private int freqObstacle;

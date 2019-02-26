@@ -26,6 +26,7 @@ public class MainFrame extends JFrame implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	private static int THREAD_MAP = GridParameters.speed;
+	private boolean buildMetroLine_click = false;
 	private Simulation simulation;
 	private TimeSimulator timeSim;
 	private static Scene scene = new Scene();
@@ -63,15 +64,15 @@ public class MainFrame extends JFrame implements Runnable {
 	public void init() {
 		setResizable(false);
 		getContentPane().setBackground(Color.darkGray);
-		setSize(1650,760);
+		setSize(1650, 760);
 		setSize(1400, 760);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
-		
+
 		scene.setBounds(205, 5, 1185, 600);
 		api.setBounds(200, 610, 1200, 125);
 		pScore.setBounds(0, 0, 200, 1150);
-		pStat.setBounds(1400,0, 250, 1150);
+		pStat.setBounds(1400, 0, 250, 1150);
 
 		this.menu_game.add(item_save);
 		this.menu_game.add(item_load);
@@ -131,6 +132,14 @@ public class MainFrame extends JFrame implements Runnable {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				/*
+				 * When the user click on the panel Scene and if he press the API associated, he
+				 * can draw a line on the map. If he click a second time, the builder is over
+				 */
+				if (buildMetroLine_click == false && PanelAPI.getbuildMetroLine() == true)
+					buildMetroLine_click = true;
+				else
+					buildMetroLine_click = false;
 			}
 
 			@Override
@@ -142,24 +151,29 @@ public class MainFrame extends JFrame implements Runnable {
 			}
 
 			/*
-			 * Method to use when the user wa nts to interact with the map, that is to say,
+			 * Method to use when the user wants to interact with the map, that is to say,
 			 * build a place, a line ...
 			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				Point position = new Point(e.getX() / 28, e.getY() / 28); // to know the exact position
+				Point position = new Point(e.getX() / 28, e.getY() / 28);
+				/*
+				 * If the user wants to build a public district, the cursor appearance is
+				 * changed, an area is built on the cursor location and if the user click, a
+				 * district is build
+				 */
 				if (PanelAPI.getbuildPublicDistrict()) {
 					simulation.buildDistrict(position, "pub");
 					PanelAPI.setbuildPublicDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
-				}else if(PanelAPI.getbuildPrivateDistrict()) {
+				} else if (PanelAPI.getbuildPrivateDistrict()) {
 					simulation.buildDistrict(position, "prv");
 					PanelAPI.setbuildPrivateDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
-				}else if(PanelAPI.getbuildResidentialDistrict()) {
+				} else if (PanelAPI.getbuildResidentialDistrict()) {
 					simulation.buildDistrict(position, "res");
 					PanelAPI.setbuildResidentialDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -171,16 +185,24 @@ public class MainFrame extends JFrame implements Runnable {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				Point position = new Point(e.getX() / 28, e.getY() / 28); // to know the exact position			
-				if(PanelAPI.getbuildPublicDistrict() || PanelAPI.getbuildPrivateDistrict() || PanelAPI.getbuildResidentialDistrict()) {
+				/* To draw the grid around an area and manage the line builder */
+				Point position = new Point(e.getX() / 28, e.getY() / 28); // to know the exact position
+				if (PanelAPI.getbuildPublicDistrict() || PanelAPI.getbuildPrivateDistrict()
+						|| PanelAPI.getbuildResidentialDistrict()) {
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
+				} else if (PanelAPI.getbuildMetroLine() == true && buildMetroLine_click == true) {
+					Point line_position = new Point(e.getX() / 28, e.getY() / 28);
+					simulation.buildDistrict(line_position, "res");
 				}
+
 			}
+
 			@Override
 			public void mouseDragged(MouseEvent e) {
 			}
 		});
+		/* Add content here to the panel */
 		getContentPane().add(api);
 		getContentPane().add(scene);
 		getContentPane().add(pScore);
@@ -232,5 +254,5 @@ public class MainFrame extends JFrame implements Runnable {
 	public static void setCursorOnScene(Cursor c) {
 		scene.setCursor(c);
 	}
-	
+
 }

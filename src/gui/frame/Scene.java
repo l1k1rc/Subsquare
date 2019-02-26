@@ -62,7 +62,7 @@ public class Scene extends JPanel {
 			int x = pos_gridPoint.getAbscisse();
 			int y = pos_gridPoint.getOrdonne();
 			if(grid.isDistricPos(pos_gridPoint))
-				g2.setColor(Color.RED);
+				g2.setColor(Color.RED);				
 			g2.drawRect(x*28, y*28, 28, 28);
 		}
 		drawCity(g2);

@@ -20,7 +20,8 @@ public class PanelAPI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private static boolean buildPublicDistrict = false, buildPrivateDisctrict = false, buildResidentialDistrict = false;
+	private static boolean buildPublicDistrict = false, buildPrivateDisctrict = false, buildResidentialDistrict = false,
+			buildMetroLine = false;
 	private GridBagConstraints gbc = new GridBagConstraints();
 
 	public PanelAPI() {
@@ -65,7 +66,9 @@ public class PanelAPI extends JPanel {
 		tabButtonAPI[0].setToolTipText("Construire un quartier résidentiel");
 		tabButtonAPI[1].setToolTipText("Construire un quartier commercial (privé)");
 		tabButtonAPI[2].setToolTipText("Construire un quartier des services publics");
+		tabButtonAPI[6].setToolTipText("Zoom Less");
 
+		/* BUTTON :: build a residential area */
 		tabButtonAPI[0].addActionListener(new ActionListener() {
 
 			@Override
@@ -83,6 +86,7 @@ public class PanelAPI extends JPanel {
 						new Point(0, 0), "custom cursor"));
 			}
 		});
+		/* BUTTON :: build a private area */
 		tabButtonAPI[1].addActionListener(new ActionListener() {
 
 			@Override
@@ -95,20 +99,30 @@ public class PanelAPI extends JPanel {
 						new Point(0, 0), "custom cursor"));
 			}
 		});
+		/* BUTTON :: build a public service district */
 		tabButtonAPI[2].addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				buildResidentialDistrict = true;
-				
+
 				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
 						new ImageIcon(getClass().getResource("/images/cursor/build_srvp.png")).getImage(),
 						new Point(0, 0), "custom cursor"));
 
 			}
 		});
-		tabButtonAPI[6].setToolTipText("Zoom Less");
+		//BUTTON :: Metro line
+		tabButtonAPI[4].addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				buildMetroLine = true;
+			}
+		});
+		//BUTTON :: zoom less
 		tabButtonAPI[6].addActionListener(new ActionListener() {
 
 			@Override
@@ -143,5 +157,13 @@ public class PanelAPI extends JPanel {
 	public static void setbuildResidentialDistrict(boolean b) {
 		buildResidentialDistrict = b;
 	}
+	public static boolean getbuildMetroLine() {
+		return buildMetroLine;
+	}
+
+	public static void setbuildMetroLine(boolean b) {
+		buildMetroLine = b;
+	}
+	
 
 }
