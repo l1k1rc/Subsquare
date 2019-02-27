@@ -18,7 +18,7 @@ public class GridParameters {
 	private int freqObstacle;
 	private String ground;
 	
-	private static GridParameters instance = new GridParameters(25, "Grass");
+	private static GridParameters instance = new GridParameters(20, "Grass");
 	/**********		construct		**********/
 	
 	/**
