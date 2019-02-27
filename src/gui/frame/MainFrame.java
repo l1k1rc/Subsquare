@@ -65,7 +65,6 @@ public class MainFrame extends JFrame implements Runnable {
 		setResizable(false);
 		getContentPane().setBackground(Color.darkGray);
 		setSize(1650, 760);
-		setSize(1400, 760);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 

@@ -2,8 +2,12 @@ package gui.frame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -31,7 +35,8 @@ public class PanelScore extends JPanel {
 	private JLabel tempDensityLabel = new JLabel("Density", JLabel.CENTER);
 	private JLabel tempTaxesLabel = new JLabel("Taxes", JLabel.CENTER);
 	private JLabel tempServicingLabel = new JLabel("Servicing", JLabel.CENTER);
-	private JLabel tempBudgetLabel = new JLabel("Budget", JLabel.CENTER);	
+	private JLabel tempBudgetLabel = new JLabel("Budget", JLabel.CENTER);
+	/**															**/
 	
 	private JPanel timeButtonPanel= new JPanel();
 	private JPanel scorePanel = new JPanel();
@@ -40,6 +45,7 @@ public class PanelScore extends JPanel {
 	private JPanel densityPanel = new JPanel();
 	private JPanel taxesPanel = new JPanel();
 	private JPanel budgetPanel = new JPanel();
+	private JPanel statsPanel = new JPanel();
 	
 	public static JButton stop=new JButton(new ImageIcon("pause.png"));
 	public static JButton go=new JButton(new ImageIcon("play.png"));
@@ -60,6 +66,7 @@ public class PanelScore extends JPanel {
 		budgetPanel.setLayout(new GridLayout(6, 1));
 		scorePanel.setLayout(new GridLayout(10, 1));
 		timeButtonPanel.setLayout(new FlowLayout());
+		statsPanel.setPreferredSize(new Dimension(160, 55));
 		
 		prosperityBar = new JProgressBar(SwingConstants.VERTICAL);
 		prosperityBar.setBackground(Color.red);
@@ -73,6 +80,10 @@ public class PanelScore extends JPanel {
 		go.setBackground(Color.DARK_GRAY);
 		stop.setBackground(Color.DARK_GRAY);
 		fast.setBackground(Color.DARK_GRAY);
+		stats.setBackground(Color.DARK_GRAY);
+		
+		stats.setPreferredSize(new Dimension(100, 60));
+		stats.setToolTipText("Voir les statistiques de la ville");
 		
 		timeButtonPanel.add(go);
 		timeButtonPanel.add(stop);
@@ -95,17 +106,23 @@ public class PanelScore extends JPanel {
 		budgetPanel.add(budgetLabel);
 		budgetPanel.add(tempBudgetLabel);
 		
+		statsPanel.add(stats);
+		
 		scorePanel.add(prosperityPanel);
 		scorePanel.add(densityPanel);
 		scorePanel.add(taxesPanel);
 		scorePanel.add(servicingPanel);
 		scorePanel.add(budgetPanel);
-		scorePanel.add(stats);
-		
-		
+		scorePanel.add(statsPanel);
 		
 		add(timeButtonPanel, BorderLayout.NORTH);
 		add(scorePanel, BorderLayout.CENTER);
+		
+		stats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				new StatsFrame();
+			}
+		});
 	}
 	
 	public JProgressBar getProsperityBar() {
