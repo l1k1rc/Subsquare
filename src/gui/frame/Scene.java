@@ -94,7 +94,9 @@ public class Scene extends JPanel {
 	public boolean isDrawGrid() {
 		return drawGrid;
 	}
-	
+	public Grid getGrid() {
+		return grid;
+	}
 	public void setPos_gridPoint(Point pos_gridPoint) {
 		this.pos_gridPoint = pos_gridPoint;
 	}

@@ -27,8 +27,8 @@ public class PanelPrivStat extends JPanel {
 	private JPanel scorePanel = new JPanel();
 	private JPanel prosperity = new JPanel();
 	
-	private JLabel jLabel = new JLabel();
-	
+	private JLabel position = new JLabel("");
+	private JLabel price_information = new JLabel("");
 	private JProgressBar prosperityBar = new JProgressBar();
 	
 	public PanelPrivStat() {
@@ -48,7 +48,9 @@ public class PanelPrivStat extends JPanel {
 		prosperityBar.setPreferredSize(new Dimension(150, 35));
 		prosperity.add(prosperityBar, c);
 		c.gridy = 1;
-		prosperity.add(jLabel, c);
+		prosperity.add(position, c);
+		c.gridy = 2;
+		prosperity.add(price_information, c);
 		
 		scorePanel.setLayout(new GridLayout(10, 1));
 		
@@ -63,7 +65,10 @@ public class PanelPrivStat extends JPanel {
 		return prosperityBar;
 	}
 	public void setLabel(String s) {
-		jLabel.setText(s);
+		position.setText(s);
+	}
+	public void setPriceInformation(String price) {
+		this.price_information.setText(price);
 	}
 
 }

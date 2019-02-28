@@ -23,8 +23,7 @@ import used.Point;
 
 //import engine.Simulation;
 
-public class MainFrame extends JFrame implements Runnable
-{
+public class MainFrame extends JFrame implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private static int THREAD_MAP = GridParameters.speed;
 	private City city = City.getInstance();
@@ -32,9 +31,9 @@ public class MainFrame extends JFrame implements Runnable
 	private Simulation simulation;
 	private boolean buildMetroLine_click = false;
 	private static boolean stop = true;
-	
+
 	private PanelScore pScore = new PanelScore();
-	
+
 	private PanelAPI api = new PanelAPI();
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu menu_game = new JMenu("Game");
@@ -71,7 +70,7 @@ public class MainFrame extends JFrame implements Runnable
 		scene.setBounds(205, 5, 1185, 600);
 		api.setBounds(200, 610, 1200, 125);
 		pScore.setBounds(0, 0, 200, 1150);
-		//pStat.setBounds(1400, 0, 250, 1150);
+		// pStat.setBounds(1400, 0, 250, 1150);
 
 		this.menu_game.add(item_save);
 		this.menu_game.add(item_load);
@@ -179,13 +178,25 @@ public class MainFrame extends JFrame implements Runnable
 					PanelAPI.setbuildResidentialDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
-				} else if(e.getClickCount() == 2) {
+				} else if (e.getClickCount() == 2) {
+					/*
+					 * When the user double click on a position, a JPanel is displayed beside the
+					 * map and show to the user the information about the position
+					 */
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
-					PanelPrivStat pStat= new PanelPrivStat();
+					PanelPrivStat pStat = new PanelPrivStat();
 					pStat.setBounds(1400, 0, 250, 1150);
-					pStat.setLabel("Position de ce quartier : "+ position);
-					getContentPane().add(pStat);					
+					pStat.setLabel("Position de ce quartier : " + position);
+					getContentPane().add(pStat);
+					/*
+					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
+					 * obstacle
+					 */
+					if (!scene.getGrid().getBoxAt(position.getAbscisse(), position.getOrdonne()).getIsFree()) {
+						pStat.setLabel("Attention : cette place est occupée");
+						pStat.setPriceInformation("Prix de la zone : 200g");
+					}
 				}
 			}
 		});
@@ -214,7 +225,7 @@ public class MainFrame extends JFrame implements Runnable
 		getContentPane().add(api);
 		getContentPane().add(scene);
 		getContentPane().add(pScore);
-		//getContentPane().add(pStat);
+		// getContentPane().add(pStat);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
