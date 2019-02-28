@@ -1,65 +1,57 @@
 package city;
 
-import java.util.*;
+import java.util.ArrayList;
+
+import engine.TimeSimulator;
 
 public class City {
-	private String name;
-	private ArrayList<PublicDistrict> districtsPublic;
-	private ArrayList<PrivateDistrict> districtsPrivate;
-	private ArrayList<ResidentialDistrict> districtsResidential;
+	
+	private static City instance = new City();
+	
+	private TimeSimulator timeSim;
+	
+	private ArrayList<PublicDistrict> publicDistricts;
+	private ArrayList<PrivateDistrict> privateDistricts;
+	private ArrayList<ResidentialDistrict> residentialDistricts;
+
 	private int budget;
-	private Date date;
 	
-	public City() {
-		districtsPublic = new ArrayList<PublicDistrict>();
-		districtsPrivate = new ArrayList<PrivateDistrict>();
-		districtsResidential = new ArrayList<ResidentialDistrict>();
-	}
-	
-	public void addDistrictPub(PublicDistrict d) {
-		districtsPublic.add(d);
+	private City() {
+		timeSim = new TimeSimulator();
+		publicDistricts = new ArrayList<PublicDistrict>();
+		privateDistricts = new ArrayList<PrivateDistrict>();
+		residentialDistricts = new ArrayList<ResidentialDistrict>();
 	}
 	
-	public void addDistrictPri(PrivateDistrict d) {
-		districtsPrivate.add(d);
+	public void addPublicDistrict(PublicDistrict d) {
+		publicDistricts.add(d);
 	}
 	
-	public void addDistrictRes(ResidentialDistrict d) {
-		districtsResidential.add(d);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public ArrayList<PublicDistrict> getDistrictsPublic() {
-		return districtsPublic;
-	}
-
-	public void setDistrictsPublic(ArrayList<PublicDistrict> districts) {
-		this.districtsPublic = districts;
+	public void addPrivateDistrict(PrivateDistrict d) {
+		privateDistricts.add(d);
 	}
 	
-	public ArrayList<PrivateDistrict> getDistrictsPrivate() {
-		return districtsPrivate;
+	public void addResidentialDistrict(ResidentialDistrict d) {
+		residentialDistricts.add(d);
+	}
+		
+	public ArrayList<PublicDistrict> getPublicDistricts() {
+		return publicDistricts;
 	}
 
-	public void setDistrictsPrivate(ArrayList<PrivateDistrict> districts) {
-		this.districtsPrivate = districts;
+	public ArrayList<PrivateDistrict> getPrivateDistricts() {
+		return privateDistricts;
 	}
+
+	public ArrayList<ResidentialDistrict> getResidentialDistricts() {
+		return residentialDistricts;
+	}
+
+	public TimeSimulator getTimeSimulator() {
+		return timeSim;
+	}
+
 	
-	public ArrayList<ResidentialDistrict> getDistrictsResidential() {
-		return districtsResidential;
-	}
-
-	public void setDistrictsResidential(ArrayList<ResidentialDistrict> districts) {
-		this.districtsResidential = districts;
-	}
-
 	public int getBudget() {
 		return budget;
 	}
@@ -68,11 +60,8 @@ public class City {
 		this.budget = budget;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
+	
+	public static City getInstance() {
+		return instance;
 	}
 }

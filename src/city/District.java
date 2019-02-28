@@ -1,5 +1,9 @@
 package city;
 
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
 import staticData.districtData;
 import used.Point;
 
@@ -14,6 +18,8 @@ public class District
 	private int level;
 	private Point position;
 	private int maxCapacity;
+	private float constructionCosts;
+	private Image image;
 	
 	public District(String name, Station station, int density, float prosperity, double maintenanceCost, String type,int level, Point position) {
 		this.name = name;
@@ -49,6 +55,15 @@ public class District
 		case 3 : this.setMaxCapacity(districtData.maxInhabitantsCapacityLevel3);
 			break;
 		}
+	}
+	
+	public void setImage(String path) {
+		ImageIcon img = new ImageIcon(getClass().getResource(path));
+		image = img.getImage();
+	}
+	
+	public Image getImage() {
+		return image;
 	}
 	
 	public String getName() {
@@ -121,6 +136,14 @@ public class District
 
 	public void setMaxCapacity(int maxCapacity) {
 		this.maxCapacity = maxCapacity;
+	}
+	
+	public void setConstructionCosts(float costs) {
+		constructionCosts = costs;
+	}
+	
+	public float getConstructionCosts() {
+		return constructionCosts;
 	}
 	
 }

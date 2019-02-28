@@ -2,7 +2,6 @@ package engine;
 
 import grid.BoxFactory;
 import grid.Grid;
-import grid.Obstacle;
 import used.Point;
 import used.Random;
 
@@ -52,33 +51,6 @@ public class GridBuilder {
 				}
 			}
 		}
-		randomPositionObstacle();
-	}
-	
-	/**
-	 * this methode random obstacle positions
-	 */
-	
-	public void randomPositionObstacle() {
-		int x,y;
-		Point p;
-		for(int i = 0 ; i< GridParameters.getInstance().getFreqObstacle() ; i++ ) {
-			do
-			{
-				 x= Random.randomInt(2,height-3);
-				 y= Random.randomInt(2,width-3);
-				 p= new Point(x,y);
-			}
-			while(!grid.getBoxAt(x, y).getIsFree() || !grid.prefDistanceObstacle(p));
-			int cout = Random.randomInt(10, 100);
-			Obstacle o = BoxFactory.creatObstacle(x, y, cout);
-			grid.addObstacle(o);
-			grid.setBox(x,y,o);
-			grid.setBoxAtFree(x, y, false);
-		}	
-	}
-	
-	public void creatLake() {
-		
-	}
+	}	
+
 }

@@ -13,6 +13,7 @@ public abstract class Ground {
 		
 	/**********		attributs		**********/
 	public Point position;
+	protected int degre;
 	public Image image;
 	/**********		construct		**********/
 	
@@ -30,6 +31,9 @@ public abstract class Ground {
 	public Image getImage() {
 		return image;
 	}
+	public int getDegre() {
+		return degre;
+	}
 				//setters
 	public void setAbscisse(int abscisse) {
 		position.setAbscisse(abscisse);
@@ -40,6 +44,4 @@ public abstract class Ground {
 				//others
 	public abstract boolean isGrass();
 	public abstract boolean isWall();
-	public abstract boolean isLake();
-	public abstract boolean isObstacle();
 }

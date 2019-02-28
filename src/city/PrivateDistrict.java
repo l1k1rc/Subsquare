@@ -6,17 +6,13 @@ import javax.swing.ImageIcon;
 
 import used.Point;
 
-public class PrivateDistrict extends District{
-	private int nbWorkers;
-	private Image PrivateDistrictImage;
+public class PrivateDistrict extends District
+{
+	private int nbWorkers;	
 	
 	public PrivateDistrict(Point position) {
 		super(position);
-		ImageIcon img;
-		
-		img = new ImageIcon(getClass().getResource("/images/City/Private/"+getLevel()+".png"));
-		PrivateDistrictImage = img.getImage();
-		
+		setImage("/images/City/Private/"+getLevel()+".png");
 		nbWorkers = 0;
 	}
 	
@@ -33,11 +29,4 @@ public class PrivateDistrict extends District{
 		this.nbWorkers = nbWorkers;
 	}
 	
-	public Image getPrivateDistrictImage() {
-		return PrivateDistrictImage;
-	}
-	
-	public void setPrivateDistrictImage(Image privateDistrictImage) {
-		PrivateDistrictImage = privateDistrictImage;
-	}
 }

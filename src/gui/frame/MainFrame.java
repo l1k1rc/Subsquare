@@ -15,6 +15,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import city.City;
 import engine.GridParameters;
 import engine.Simulation;
 import engine.TimeSimulator;
@@ -22,19 +23,19 @@ import used.Point;
 
 //import engine.Simulation;
 
-public class MainFrame extends JFrame implements Runnable {
-
+public class MainFrame extends JFrame implements Runnable
+{
 	private static final long serialVersionUID = 1L;
 	private static int THREAD_MAP = GridParameters.speed;
-	private boolean buildMetroLine_click = false;
-	private Simulation simulation;
-	private TimeSimulator timeSim;
+	private City city = City.getInstance();
 	private static Scene scene = new Scene();
+	private Simulation simulation;
+	private boolean buildMetroLine_click = false;
+	private static boolean stop = true;
+	
 	private PanelScore pScore = new PanelScore();
 	private PanelPrivStat pStat = new PanelPrivStat();
 	private PanelAPI api = new PanelAPI();
-	private static boolean stop = true;
-
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu menu_game = new JMenu("Game");
 	private JMenuItem item_save = new JMenuItem("Save");
@@ -49,7 +50,6 @@ public class MainFrame extends JFrame implements Runnable {
 		setFocusable(true);
 		simulation = new Simulation(GridParameters.getInstance());
 		simulation.generatGrid();
-		timeSim = TimeSimulator.getInstance();
 		scene.setGrid(simulation.getGrid());
 		init();
 		launchGUI();
@@ -222,6 +222,7 @@ public class MainFrame extends JFrame implements Runnable {
 	}
 
 	public void updateTime() {
+		TimeSimulator timeSim = city.getTimeSimulator();
 		timeSim.update();
 		pScore.getDateField().setText(timeSim.getDate());
 		pScore.getHourField().setText(timeSim.getTime());

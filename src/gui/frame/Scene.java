@@ -23,6 +23,7 @@ import used.Point;
 public class Scene extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private City city = City.getInstance();
 	private Grid grid;
 	private ImageIcon pics;
 	private Graphics g2;
@@ -48,57 +49,40 @@ public class Scene extends JPanel {
 		// the dimension of the grid
 		for (int y = 0; y < grid.height; y++) {
 			for (int x = 0; x < grid.width; x++) {
-				box = grid.getBoxAt(y, x);
-				if (box.getGroundType().isGrass()) {
-					drawGround(new Point(x, y), g2, box);
-				} else if (box.getGroundType().isWall()) {
-					drawGround(new Point(x, y), g2, box);
-				} else if (!box.getIsFree()) {
-					drawObstacle(new Point(x, y), g2, box);
-				}
+				Image img = grid.getBoxAt(y, x).getGroundType().getImage();
+				g.drawImage(img,x* 28,y* 28, null);
 			}
 		}
+				
 		if(drawGrid) {
 			int x = pos_gridPoint.getAbscisse();
 			int y = pos_gridPoint.getOrdonne();
-			if(grid.isDistricPos(pos_gridPoint))
+			if(!grid.getBoxAt(y,x).getIsFree()) {
 				g2.setColor(Color.RED);				
+			}
 			g2.drawRect(x*28, y*28, 28, 28);
 		}
 		drawCity(g2);
 	}
 
 	private void drawCity(Graphics g) {
-		City city = grid.getCity();
-
-		for(Iterator<PublicDistrict>it = city.getDistrictsPublic().iterator(); it.hasNext(); ) {
+		
+		for(Iterator<PublicDistrict>it = city.getPublicDistricts().iterator(); it.hasNext(); ) {
 			PublicDistrict dist = it.next();
-			g.drawImage(dist.getPublicDistrictImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
+			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
 		}
 		
-		for(Iterator<PrivateDistrict>it = city.getDistrictsPrivate().iterator(); it.hasNext(); ) {
+		for(Iterator<PrivateDistrict>it = city.getPrivateDistricts().iterator(); it.hasNext(); ) {
 			PrivateDistrict dist = it.next();
-			g.drawImage(dist.getPrivateDistrictImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
+			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
 		}
 		
-		for(Iterator<ResidentialDistrict>it = city.getDistrictsResidential().iterator(); it.hasNext(); ) {
+		for(Iterator<ResidentialDistrict>it = city.getResidentialDistricts().iterator(); it.hasNext(); ) {
 			ResidentialDistrict dist = it.next();
-			g.drawImage(dist.getResidentialDistrictImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
+			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
 		}
-		
 	}
-
-	// TODO paint all components of the map here with a specifics methods
-	public void drawGround(Point p, Graphics g, Box box) {
-		g.drawImage(box.getGroundType().getImage(), p.getAbscisse() * 28, p.getOrdonne() * 28, null);
-	}
-
-	public void drawObstacle(Point p, Graphics g, Box box) {
-		pics = new ImageIcon(getClass().getResource("/images/terrain/" + GridParameters.getInstance().getGround() + ".png"));
-		Image t = pics.getImage();
-		g.drawImage(t, p.getAbscisse()*28, p.getOrdonne()*28, null);
-		g.drawImage(box.getGroundType().getImage(), p.getAbscisse() * 28, p.getOrdonne() * 28, null);
-	}
+	
 	public void setGrid(Grid grid) {
 		this.grid = grid;
 	}
