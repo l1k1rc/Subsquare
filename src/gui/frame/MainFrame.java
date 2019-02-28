@@ -179,6 +179,9 @@ public class MainFrame extends JFrame implements Runnable
 					PanelAPI.setbuildResidentialDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
+				} else if(e.getClickCount() == 2) {
+					scene.setDrawGrid(true);
+					scene.setPos_gridPoint(position);
 				}
 			}
 		});
