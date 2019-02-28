@@ -34,7 +34,7 @@ public class MainFrame extends JFrame implements Runnable
 	private static boolean stop = true;
 	
 	private PanelScore pScore = new PanelScore();
-	private PanelPrivStat pStat = new PanelPrivStat();
+	
 	private PanelAPI api = new PanelAPI();
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu menu_game = new JMenu("Game");
@@ -71,7 +71,7 @@ public class MainFrame extends JFrame implements Runnable
 		scene.setBounds(205, 5, 1185, 600);
 		api.setBounds(200, 610, 1200, 125);
 		pScore.setBounds(0, 0, 200, 1150);
-		pStat.setBounds(1400, 0, 250, 1150);
+		//pStat.setBounds(1400, 0, 250, 1150);
 
 		this.menu_game.add(item_save);
 		this.menu_game.add(item_load);
@@ -182,6 +182,10 @@ public class MainFrame extends JFrame implements Runnable
 				} else if(e.getClickCount() == 2) {
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
+					PanelPrivStat pStat= new PanelPrivStat();
+					pStat.setBounds(1400, 0, 250, 1150);
+					pStat.setLabel("Position de ce quartier : "+ position);
+					getContentPane().add(pStat);					
 				}
 			}
 		});
@@ -210,7 +214,7 @@ public class MainFrame extends JFrame implements Runnable
 		getContentPane().add(api);
 		getContentPane().add(scene);
 		getContentPane().add(pScore);
-		getContentPane().add(pStat);
+		//getContentPane().add(pStat);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
