@@ -198,9 +198,10 @@ public class MainFrame extends JFrame implements Runnable {
 					/*
 					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
 					 * obstacle
+					 * ORDONNE // ABSCISSE
 					 */
-					if (!scene.getGrid().getBoxAt(position.getAbscisse(), position.getOrdonne()).getIsFree()) {
-						pStat.setLabel("Attention : cette place est occupée");
+					if (!scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getIsFree()) {
+						pStat.setLabel("Attention : cette place est occupée"); 
 						pStat.setPriceInformation("Prix de la zone : 200g");
 					}
 				}
