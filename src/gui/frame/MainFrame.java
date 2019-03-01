@@ -197,12 +197,16 @@ public class MainFrame extends JFrame implements Runnable {
 					getContentPane().add(pStat);
 					/*
 					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
-					 * obstacle
-					 * ORDONNE // ABSCISSE
+					 * obstacle ORDONNE // ABSCISSE
 					 */
 					if (!scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getIsFree()) {
-						pStat.setLabel("Attention : cette place est occupée"); 
+						pStat.setLabel("Attention : cette place est occupée");
 						pStat.setPriceInformation("Prix de la zone : 200g");
+						/* To draw a line between 2 points */
+						/*
+						 * if (buildLine_A == false && buildLine_B == false) { buildLine_A = true;
+						 * if(buildLineA = true) }
+						 */
 					}
 				}
 			}
@@ -219,8 +223,9 @@ public class MainFrame extends JFrame implements Runnable {
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
 				} else if (PanelAPI.getbuildMetroLine() == true && buildMetroLine_click == true) {
+					/* Pour la partie line metro */
 					Point line_position = new Point(e.getX() / 28, e.getY() / 28);
-					simulation.buildDistrict(line_position, "res");
+					scene.setLine(true);
 				}
 
 			}

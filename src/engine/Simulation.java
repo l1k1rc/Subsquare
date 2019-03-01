@@ -46,7 +46,7 @@ public class Simulation {
 			box.setIsFree(false);
 		}	
 	}
-	
+
 	//getters
 	public static int getSimulationTurn() {
 		return simulationNumberOfTurn;

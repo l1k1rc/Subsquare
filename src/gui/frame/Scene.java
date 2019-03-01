@@ -16,24 +16,22 @@ import city.PrivateDistrict;
 import city.PublicDistrict;
 import city.ResidentialDistrict;
 import engine.GridParameters;
-import grid.Box;
 import grid.Grid;
 import used.Point;
+import used.Random;
 
 public class Scene extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private City city = City.getInstance();
-	private Grid grid;
-	private ImageIcon pics;
+	private Grid grid;;
 	private Graphics g2;
-	private Box box;
-	private boolean drawGrid=false;
+	private boolean drawGrid = false, drawLine = false;
 	private Point pos_gridPoint;
 
 	public Scene() {
 		super();
-		setPreferredSize(new Dimension(GridParameters.WIDTH*28,GridParameters.HEIGHT*28));
+		setPreferredSize(new Dimension(GridParameters.WIDTH * 28, GridParameters.HEIGHT * 28));
 		setBorder(BorderFactory.createEtchedBorder());
 		setBackground(Color.DARK_GRAY);
 	}
@@ -50,54 +48,69 @@ public class Scene extends JPanel {
 		for (int y = 0; y < grid.height; y++) {
 			for (int x = 0; x < grid.width; x++) {
 				Image img = grid.getBoxAt(y, x).getGroundType().getImage();
-				g.drawImage(img,x* 28,y* 28, null);
+				g.drawImage(img, x * 28, y * 28, null);
+				if (grid.getBoxAt(y, x).getGroundType().isContainsTree()) {
+					ImageIcon tree = new ImageIcon(getClass().getResource("/images/Obstacle/arbre" + grid.getBoxAt(y, x).getGroundType().getTreeType() + ".png"));
+					g.drawImage(tree.getImage(), x * 28, y * 28, null);
+				}
 			}
 		}
-				
-		if(drawGrid) {
+		if (drawGrid) {
 			int x = pos_gridPoint.getAbscisse();
 			int y = pos_gridPoint.getOrdonne();
-			if(!grid.getBoxAt(y,x).getIsFree()) {
-				g2.setColor(Color.RED);				
+			if (!grid.getBoxAt(y, x).getIsFree()) {
+				g2.setColor(Color.RED);
 			}
-			g2.drawRect(x*28, y*28, 28, 28);
+			g2.drawRect(x * 28, y * 28, 28, 28);
+		}
+		if (drawLine) {
+
 		}
 		drawCity(g2);
 	}
 
 	private void drawCity(Graphics g) {
-		
-		for(Iterator<PublicDistrict>it = city.getPublicDistricts().iterator(); it.hasNext(); ) {
+
+		for (Iterator<PublicDistrict> it = city.getPublicDistricts().iterator(); it.hasNext();) {
 			PublicDistrict dist = it.next();
-			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
+			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28,
+					null);
 		}
-		
-		for(Iterator<PrivateDistrict>it = city.getPrivateDistricts().iterator(); it.hasNext(); ) {
+
+		for (Iterator<PrivateDistrict> it = city.getPrivateDistricts().iterator(); it.hasNext();) {
 			PrivateDistrict dist = it.next();
-			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
+			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28,
+					null);
 		}
-		
-		for(Iterator<ResidentialDistrict>it = city.getResidentialDistricts().iterator(); it.hasNext(); ) {
+
+		for (Iterator<ResidentialDistrict> it = city.getResidentialDistricts().iterator(); it.hasNext();) {
 			ResidentialDistrict dist = it.next();
-			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
+			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28,
+					null);
 		}
 	}
-	
+
 	public void setGrid(Grid grid) {
 		this.grid = grid;
 	}
-	
+
 	public void setDrawGrid(boolean drawGrid) {
 		this.drawGrid = drawGrid;
 	}
-	
+
 	public boolean isDrawGrid() {
 		return drawGrid;
 	}
+
 	public Grid getGrid() {
 		return grid;
 	}
+
 	public void setPos_gridPoint(Point pos_gridPoint) {
 		this.pos_gridPoint = pos_gridPoint;
+	}
+
+	public void setLine(boolean line) {
+		this.drawLine = line;
 	}
 }

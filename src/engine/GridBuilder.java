@@ -8,49 +8,67 @@ import used.Random;
 public class GridBuilder {
 	/**
 	 * This class initializes the grid's settings for the first time.
+	 * 
 	 * @author ishak
 	 *
 	 */
 	private Grid grid;
-	private int height,width;
-	
+	private int height, width;
+
 	public GridBuilder(GridParameters parameters) {
-		grid=new Grid();
-		height=GridParameters.HEIGHT;
-		width=GridParameters.WIDTH;
+		grid = new Grid();
+		height = GridParameters.HEIGHT;
+		width = GridParameters.WIDTH;
 		buildeGrid(parameters.getGround());
 		grid.setGridParameters(parameters);
 	}
-	/**********		methodes		**********/
-	//getters
+	/********** methodes **********/
+	// getters
 
 	/**
-	* Returns the grid.
-	* @return Grid
-	*/
-	
+	 * Returns the grid.
+	 * 
+	 * @return Grid
+	 */
+
 	public Grid getGrid() {
 		return grid;
 	}
-	
-	//others
-	
+
+	// others
+
 	/**
-	* This method places obstacles and the ground,
-	* @param ground
-	*/
+	 * This method places obstacles and the ground,
+	 * 
+	 * @param ground
+	 */
 
 	public void buildeGrid(String ground) {
-		for(int i=0;i<height;i++) {
-			for(int j=0;j<width;j++) {
-				if(i==0 || i==height-1 || j==0 || j==width-1) {
-					grid.setBoxAt(i, j,  BoxFactory.creatBox(BoxFactory.creatWall(i, j)));
+		int i1, i2, i3, j1, j2, j3;
+		/* To know in which column the forest will be */
+		j1 = Random.randomInt(4, 15);
+		j2 = Random.randomInt(16, 30);
+		j3 = Random.randomInt(31, 38);
+
+		i1 = Random.randomInt(4, 16);
+		i2 = Random.randomInt(4, 16);
+		i3 = Random.randomInt(4, 16);
+
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
+					grid.setBoxAt(i, j, BoxFactory.creatBox(BoxFactory.creatWall(i, j)));
 					grid.setBoxAtFree(i, j, false);
-				}else {
-					grid.setBoxAt(i, j,  BoxFactory.creatBox(BoxFactory.creatGrass(i, j, ground)));
+				} else {
+					if ((i >= i1 && i <= i1 + 4) && (j >= j1 && j <= j1 + 4)
+							|| ((i >= i2 && i <= i2 + 4) && (j >= j2 && j <= j2 + 4))
+							|| ((i >= i3 && i <= i3 + 4) && (j >= j3 && j <= j3 + 4)))
+						grid.setBoxAt(i, j, BoxFactory.creatBox(BoxFactory.creatGrass(i, j, ground, true)));
+					else
+						grid.setBoxAt(i, j, BoxFactory.creatBox(BoxFactory.creatGrass(i, j, ground, false)));
 				}
 			}
 		}
-	}	
+	}
 
 }
