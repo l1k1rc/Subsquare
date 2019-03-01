@@ -68,7 +68,6 @@ public class City{
 	public static City getInstance() {
 		return instance;
 	}
-	
 	public float getProsperity() {
 		return prosperity;
 	}
