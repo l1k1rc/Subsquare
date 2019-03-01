@@ -54,12 +54,12 @@ public class Simulation {
 		if(box.getIsFree()) {
 			District ds = CityFactory.creatDistrict(position, type);
 			city.addDistrict(position,ds);
+			if(box.getGroundType().containsTree)
+				box.getGroundType().setContainsTree(false);
 			if(type.isPublic()){
 				float cost = box.getGroundType().getDegre()*districtData.constructionCost;
-				if(box.getGroundType().containsTree) {
+				if(box.getGroundType().containsTree)
 					cost = cost*2;
-					box.getGroundType().setContainsTree(false);
-				}
 				city.spendMoney(cost);
 			}
 			box.setIsFree(false);
