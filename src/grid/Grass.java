@@ -10,16 +10,17 @@ import javax.swing.ImageIcon;
 
 public class Grass extends Ground{
 	
-	/**********		construct		**********/
-	/**
-	 * creat a new Grass.
-	 * @param abscisse
-	 * @param ordonne
-	 * @param ground
-	 */
-	public Grass(int abscisse, int ordonne, String ground) {
+	public Grass(int abscisse, int ordonne, String ground, boolean containsTree) {
 		super(abscisse, ordonne);
-		ImageIcon img = new ImageIcon(getClass().getResource("/images/terrain/"+ground+".png"));
+		setImage(ground);
+		this.containsTree=containsTree;
+	}
+	
+	private void setImage(String ground) {
+		degre = used.Random.randomInt(1,3);
+		treeType = used.Random.randomInt(1,2);
+
+		ImageIcon img = new ImageIcon(getClass().getResource("/images/terrain/"+ground+degre+".png"));
 		image = img.getImage();
 	}
 	
@@ -28,7 +29,7 @@ public class Grass extends Ground{
 	public int getQuantity() {
 		return 0;
 	}
-	
+
 				//others
 	@Override
 	public boolean isGrass() {
@@ -40,13 +41,4 @@ public class Grass extends Ground{
 		return false;
 	}
 
-	@Override
-	public boolean isObstacle() {
-		return false;
-	}
-
-	@Override
-	public boolean isLake() {
-		return false;
-	}
 }

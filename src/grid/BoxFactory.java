@@ -29,9 +29,9 @@ public class BoxFactory {
 	 * @param ground
 	 * @return Grass
 	 */
-	public static Grass creatGrass(int abscisse,int ordonne,String ground) {
+	public static Grass creatGrass(int abscisse,int ordonne,String ground,boolean containsTree) {
 //		logger.info("Grass Ground creat at : ("+abscisse+","+ordonne+")");
-		return new Grass(abscisse,ordonne,ground);
+		return new Grass(abscisse,ordonne,ground,containsTree);
 	}
 	
 	/**
@@ -45,15 +45,5 @@ public class BoxFactory {
 		return new Wall(abscisse,ordonne);
 	}
 	
-	/**
-	 * creat an obstacle
-	 * @param abscisse
-	 * @param ordonne
-	 * @return Obstacle
-	 */
-	public static Obstacle creatObstacle(int abscisse,int ordonne,int cout) {
-//		logger.info("Obstacle Ground creat at : ("+abscisse+","+ordonne+")");
-		return new Obstacle(abscisse,ordonne,cout);
-	}
 	
 }

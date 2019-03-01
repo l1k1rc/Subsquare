@@ -1,30 +1,15 @@
 package city;
 
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
-
-import used.Point;
-
-public class PublicDistrict extends District{
+public class PublicDistrict extends DistrictType
+{
 	private int nbWorkers;
 	private int nbVisitors;
-	private Image PublicDistrictImage;
+	private float constructionCosts;
 	
-	public PublicDistrict(Point position) {
-		super(position);
+	public PublicDistrict() {
+		setImage("/images/City/Public/0.png");
 		nbVisitors =0 ;
 		nbVisitors = 0;
-		ImageIcon img;
-
-		img = new ImageIcon(getClass().getResource("/images/City/Public/"+getLevel()+".png"));
-		PublicDistrictImage = img.getImage();
-	}
-	
-	public PublicDistrict(String name, Station station, int density, float prosperity, double maintenanceCost,String type, int level, Point position, int nbWorkers, int nbVisitors) {
-		super(name, station, density, prosperity, maintenanceCost, type, level, position);
-		this.nbWorkers=nbWorkers;
-		this.nbVisitors=nbVisitors;
 	}
 
 	public int getNbWorkers() {
@@ -43,11 +28,30 @@ public class PublicDistrict extends District{
 		this.nbVisitors = nbVisitors;
 	}
 	
-	public Image getPublicDistrictImage() {
-		return PublicDistrictImage;
+	public void setConstructionCosts(float costs) {
+		constructionCosts = costs;
 	}
 	
-	public void setPublicDistrictImage(Image publicDistrictImage) {
-		PublicDistrictImage = publicDistrictImage;
+	public float getConstructionCosts() {
+		return constructionCosts;
 	}
+
+	@Override
+	public boolean isPublic() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	@Override
+	public boolean isPrivate() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isResidential() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

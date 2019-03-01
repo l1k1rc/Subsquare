@@ -5,15 +5,13 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class TimeSimulator
-{
-	private static TimeSimulator instance = new TimeSimulator();
-	
+{	
 	private Calendar calendar;
 	private SimpleDateFormat formatter;
 	
 	private int secondCount = 0;
 		
-	private TimeSimulator() {
+	public TimeSimulator() {
 		calendar = Calendar.getInstance();
 		formatter = new SimpleDateFormat("dd MMMM yyyy",Locale.ENGLISH);
 		init();
@@ -61,10 +59,6 @@ public class TimeSimulator
 	public void update() {
 		calendar.add(Calendar.MINUTE,10);
 		secondCount++;
-	}
-	
-	public static TimeSimulator getInstance() {
-		return instance;
 	}
 	
 }

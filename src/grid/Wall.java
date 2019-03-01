@@ -15,6 +15,7 @@ public class Wall extends Ground{
 		super(abscisse, ordonne);
 		ImageIcon img = new ImageIcon(getClass().getResource("/images/terrain/Wall.png"));
 		image = img.getImage();
+		degre = 0;
 	}
 	
 	/***********		methodes		***********/
@@ -31,13 +32,5 @@ public class Wall extends Ground{
 	public boolean isWall() {
 		return true;
 	}
-	@Override
-	public boolean isObstacle() {
-		return false;
-	}
 
-	@Override
-	public boolean isLake() {
-		return false;
-	}
 }

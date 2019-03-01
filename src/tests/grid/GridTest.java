@@ -3,17 +3,11 @@
  */
 package tests.grid;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-
-import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import grid.Grid;
-import grid.Obstacle;
 import used.Point;
 
 /**
@@ -23,7 +17,6 @@ import used.Point;
 class GridTest {
 
 	private static Grid gridT;
-	private static Obstacle obsT;
 
 	/**
 	 * @throws java.lang.Exception
@@ -31,7 +24,6 @@ class GridTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		gridT = new Grid();
-		obsT = new Obstacle(1,1,10);
 	}
 	
 	@AfterEach
@@ -45,10 +37,6 @@ class GridTest {
 	@Test
 	void testPrefDistanceObstacle() {
 		Point pT = new Point(2,2);
-		assertTrue(gridT.prefDistanceObstacle(pT));
-		
-		gridT.addObstacle(obsT);
-		assertFalse(gridT.prefDistanceObstacle(pT));
 	}
 
 	/**
@@ -56,14 +44,7 @@ class GridTest {
 	 */
 	@Test
 	void testAddObstacle() {
-		ArrayList<Obstacle> arrayObstacle= new ArrayList<Obstacle>();
-		gridT.addObstacle(obsT);
-		
-		arrayObstacle.add(obsT);
-		assertEquals("Aucun obstacle n'a été placé", arrayObstacle, gridT.getObstacle());
-		
-		gridT.addObstacle(obsT);
-		assertEquals("Placement d'un obstacle alors qu'il y est déjà", arrayObstacle, gridT.getObstacle());
+
 	}
 
 

@@ -1,28 +1,12 @@
 package city;
 
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
-
-import used.Point;
-
-public class PrivateDistrict extends District{
-	private int nbWorkers;
-	private Image PrivateDistrictImage;
+public class PrivateDistrict extends DistrictType
+{
+	private int nbWorkers;	
 	
-	public PrivateDistrict(Point position) {
-		super(position);
-		ImageIcon img;
-		
-		img = new ImageIcon(getClass().getResource("/images/City/Private/"+getLevel()+".png"));
-		PrivateDistrictImage = img.getImage();
-		
+	public PrivateDistrict() {
 		nbWorkers = 0;
-	}
-	
-	public PrivateDistrict(String name, Station station, int density, float prosperity, double maintenanceCost,String type, int level, Point position, int nbWorkers) {
-		super(name, station, density, prosperity, maintenanceCost, type, level, position);
-		this.nbWorkers=nbWorkers;
+		setImage("/images/City/Private/0.png");
 	}
 
 	public int getNbWorkers() {
@@ -32,12 +16,23 @@ public class PrivateDistrict extends District{
 	public void setNbWorkers(int nbWorkers) {
 		this.nbWorkers = nbWorkers;
 	}
-	
-	public Image getPrivateDistrictImage() {
-		return PrivateDistrictImage;
+
+	@Override
+	public boolean isPublic() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isPrivate() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isResidential() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
-	public void setPrivateDistrictImage(Image privateDistrictImage) {
-		PrivateDistrictImage = privateDistrictImage;
-	}
 }

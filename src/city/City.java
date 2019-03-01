@@ -1,66 +1,72 @@
 package city;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
-public class City {
-	private String name;
-	private ArrayList<PublicDistrict> districtsPublic;
-	private ArrayList<PrivateDistrict> districtsPrivate;
-	private ArrayList<ResidentialDistrict> districtsResidential;
-	private int budget;
-	private Date date;
+import engine.TimeSimulator;
+import used.Point;
+
+public class City{
 	
-	public City() {
-		districtsPublic = new ArrayList<PublicDistrict>();
-		districtsPrivate = new ArrayList<PrivateDistrict>();
-		districtsResidential = new ArrayList<ResidentialDistrict>();
-	}
+	private static City instance = new City();
 	
-	public void addDistrictPub(PublicDistrict d) {
-		districtsPublic.add(d);
-	}
+	private TimeSimulator timeSim;
 	
-	public void addDistrictPri(PrivateDistrict d) {
-		districtsPrivate.add(d);
-	}
+	Random rnd = new Random();
+
+	private int budget=50000;
+	private int taxes=1000;
+	private int density=rnd.nextInt(5)+1;
+	private int servicing=500;
+	private HashMap<Point,District> districts;
 	
-	public void addDistrictRes(ResidentialDistrict d) {
-		districtsResidential.add(d);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public ArrayList<PublicDistrict> getDistrictsPublic() {
-		return districtsPublic;
-	}
-
-	public void setDistrictsPublic(ArrayList<PublicDistrict> districts) {
-		this.districtsPublic = districts;
+	private ArrayList<SubwayLine> subwayLines;
+	
+	private float prosperity;
+	
+	private City() {
+		timeSim = new TimeSimulator();
+		districts = new HashMap<Point, District>();
 	}
 	
-	public ArrayList<PrivateDistrict> getDistrictsPrivate() {
-		return districtsPrivate;
-	}
-
-	public void setDistrictsPrivate(ArrayList<PrivateDistrict> districts) {
-		this.districtsPrivate = districts;
+	public void addDistrict(Point position,District district) {
+		districts.put(position,district);
 	}
 	
-	public ArrayList<ResidentialDistrict> getDistrictsResidential() {
-		return districtsResidential;
+	public void addSubwayLine(SubwayLine line) {
+		subwayLines.add(line);
+	}
+		
+	public HashMap<Point,District> getDistricts() {
+		return districts;
+	}
+	
+	public ArrayList<SubwayLine> getSubwayLines(){
+		return subwayLines;
 	}
 
-	public void setDistrictsResidential(ArrayList<ResidentialDistrict> districts) {
-		this.districtsResidential = districts;
+	public TimeSimulator getTimeSimulator() {
+		return timeSim;
 	}
 
-	public int getBudget() {
+	public String getTaxesField() {
+		return taxes+" €/month";
+	}
+	
+	public String getBudgetField() {
+		return budget+" €";
+	}
+	
+	public String getDensityField() {
+		return density+" inhabitants";
+	}
+	
+	public String getServicingField() {
+		return servicing+" €/month";
+	}
+	
+	public float getBudget() {
 		return budget;
 	}
 
@@ -68,11 +74,36 @@ public class City {
 		this.budget = budget;
 	}
 
-	public Date getDate() {
-		return date;
+	public void earnMoney(float money) {
+		budget+=money;
+	}
+	
+	public void spendMoney(float money) {
+		budget-=money;
+	}
+	
+	public District getDistrictByPosition(Point pos){	
+		return districts.get(pos);
+	}
+	
+	public void setTaxes(int taxes) {
+		this.taxes=taxes;
+	}
+	
+	public void setDensity(int density) {
+		this.density=density;
+	}
+	public void setServicing(int servicing) {
+		this.servicing=servicing;
+	}
+	public static City getInstance() {
+		return instance;
+	}
+	public float getProsperity() {
+		return prosperity;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setProsperity(float prosperity) {
+		this.prosperity = prosperity;
 	}
 }

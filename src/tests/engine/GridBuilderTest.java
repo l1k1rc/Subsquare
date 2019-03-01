@@ -54,7 +54,7 @@ class GridBuilderTest {
 		assertEquals("Il devrait Y avoir un mur pour j=WIDTH-1", gT.getBoxAt(i, j).getClass(), gbT.getGrid().getBoxAt(i, j).getClass());
 		
 		i=7; j=5;
-		gT.setBoxAt(i, j,  BoxFactory.creatBox(BoxFactory.creatGrass(i, j, "Grass")));
+		gT.setBoxAt(i, j,  BoxFactory.creatBox(BoxFactory.creatGrass(i, j, "Grass", true)));
 		assertEquals("Il devrait Y avoir de l'herbe ici", gT.getBoxAt(i, j).getClass(), gbT.getGrid().getBoxAt(i, j).getClass());
 	}
 

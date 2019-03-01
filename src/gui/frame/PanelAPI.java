@@ -29,8 +29,7 @@ public class PanelAPI extends JPanel {
 
 		JButton[] tabButtonAPI = { new JButton(new ImageIcon("resid_icon.png")),
 				new JButton(new ImageIcon("commercial_icon.png")), new JButton(new ImageIcon("townhall_icon.png")),
-				new JButton(new ImageIcon("subicon.png")), new JButton(new ImageIcon("railicon.png")),
-				new JButton(new ImageIcon("zoomin.png")), new JButton(new ImageIcon("zoomless.png")) };
+				new JButton(new ImageIcon("subicon.png")), new JButton(new ImageIcon("railicon.png")) };
 
 		JPanel[] tabCells = { new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(),
 				new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(),
@@ -51,7 +50,7 @@ public class PanelAPI extends JPanel {
 			add(tabCells[index], gbc);
 
 			gbc.gridx++;
-			if (gbc.gridx % 7 == 0) {
+			if (gbc.gridx % 5 == 0) {
 				gbc.gridy++;
 				gbc.gridx = 0;
 			}
@@ -66,7 +65,9 @@ public class PanelAPI extends JPanel {
 		tabButtonAPI[0].setToolTipText("Construire un quartier résidentiel");
 		tabButtonAPI[1].setToolTipText("Construire un quartier commercial (privé)");
 		tabButtonAPI[2].setToolTipText("Construire un quartier des services publics");
-		tabButtonAPI[6].setToolTipText("Zoom Less");
+		tabButtonAPI[3].setToolTipText("COnstruire une station de métro");
+		tabButtonAPI[4].setToolTipText("Construire une ligne de métro");
+		
 
 		/* BUTTON :: build a residential area */
 		tabButtonAPI[0].addActionListener(new ActionListener() {
@@ -122,16 +123,7 @@ public class PanelAPI extends JPanel {
 				buildMetroLine = true;
 			}
 		});
-		//BUTTON :: zoom less
-		tabButtonAPI[6].addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("Zoom less");
-			}
-
-		});
+		
 	}
 
 	public static boolean getbuildPublicDistrict() {

@@ -4,13 +4,13 @@ import staticData.districtData;
 import used.Point;
 
 public class District
-{
+{	
 	private String name;
+	DistrictType type;
 	private Station station;
 	private int density;
 	private float prosperity;
 	private double maintenanceCost;
-	private String type;
 	private int level;
 	private Point position;
 	private int maxCapacity;
@@ -21,7 +21,6 @@ public class District
 		this.density = density;
 		this.prosperity = prosperity;
 		this.maintenanceCost = maintenanceCost;
-		this.type = type;
 		this.level= level;
 		this.position = position;
 		this.determineMaxCapacity();
@@ -31,13 +30,15 @@ public class District
 		this(name,station,density, prosperity,maintenanceCost,type,1, position);
 	}
 	
-	public District(Point position) {
+	public District(Point position,DistrictType type) {
 		this.position = position;
+		this.type = type;
 		density = 0;
 		prosperity = 0;
 		maintenanceCost = 0;
 		level = 2;
 		station = null;
+		determineMaxCapacity();
 	}
 	
 	public void determineMaxCapacity() {
@@ -50,6 +51,7 @@ public class District
 			break;
 		}
 	}
+	
 	
 	public String getName() {
 		return name;
@@ -90,14 +92,7 @@ public class District
 	public void setMaintenanceCost(double maintenanceCost) {
 		this.maintenanceCost = maintenanceCost;
 	}
-	
-	public String getType() {
-		return type;
-	}
-	
-	public void setType(String type) {
-		this.type = type;
-	}
+
 	
 	public int getLevel() {
 		return level;
@@ -121,6 +116,14 @@ public class District
 
 	public void setMaxCapacity(int maxCapacity) {
 		this.maxCapacity = maxCapacity;
+	}
+	
+	public DistrictType getType() {
+		return type;
+	}
+
+	public void setType(DistrictType type) {
+		this.type = type;
 	}
 	
 }
