@@ -16,6 +16,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import city.City;
+import city.PrivateDistrict;
+import city.PublicDistrict;
+import city.ResidentialDistrict;
 import engine.GridParameters;
 import engine.Simulation;
 import engine.TimeSimulator;
@@ -164,17 +167,17 @@ public class MainFrame extends JFrame implements Runnable {
 				 * district is build
 				 */
 				if (PanelAPI.getbuildPublicDistrict()) {
-					simulation.buildDistrict(position, "pub");
+					simulation.buildDistrict(position,new PublicDistrict());
 					PanelAPI.setbuildPublicDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildPrivateDistrict()) {
-					simulation.buildDistrict(position, "prv");
+					simulation.buildDistrict(position,new PrivateDistrict());
 					PanelAPI.setbuildPrivateDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildResidentialDistrict()) {
-					simulation.buildDistrict(position, "res");
+					simulation.buildDistrict(position,new ResidentialDistrict());
 					PanelAPI.setbuildResidentialDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
@@ -212,7 +215,7 @@ public class MainFrame extends JFrame implements Runnable {
 					scene.setPos_gridPoint(position);
 				} else if (PanelAPI.getbuildMetroLine() == true && buildMetroLine_click == true) {
 					Point line_position = new Point(e.getX() / 28, e.getY() / 28);
-					simulation.buildDistrict(line_position, "res");
+					simulation.buildDistrict(line_position,new ResidentialDistrict());
 				}
 
 			}

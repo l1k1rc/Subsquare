@@ -1,50 +1,41 @@
 package city;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import engine.TimeSimulator;
+import used.Point;
 
-public class City {
+public class City{
 	
 	private static City instance = new City();
 	
 	private TimeSimulator timeSim;
 	
-	private ArrayList<PublicDistrict> publicDistricts;
-	private ArrayList<PrivateDistrict> privateDistricts;
-	private ArrayList<ResidentialDistrict> residentialDistricts;
-
-	private int budget;
+	private HashMap<Point,District> districts;
+	
+	private ArrayList<SubwayLine> subwayLines;
+	
+	private float budget = 1000;
 	
 	private City() {
 		timeSim = new TimeSimulator();
-		publicDistricts = new ArrayList<PublicDistrict>();
-		privateDistricts = new ArrayList<PrivateDistrict>();
-		residentialDistricts = new ArrayList<ResidentialDistrict>();
+		districts = new HashMap<Point, District>();
 	}
 	
-	public void addPublicDistrict(PublicDistrict d) {
-		publicDistricts.add(d);
+	public void addDistrict(Point position,District district) {
+		districts.put(position,district);
 	}
 	
-	public void addPrivateDistrict(PrivateDistrict d) {
-		privateDistricts.add(d);
-	}
-	
-	public void addResidentialDistrict(ResidentialDistrict d) {
-		residentialDistricts.add(d);
+	public void addSubwayLine(SubwayLine line) {
+		subwayLines.add(line);
 	}
 		
-	public ArrayList<PublicDistrict> getPublicDistricts() {
-		return publicDistricts;
+	public HashMap<Point,District> getDistricts() {
+		return districts;
 	}
-
-	public ArrayList<PrivateDistrict> getPrivateDistricts() {
-		return privateDistricts;
-	}
-
-	public ArrayList<ResidentialDistrict> getResidentialDistricts() {
-		return residentialDistricts;
+	
+	public ArrayList<SubwayLine> getSubwayLines(){
+		return subwayLines;
 	}
 
 	public TimeSimulator getTimeSimulator() {
@@ -52,16 +43,28 @@ public class City {
 	}
 
 	
-	public int getBudget() {
+	public float getBudget() {
 		return budget;
 	}
 
 	public void setBudget(int budget) {
 		this.budget = budget;
 	}
-
+	
+	public void earnMoney(float money) {
+		budget+=money;
+	}
+	
+	public void spendMoney(float money) {
+		budget-=money;
+	}
+	
+	public District getDistrictByPosition(Point pos){	
+		return districts.get(pos);
+	}
 	
 	public static City getInstance() {
 		return instance;
 	}
+	
 }

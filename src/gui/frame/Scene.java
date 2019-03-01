@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.Collection;
 import java.util.Iterator;
 
 import javax.swing.BorderFactory;
@@ -12,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import city.City;
+import city.District;
 import city.PrivateDistrict;
 import city.PublicDistrict;
 import city.ResidentialDistrict;
@@ -25,9 +27,7 @@ public class Scene extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private City city = City.getInstance();
 	private Grid grid;
-	private ImageIcon pics;
 	private Graphics g2;
-	private Box box;
 	private boolean drawGrid=false;
 	private Point pos_gridPoint;
 
@@ -65,21 +65,10 @@ public class Scene extends JPanel {
 		drawCity(g2);
 	}
 
-	private void drawCity(Graphics g) {
-		
-		for(Iterator<PublicDistrict>it = city.getPublicDistricts().iterator(); it.hasNext(); ) {
-			PublicDistrict dist = it.next();
-			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
-		}
-		
-		for(Iterator<PrivateDistrict>it = city.getPrivateDistricts().iterator(); it.hasNext(); ) {
-			PrivateDistrict dist = it.next();
-			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
-		}
-		
-		for(Iterator<ResidentialDistrict>it = city.getResidentialDistricts().iterator(); it.hasNext(); ) {
-			ResidentialDistrict dist = it.next();
-			g.drawImage(dist.getImage(), dist.getPosition().getAbscisse() * 28, dist.getPosition().getOrdonne() * 28, null);
+	private void drawCity(Graphics g){
+		for(Iterator<District>it = city.getDistricts().values().iterator(); it.hasNext(); ) {
+			District d = it.next();
+			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28, null);
 		}
 	}
 	

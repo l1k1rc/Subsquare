@@ -8,11 +8,9 @@ public class Station {
 	private ArrayList<SubwayLine> subwayLines;
 	private int level;
 	private int maxCapacity;
-	private String name;
 	
-	public Station(int level, String name) {
+	public Station(int level) {
 		this.level = level;
-		this.name=name;
 		this.determineMaxCapacity();
 	}
 	
@@ -50,12 +48,5 @@ public class Station {
 	public void setMaxCapacity(int maxCapacity) {
 		this.maxCapacity = maxCapacity;
 	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name=name;
-	}
+
 }
