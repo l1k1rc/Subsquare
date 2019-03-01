@@ -14,7 +14,7 @@ public class DistrictLevelUpMock {
 	private Point point;
 	
 	public DistrictLevelUpMock() {
-		station = new Station(1, "StationTest");
+		station = new Station(1);
 		point = new Point(1,1);
 	}
 	
