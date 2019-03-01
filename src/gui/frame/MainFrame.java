@@ -22,7 +22,13 @@ import engine.TimeSimulator;
 import used.Point;
 
 //import engine.Simulation;
-
+/**
+ * Class that brings together the elements of the main window. This is where
+ * events related to user actions are managed.
+ * 
+ * @author l1k1
+ *
+ */
 public class MainFrame extends JFrame implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private static int THREAD_MAP = GridParameters.speed;
@@ -121,7 +127,7 @@ public class MainFrame extends JFrame implements Runnable {
 				}
 			}
 		});
-
+		/* When the user click, enter, exit, release or presse the mouse */
 		scene.addMouseListener(new MouseListener() {
 
 			@Override
@@ -200,6 +206,7 @@ public class MainFrame extends JFrame implements Runnable {
 				}
 			}
 		});
+		/* When the user move or drag the mouse */
 		scene.addMouseMotionListener(new MouseMotionListener() {
 
 			@Override
@@ -271,6 +278,7 @@ public class MainFrame extends JFrame implements Runnable {
 		return scene;
 	}
 
+	/* to change the cursor when an API is selected */
 	public static void setCursorOnScene(Cursor c) {
 		scene.setCursor(c);
 	}
