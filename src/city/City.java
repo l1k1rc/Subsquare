@@ -13,7 +13,8 @@ public class City {
 	private ArrayList<PublicDistrict> publicDistricts;
 	private ArrayList<PrivateDistrict> privateDistricts;
 	private ArrayList<ResidentialDistrict> residentialDistricts;
-
+	
+	private float prosperity;
 	private int budget;
 	
 	private City() {
@@ -63,5 +64,13 @@ public class City {
 	
 	public static City getInstance() {
 		return instance;
+	}
+
+	public float getProsperity() {
+		return prosperity;
+	}
+
+	public void setProsperity(float prosperity) {
+		this.prosperity = prosperity;
 	}
 }
