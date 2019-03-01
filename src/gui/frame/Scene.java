@@ -5,20 +5,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.util.Collection;
 import java.util.Iterator;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import city.City;
 import city.District;
-import city.PrivateDistrict;
-import city.PublicDistrict;
-import city.ResidentialDistrict;
 import engine.GridParameters;
-import grid.Box;
 import grid.Grid;
 import used.Point;
 

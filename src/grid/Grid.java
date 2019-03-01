@@ -1,13 +1,6 @@
 package grid;
 
-import java.util.ArrayList;
-
-import city.City;
-import city.PrivateDistrict;
-import city.PublicDistrict;
-import city.ResidentialDistrict;
 import engine.GridParameters;
-import used.Point;
 
 /**
  * This class contains the grid where the simulation will operate.
@@ -42,8 +35,8 @@ public class Grid {
 	 * @param ordonne
 	 * @return Box
 	 */
-	public Box getBoxAt(int abscisse,int ordonne) {
-		return boxs[abscisse][ordonne];
+	public Box getBoxAt(int ordonne,int abscisse) {
+		return boxs[ordonne][abscisse];
 	}
 	
 	

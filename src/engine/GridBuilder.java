@@ -2,8 +2,6 @@ package engine;
 
 import grid.BoxFactory;
 import grid.Grid;
-import used.Point;
-import used.Random;
 
 public class GridBuilder {
 	/**

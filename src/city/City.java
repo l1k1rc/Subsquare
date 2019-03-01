@@ -17,6 +17,8 @@ public class City{
 	
 	private float budget = 1000;
 	
+	private float prosperity;
+	
 	private City() {
 		timeSim = new TimeSimulator();
 		districts = new HashMap<Point, District>();
@@ -67,4 +69,11 @@ public class City{
 		return instance;
 	}
 	
+	public float getProsperity() {
+		return prosperity;
+	}
+
+	public void setProsperity(float prosperity) {
+		this.prosperity = prosperity;
+	}
 }
