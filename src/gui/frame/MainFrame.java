@@ -193,15 +193,17 @@ public class MainFrame extends JFrame implements Runnable {
 					scene.setPos_gridPoint(position);
 					PanelPrivStat pStat = new PanelPrivStat();
 					pStat.setBounds(1400, 0, 250, 1150);
-					pStat.setLabel("Position de ce quartier : " + position);
+					pStat.setposLabel("Position de ce quartier : " + position);
+					pStat.setTypeLabel("Type de quartier : ");
 					getContentPane().add(pStat);
 					/*
 					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
 					 * obstacle
 					 */
 					if (!scene.getGrid().getBoxAt(position.getAbscisse(), position.getOrdonne()).getIsFree()) {
-						pStat.setLabel("Attention : cette place est occupée");
+						pStat.setposLabel("Attention : cette place est occupée");
 						pStat.setPriceInformation("Prix de la zone : 200g");
+						pStat.setTypeLabel("Pas de type de quartier");
 					}
 				}
 			}
