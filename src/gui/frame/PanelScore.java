@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,13 +29,10 @@ public class PanelScore extends JPanel {
 	private JLabel budgetLabel = new JLabel("Budget", JLabel.CENTER);
 	private JLabel date = new JLabel("",JLabel.CENTER);
 	private JLabel hour = new JLabel("",JLabel.CENTER);
-	
-	/**Thoses are temporary Labels waiting for dynamic labels **/
-	private JLabel tempDensityLabel = new JLabel("Density", JLabel.CENTER);
-	private JLabel tempTaxesLabel = new JLabel("Taxes", JLabel.CENTER);
-	private JLabel tempServicingLabel = new JLabel("Servicing", JLabel.CENTER);
-	private JLabel tempBudgetLabel = new JLabel("Budget", JLabel.CENTER);
-	/**															**/
+	private JLabel budget = new JLabel("",JLabel.CENTER);
+	private JLabel taxes = new JLabel("",JLabel.CENTER);
+	private JLabel density = new JLabel("",JLabel.CENTER);
+	private JLabel servicing = new JLabel("",JLabel.CENTER);
 	
 	private JPanel timeButtonPanel= new JPanel();
 	private JPanel scorePanel = new JPanel();
@@ -95,16 +91,16 @@ public class PanelScore extends JPanel {
 		prosperityPanel.add(prosperityLabel);
 		
 		densityPanel.add(densityLabel);
-		densityPanel.add(tempDensityLabel);
+		densityPanel.add(density);
 		
 		taxesPanel.add(taxesLabel);
-		taxesPanel.add(tempTaxesLabel);
+		taxesPanel.add(taxes);
 		
 		servicingPanel.add(servicingLabel);
-		servicingPanel.add(tempServicingLabel);
+		servicingPanel.add(servicing);
 		
 		budgetPanel.add(budgetLabel);
-		budgetPanel.add(tempBudgetLabel);
+		budgetPanel.add(budget);
 		
 		statsPanel.add(stats);
 		
@@ -135,5 +131,17 @@ public class PanelScore extends JPanel {
 	
 	public JLabel getHourField() {
 		return hour;
+	}
+	public JLabel getBudgetField() {
+		return budget;
+	}
+	public JLabel getTaxesField() {
+		return taxes;
+	}
+	public JLabel getDensityField() {
+		return density;
+	}
+	public JLabel getServicingField() {
+		return servicing;
 	}
 }

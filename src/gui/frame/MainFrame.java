@@ -243,6 +243,10 @@ public class MainFrame extends JFrame implements Runnable {
 		// TODO repaint method of the scene
 		// TODO check new statistics ..
 		updateTime();
+		updateBudget();
+		updateTaxes();
+		updateDensity();
+		updateServicing();
 		scene.updateUI();
 		scene.repaint();
 	}
@@ -252,6 +256,18 @@ public class MainFrame extends JFrame implements Runnable {
 		timeSim.update();
 		pScore.getDateField().setText(timeSim.getDate());
 		pScore.getHourField().setText(timeSim.getTime());
+	}
+	public void updateTaxes() {
+		pScore.getTaxesField().setText(city.getTaxesField());
+	}
+	public void updateBudget() {
+		pScore.getBudgetField().setText(city.getBudgetField());
+	}
+	public void updateDensity() {
+		pScore.getDensityField().setText(city.getDensityField());
+	}
+	public void updateServicing() {
+		pScore.getServicingField().setText(city.getServicingField());
 	}
 
 	@Override
