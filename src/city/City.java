@@ -1,19 +1,17 @@
 package city;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import engine.TimeSimulator;
+import used.Point;
 
-public class City {
+public class City{
 	
 	private static City instance = new City();
 	
 	private TimeSimulator timeSim;
-	
-	private ArrayList<PublicDistrict> publicDistricts;
-	private ArrayList<PrivateDistrict> privateDistricts;
-	private ArrayList<ResidentialDistrict> residentialDistricts;
 	
 	Random rnd = new Random();
 
@@ -21,43 +19,37 @@ public class City {
 	private int taxes=1000;
 	private int density=rnd.nextInt(5)+1;
 	private int servicing=500;
+	private HashMap<Point,District> districts;
+	
+	private ArrayList<SubwayLine> subwayLines;
+	
+	private float prosperity;
 	
 	private City() {
 		timeSim = new TimeSimulator();
-		publicDistricts = new ArrayList<PublicDistrict>();
-		privateDistricts = new ArrayList<PrivateDistrict>();
-		residentialDistricts = new ArrayList<ResidentialDistrict>();
+		districts = new HashMap<Point, District>();
 	}
 	
-	public void addPublicDistrict(PublicDistrict d) {
-		publicDistricts.add(d);
+	public void addDistrict(Point position,District district) {
+		districts.put(position,district);
 	}
 	
-	public void addPrivateDistrict(PrivateDistrict d) {
-		privateDistricts.add(d);
-	}
-	
-	public void addResidentialDistrict(ResidentialDistrict d) {
-		residentialDistricts.add(d);
+	public void addSubwayLine(SubwayLine line) {
+		subwayLines.add(line);
 	}
 		
-	public ArrayList<PublicDistrict> getPublicDistricts() {
-		return publicDistricts;
+	public HashMap<Point,District> getDistricts() {
+		return districts;
 	}
-
-	public ArrayList<PrivateDistrict> getPrivateDistricts() {
-		return privateDistricts;
-	}
-
-	public ArrayList<ResidentialDistrict> getResidentialDistricts() {
-		return residentialDistricts;
+	
+	public ArrayList<SubwayLine> getSubwayLines(){
+		return subwayLines;
 	}
 
 	public TimeSimulator getTimeSimulator() {
 		return timeSim;
 	}
 
-	
 	public String getTaxesField() {
 		return taxes+" €/month";
 	}
@@ -69,12 +61,29 @@ public class City {
 	public String getDensityField() {
 		return density+" inhabitants";
 	}
+	
 	public String getServicingField() {
 		return servicing+" €/month";
+	}
+	
+	public float getBudget() {
+		return budget;
 	}
 
 	public void setBudget(int budget) {
 		this.budget = budget;
+	}
+
+	public void earnMoney(float money) {
+		budget+=money;
+	}
+	
+	public void spendMoney(float money) {
+		budget-=money;
+	}
+	
+	public District getDistrictByPosition(Point pos){	
+		return districts.get(pos);
 	}
 	
 	public void setTaxes(int taxes) {
@@ -89,5 +98,13 @@ public class City {
 	}
 	public static City getInstance() {
 		return instance;
+	}
+	
+	public float getProsperity() {
+		return prosperity;
+	}
+
+	public void setProsperity(float prosperity) {
+		this.prosperity = prosperity;
 	}
 }
