@@ -1,25 +1,19 @@
 package city;
 
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
-
 import staticData.districtData;
 import used.Point;
 
 public class District
-{
+{	
 	private String name;
+	DistrictType type;
 	private Station station;
 	private int density;
 	private float prosperity;
 	private double maintenanceCost;
-	private String type;
 	private int level;
 	private Point position;
 	private int maxCapacity;
-	private float constructionCosts;
-	private Image image;
 	
 	public District(String name, Station station, int density, float prosperity, double maintenanceCost, String type,int level, Point position) {
 		this.name = name;
@@ -27,7 +21,6 @@ public class District
 		this.density = density;
 		this.prosperity = prosperity;
 		this.maintenanceCost = maintenanceCost;
-		this.type = type;
 		this.level= level;
 		this.position = position;
 		this.determineMaxCapacity();
@@ -37,13 +30,15 @@ public class District
 		this(name,station,density, prosperity,maintenanceCost,type,1, position);
 	}
 	
-	public District(Point position) {
+	public District(Point position,DistrictType type) {
 		this.position = position;
+		this.type = type;
 		density = 0;
 		prosperity = 0;
 		maintenanceCost = 0;
 		level = 1;
 		station = null;
+		determineMaxCapacity();
 	}
 	
 	public void determineMaxCapacity() {
@@ -57,14 +52,6 @@ public class District
 		}
 	}
 	
-	public void setImage(String path) {
-		ImageIcon img = new ImageIcon(getClass().getResource(path));
-		image = img.getImage();
-	}
-	
-	public Image getImage() {
-		return image;
-	}
 	
 	public String getName() {
 		return name;
@@ -105,14 +92,7 @@ public class District
 	public void setMaintenanceCost(double maintenanceCost) {
 		this.maintenanceCost = maintenanceCost;
 	}
-	
-	public String getType() {
-		return type;
-	}
-	
-	public void setType(String type) {
-		this.type = type;
-	}
+
 	
 	public int getLevel() {
 		return level;
@@ -138,12 +118,12 @@ public class District
 		this.maxCapacity = maxCapacity;
 	}
 	
-	public void setConstructionCosts(float costs) {
-		constructionCosts = costs;
+	public DistrictType getType() {
+		return type;
 	}
-	
-	public float getConstructionCosts() {
-		return constructionCosts;
+
+	public void setType(DistrictType type) {
+		this.type = type;
 	}
 	
 }
