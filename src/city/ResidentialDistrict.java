@@ -1,28 +1,16 @@
 package city;
 
-import java.awt.Image;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-
-import used.Point;
-
-public class ResidentialDistrict extends District
+public class ResidentialDistrict extends DistrictType
 {
 	private int nbCitizens;
 	private ArrayList<Citizen> citizens;
 	
-	public ResidentialDistrict(Point position) {
-		super(position);
-		setImage("/images/City/Residential/"+getLevel()+".png");
+	public ResidentialDistrict() {
+		setImage("/images/City/Residential/0.png");
 		citizens=new ArrayList<Citizen>();
 		nbCitizens = 0;
-	}
-	
-	public ResidentialDistrict(String name, Station station, int density, float prosperity, double maintenanceCost,String type, int level, Point position, int nbCitizens) {
-		super(name, station, density, prosperity, maintenanceCost, type, level, position);
-		this.nbCitizens=nbCitizens;
-		this.citizens=new ArrayList<Citizen>();
 	}
 
 	public int getNbCitizens() {
@@ -39,6 +27,24 @@ public class ResidentialDistrict extends District
 
 	public void setCitizens(ArrayList<Citizen> citizens) {
 		this.citizens = citizens;
+	}
+
+	@Override
+	public boolean isPublic() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isPrivate() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isResidential() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

@@ -1,13 +1,6 @@
 package grid;
 
-import java.util.ArrayList;
-
-import city.City;
-import city.PrivateDistrict;
-import city.PublicDistrict;
-import city.ResidentialDistrict;
 import engine.GridParameters;
-import used.Point;
 
 /**
  * This class contains the grid where the simulation will operate.

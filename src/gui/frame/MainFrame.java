@@ -16,6 +16,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import city.City;
+import city.PrivateDistrict;
+import city.PublicDistrict;
+import city.ResidentialDistrict;
 import engine.GridParameters;
 import engine.Simulation;
 import engine.TimeSimulator;
@@ -170,17 +173,17 @@ public class MainFrame extends JFrame implements Runnable {
 				 * district is build
 				 */
 				if (PanelAPI.getbuildPublicDistrict()) {
-					simulation.buildDistrict(position, "pub");
+					simulation.buildDistrict(position,new PublicDistrict());
 					PanelAPI.setbuildPublicDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildPrivateDistrict()) {
-					simulation.buildDistrict(position, "prv");
+					simulation.buildDistrict(position,new PrivateDistrict());
 					PanelAPI.setbuildPrivateDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildResidentialDistrict()) {
-					simulation.buildDistrict(position, "res");
+					simulation.buildDistrict(position,new ResidentialDistrict());
 					PanelAPI.setbuildResidentialDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
@@ -194,16 +197,24 @@ public class MainFrame extends JFrame implements Runnable {
 					PanelPrivStat pStat = new PanelPrivStat();
 					pStat.setBounds(1400, 0, 250, 1150);
 					pStat.setposLabel("Position de ce quartier : " + position);
-					pStat.setTypeLabel("Type de quartier : ");
+					pStat.setTypeLabel("Pas de type de quartier");
 					getContentPane().add(pStat);
 					/*
 					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
-					 * obstacle
+					 * obstacle ORDONNE // ABSCISSE
 					 */
-					if (!scene.getGrid().getBoxAt(position.getAbscisse(), position.getOrdonne()).getIsFree()) {
+
+
+					if (!scene.getGrid().getBoxAt(position.getOrdonne(),position.getAbscisse()).getIsFree()) {
 						pStat.setposLabel("Attention : cette place est occupée");
 						pStat.setPriceInformation("Prix de la zone : 200g");
-						pStat.setTypeLabel("Pas de type de quartier");
+						pStat.setTypeLabel("Type de quartier : ");
+						/* To draw a line between 2 points */
+						/*
+						 * if (buildLine_A == false && buildLine_B == false) { buildLine_A = true;
+						 * if(buildLineA = true) }
+						 */
+
 					}
 				}
 			}
@@ -220,8 +231,10 @@ public class MainFrame extends JFrame implements Runnable {
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
 				} else if (PanelAPI.getbuildMetroLine() == true && buildMetroLine_click == true) {
-					Point line_position = new Point(e.getX() / 28, e.getY() / 28);
-					simulation.buildDistrict(line_position, "res");
+					/* Pour la partie line metro */
+				/*	Point line_position = new Point(e.getX() / 28, e.getY() / 28);
+					scene.setLine(true);
+					simulation.buildDistrict(line_position,new ResidentialDistrict());*/
 				}
 
 			}
