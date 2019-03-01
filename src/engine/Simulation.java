@@ -28,14 +28,12 @@ public class Simulation {
 		GridBuilder buildGrid = new GridBuilder(parameters);
 		grid = buildGrid.getGrid();
 	}
-	
 	public void simulationNextTurn() {
 		// TODO the next turn of the simulation
 		simulationNumberOfTurn++;
 	}
 	
 	//getters:
-	
 	public static int getSimulationTurn() {
 		return simulationNumberOfTurn;
 	}
@@ -58,6 +56,10 @@ public class Simulation {
 			city.addDistrict(position,ds);
 			if(type.isPublic()){
 				float cost = box.getGroundType().getDegre()*districtData.constructionCost;
+				if(box.getGroundType().containsTree) {
+					cost = cost*2;
+					box.getGroundType().setContainsTree(false);
+				}
 				city.spendMoney(cost);
 			}
 			box.setIsFree(false);

@@ -35,8 +35,8 @@ public class Grid {
 	 * @param ordonne
 	 * @return Box
 	 */
-	public Box getBoxAt(int ordonne,int abscisse) {
-		return boxs[ordonne][abscisse];
+	public Box getBoxAt(int abscisse,int ordonne) {
+		return boxs[abscisse][ordonne];
 	}
 	
 	

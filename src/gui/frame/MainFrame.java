@@ -196,16 +196,25 @@ public class MainFrame extends JFrame implements Runnable {
 					scene.setPos_gridPoint(position);
 					PanelPrivStat pStat = new PanelPrivStat();
 					pStat.setBounds(1400, 0, 250, 1150);
-					pStat.setLabel("Position de ce quartier : " + position);
+					pStat.setposLabel("Position de ce quartier : " + position);
+					pStat.setTypeLabel("Pas de type de quartier");
 					getContentPane().add(pStat);
 					/*
 					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
-					 * obstacle
-					 * ORDONNE // ABSCISSE
+					 * obstacle ORDONNE // ABSCISSE
 					 */
-					if (!scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getIsFree()) {
-						pStat.setLabel("Attention : cette place est occupée"); 
+
+
+					if (!scene.getGrid().getBoxAt(position.getOrdonne(),position.getAbscisse()).getIsFree()) {
+						pStat.setposLabel("Attention : cette place est occupée");
 						pStat.setPriceInformation("Prix de la zone : 200g");
+						pStat.setTypeLabel("Type de quartier : ");
+						/* To draw a line between 2 points */
+						/*
+						 * if (buildLine_A == false && buildLine_B == false) { buildLine_A = true;
+						 * if(buildLineA = true) }
+						 */
+
 					}
 				}
 			}
@@ -222,8 +231,10 @@ public class MainFrame extends JFrame implements Runnable {
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
 				} else if (PanelAPI.getbuildMetroLine() == true && buildMetroLine_click == true) {
-					Point line_position = new Point(e.getX() / 28, e.getY() / 28);
-					simulation.buildDistrict(line_position,new ResidentialDistrict());
+					/* Pour la partie line metro */
+				/*	Point line_position = new Point(e.getX() / 28, e.getY() / 28);
+					scene.setLine(true);
+					simulation.buildDistrict(line_position,new ResidentialDistrict());*/
 				}
 
 			}
@@ -246,6 +257,10 @@ public class MainFrame extends JFrame implements Runnable {
 		// TODO repaint method of the scene
 		// TODO check new statistics ..
 		updateTime();
+		updateBudget();
+		updateTaxes();
+		updateDensity();
+		updateServicing();
 		scene.updateUI();
 		scene.repaint();
 	}
@@ -255,6 +270,18 @@ public class MainFrame extends JFrame implements Runnable {
 		timeSim.update();
 		pScore.getDateField().setText(timeSim.getDate());
 		pScore.getHourField().setText(timeSim.getTime());
+	}
+	public void updateTaxes() {
+		pScore.getTaxesField().setText(city.getTaxesField());
+	}
+	public void updateBudget() {
+		pScore.getBudgetField().setText(city.getBudgetField());
+	}
+	public void updateDensity() {
+		pScore.getDensityField().setText(city.getDensityField());
+	}
+	public void updateServicing() {
+		pScore.getServicingField().setText(city.getServicingField());
 	}
 
 	@Override
