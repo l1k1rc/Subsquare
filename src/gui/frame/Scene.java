@@ -71,23 +71,23 @@ public class Scene extends JPanel {
 			int x_B = MainFrame.getPosition_dicstrictB().getAbscisse() * 28;
 			int y_A = MainFrame.getPosition_districtA().getOrdonne() * 28;
 			int y_B = MainFrame.getPosition_dicstrictB().getOrdonne() * 28;
-			g2.drawLine(x_A, y_A, x_B, y_B);
-			while(x_A != x_B) {
-				if(x_A<x_B) {
-					x_A+=28;
+			//g2.drawLine(x_A, y_A, x_B, y_B);
+			/* TO SEND TO THE ENGINE TO UPDATE THE GRAPHICS */
+			while (x_A != x_B) {
+				if (x_A < x_B) {
+					x_A += 28;
 					g2.drawImage(line2.getImage(), x_A, y_A, null);
-				}
-				else if(x_A>x_B){
-					x_A-=28;
+				} else if (x_A > x_B) {
+					x_A -= 28;
 					g2.drawImage(line2.getImage(), x_A, y_A, null);
 				}
 			}
-			while(y_A != y_B) {
-				if(y_A<y_B) {
-					y_A+=28;
+			while (y_A != y_B) {
+				if (y_A < y_B) {
+					y_A += 28;
 					g2.drawImage(line.getImage(), x_A, y_A, null);
-				}else {
-					y_A-=28;
+				} else {
+					y_A -= 28;
 					g2.drawImage(line.getImage(), x_A, y_A, null);
 				}
 			}
