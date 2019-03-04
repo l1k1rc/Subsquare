@@ -48,7 +48,8 @@ public class Scene extends JPanel {
 				Image img = grid.getBoxAt(y, x).getGroundType().getImage();
 				g.drawImage(img, x * 28, y * 28, null);
 				if (grid.getBoxAt(y, x).getGroundType().isContainsTree()) {
-					ImageIcon tree = new ImageIcon(getClass().getResource("/images/Obstacle/arbre" + grid.getBoxAt(y, x).getGroundType().getTreeType() + ".png"));
+					ImageIcon tree = new ImageIcon(getClass().getResource(
+							"/images/Obstacle/arbre" + grid.getBoxAt(y, x).getGroundType().getTreeType() + ".png"));
 					g.drawImage(tree.getImage(), x * 28, y * 28, null);
 				}
 			}
@@ -62,15 +63,43 @@ public class Scene extends JPanel {
 			g2.drawRect(x * 28, y * 28, 28, 28);
 		}
 		if (drawLine) {
+			g2.setColor(Color.GREEN);
+			ImageIcon line = new ImageIcon(getClass().getResource("/images/Obstacle/rail.png"));
+			ImageIcon line2 = new ImageIcon(getClass().getResource("/images/Obstacle/rail2.png"));
 
+			int x_A = MainFrame.getPosition_districtA().getAbscisse() * 28;
+			int x_B = MainFrame.getPosition_dicstrictB().getAbscisse() * 28;
+			int y_A = MainFrame.getPosition_districtA().getOrdonne() * 28;
+			int y_B = MainFrame.getPosition_dicstrictB().getOrdonne() * 28;
+			g2.drawLine(x_A, y_A, x_B, y_B);
+			while(x_A != x_B) {
+				if(x_A<x_B) {
+					x_A+=28;
+					g2.drawImage(line2.getImage(), x_A, y_A, null);
+				}
+				else if(x_A>x_B){
+					x_A-=28;
+					g2.drawImage(line2.getImage(), x_A, y_A, null);
+				}
+			}
+			while(y_A != y_B) {
+				if(y_A<y_B) {
+					y_A+=28;
+					g2.drawImage(line.getImage(), x_A, y_A, null);
+				}else {
+					y_A-=28;
+					g2.drawImage(line.getImage(), x_A, y_A, null);
+				}
+			}
 		}
 		drawCity(g2);
 	}
 
-	private void drawCity(Graphics g){
-		for(Iterator<District>it = city.getDistricts().values().iterator(); it.hasNext(); ) {
+	private void drawCity(Graphics g) {
+		for (Iterator<District> it = city.getDistricts().values().iterator(); it.hasNext();) {
 			District d = it.next();
-			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28, null);
+			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28,
+					null);
 		}
 	}
 
@@ -80,6 +109,10 @@ public class Scene extends JPanel {
 
 	public void setDrawGrid(boolean drawGrid) {
 		this.drawGrid = drawGrid;
+	}
+
+	public void setDrawLine(boolean drawLine) {
+		this.drawLine = drawLine;
 	}
 
 	public boolean isDrawGrid() {

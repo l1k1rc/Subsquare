@@ -51,6 +51,8 @@ public class MainFrame extends JFrame implements Runnable {
 	private JMenuItem item_manual = new JMenuItem("User's manual");
 	private JMenuItem item_leave = new JMenuItem("Leave without save");
 
+	private static Point position_districtA, position_dicstrictB;
+
 	/********* construct *********/
 	public MainFrame() {
 		super("Subsquare");
@@ -135,6 +137,15 @@ public class MainFrame extends JFrame implements Runnable {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				Point position = new Point(e.getX() / 28, e.getY() / 28);
+
+				if (!scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getIsFree()
+						&& PanelAPI.getbuildMetroLine() == true) {
+					System.out.println("Fin de la ligne");
+					position_dicstrictB = new Point(position.getAbscisse(), position.getOrdonne());
+					System.out.println(position_dicstrictB);
+					scene.setDrawLine(true);
+				}
 			}
 
 			@Override
@@ -143,11 +154,13 @@ public class MainFrame extends JFrame implements Runnable {
 				 * When the user click on the panel Scene and if he press the API associated, he
 				 * can draw a line on the map. If he click a second time, the builder is over
 				 */
-				if (buildMetroLine_click == false && PanelAPI.getbuildMetroLine() == true)
-					buildMetroLine_click = true;
-				else {
-					buildMetroLine_click = false;
-					PanelAPI.setbuildMetroLine(false);
+				Point position = new Point(e.getX() / 28, e.getY() / 28);
+				if (!scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getIsFree()
+						&& PanelAPI.getbuildMetroLine() == true) {
+					System.out.println("Ceci est un quartier");
+					position_districtA = new Point(position.getAbscisse(), position.getOrdonne());
+					System.out.println(position_districtA);
+					//simulation.buildSubwayLine(position_districtA, position_dicstrictB); WhERE THE GRAPHICS ARE UPDATED ???
 				}
 			}
 
@@ -173,17 +186,17 @@ public class MainFrame extends JFrame implements Runnable {
 				 * district is build
 				 */
 				if (PanelAPI.getbuildPublicDistrict()) {
-					simulation.buildDistrict(position,new PublicDistrict());
+					simulation.buildDistrict(position, new PublicDistrict());
 					PanelAPI.setbuildPublicDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildPrivateDistrict()) {
-					simulation.buildDistrict(position,new PrivateDistrict());
+					simulation.buildDistrict(position, new PrivateDistrict());
 					PanelAPI.setbuildPrivateDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildResidentialDistrict()) {
-					simulation.buildDistrict(position,new ResidentialDistrict());
+					simulation.buildDistrict(position, new ResidentialDistrict());
 					PanelAPI.setbuildResidentialDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
@@ -201,11 +214,14 @@ public class MainFrame extends JFrame implements Runnable {
 					getContentPane().add(pStat);
 					/*
 					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
-					 * obstacle ORDONNE // ABSCISSE
+					 * obstacle
 					 */
 
-
-					if (!scene.getGrid().getBoxAt(position.getOrdonne(),position.getAbscisse()).getIsFree()) {
+					/*
+					 * When the place isn't free, a panel with all information about the
+					 * position/district will be displayed
+					 */
+					if (!scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getIsFree()) {
 						pStat.setposLabel("Attention : cette place est occupée");
 						pStat.setPriceInformation("Prix de la zone : 200g");
 						pStat.setTypeLabel("Type de quartier : ");
@@ -232,9 +248,11 @@ public class MainFrame extends JFrame implements Runnable {
 					scene.setPos_gridPoint(position);
 				} else if (PanelAPI.getbuildMetroLine() == true && buildMetroLine_click == true) {
 					/* Pour la partie line metro */
-				/*	Point line_position = new Point(e.getX() / 28, e.getY() / 28);
-					scene.setLine(true);
-					simulation.buildDistrict(line_position,new ResidentialDistrict());*/
+					/*
+					 * Point line_position = new Point(e.getX() / 28, e.getY() / 28);
+					 * scene.setLine(true); simulation.buildDistrict(line_position,new
+					 * ResidentialDistrict());
+					 */
 				}
 
 			}
@@ -271,15 +289,19 @@ public class MainFrame extends JFrame implements Runnable {
 		pScore.getDateField().setText(timeSim.getDate());
 		pScore.getHourField().setText(timeSim.getTime());
 	}
+
 	public void updateTaxes() {
 		pScore.getTaxesField().setText(city.getTaxesField());
 	}
+
 	public void updateBudget() {
 		pScore.getBudgetField().setText(city.getBudgetField());
 	}
+
 	public void updateDensity() {
 		pScore.getDensityField().setText(city.getDensityField());
 	}
+
 	public void updateServicing() {
 		pScore.getServicingField().setText(city.getServicingField());
 	}
@@ -307,6 +329,14 @@ public class MainFrame extends JFrame implements Runnable {
 
 	public static JPanel getScene() {
 		return scene;
+	}
+
+	public static Point getPosition_districtA() {
+		return position_districtA;
+	}
+
+	public static Point getPosition_dicstrictB() {
+		return position_dicstrictB;
 	}
 
 	/* to change the cursor when an API is selected */
