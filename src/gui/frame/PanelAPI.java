@@ -79,7 +79,7 @@ public class PanelAPI extends JPanel {
 				// click, the clicklistener is launched
 				// the mouse is changed to notificate this
 				// at the end, the var is false
-				buildPublicDistrict = true;
+				buildResidentialDistrict = true;
 				/* Method to change the icon to notify the user he's building a new place */
 
 				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
@@ -106,7 +106,7 @@ public class PanelAPI extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				buildResidentialDistrict = true;
+				buildPublicDistrict = true;
 
 				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
 						new ImageIcon(getClass().getResource("/images/cursor/build_srvp.png")).getImage(),
