@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
+import gui.fontElements.Fonts;
+
 public class PanelPrivStat extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
@@ -20,6 +22,8 @@ public class PanelPrivStat extends JPanel {
 	private JLabel price_information = new JLabel("");
 	private JLabel position = new JLabel("");
 	private JLabel typeDistrict = new JLabel("");
+	private JLabel isSubwayStation = new JLabel("");
+	private JLabel densityLabel = new JLabel("");
 	
 	
 	private JPanel scorepan = new JPanel();
@@ -41,7 +45,11 @@ public class PanelPrivStat extends JPanel {
 		prosperity.setLayout(new GridBagLayout());
 		prosperityBar = new JProgressBar(SwingConstants.VERTICAL);
 		prosperityBar.setBackground(Color.DARK_GRAY);
-
+		prosperityLabel.setFont(Fonts.getF3());
+		price_information.setFont(Fonts.getF3());
+		typeDistrict.setFont(Fonts.getF3());
+		isSubwayStation.setFont(Fonts.getF3());
+		densityLabel.setFont(Fonts.getF3());
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -57,6 +65,10 @@ public class PanelPrivStat extends JPanel {
 		prosperity.add(position, gbc);
 		gbc.gridy = 4;
 		prosperity.add(typeDistrict, gbc);
+		gbc.gridy = 5;
+		prosperity.add(isSubwayStation, gbc);
+		gbc.gridy = 6;
+		prosperity.add(densityLabel, gbc);
 		
 		
 		
@@ -76,6 +88,11 @@ public class PanelPrivStat extends JPanel {
 		prosperity.add(tabCells[3], gbc);
 		gbc.gridy = 4;
 		prosperity.add(tabCells[4], gbc);
+		gbc.gridy = 5;
+		prosperity.add(tabCells[5], gbc);
+		gbc.gridy = 6;
+		prosperity.add(tabCells[6], gbc);
+		
 		
 		scorepan.add(prosperity);
 		add(scorepan, BorderLayout.CENTER);
@@ -98,6 +115,14 @@ public class PanelPrivStat extends JPanel {
 	
 	public void setPriceInformation(String price) {
 		this.price_information.setText(price);
+	}
+	
+	public void setIsSubwayStation(String subway) {
+		this.isSubwayStation.setText(subway);
+	}
+	
+	public void setdensityLabel(String density) {
+		this.densityLabel.setText(density);
 	}
 
 }
