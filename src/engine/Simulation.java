@@ -18,6 +18,7 @@ public class Simulation {
 	private Grid grid;
 	private GridParameters parameters;
 	private static int simulationNumberOfTurn;
+	private int idStation = 0;
 	
 	public Simulation(GridParameters parameters) {
 		this.parameters=parameters;
@@ -70,7 +71,8 @@ public class Simulation {
 		District d = city.getDistrictByPosition(pos);
 		if(!d.equals(null)) {
 			if(d.getStation().equals(null)) {
-				Station st = CityFactory.creatStation();
+				Station st = CityFactory.creatStation(idStation);
+				idStation++;
 				d.setStation(st);
 				city.spendMoney(StationData.constructStationCost);
 			}

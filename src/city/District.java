@@ -6,7 +6,7 @@ import used.Point;
 public class District
 {	
 	private String name;
-	DistrictType type;
+	private DistrictType type;
 	private Station station;
 	private int density;
 	private float prosperity;
@@ -14,8 +14,10 @@ public class District
 	private int level;
 	private Point position;
 	private int maxCapacity;
+	private boolean hasStation;
 	
-	public District(String name, Station station, int density, float prosperity, double maintenanceCost, String type,int level, Point position) {
+	public District(String name, Station station, int density, float prosperity
+			, double maintenanceCost, String type,int level, Point position) {
 		this.name = name;
 		this.station = station;
 		this.density = density;
@@ -23,10 +25,11 @@ public class District
 		this.maintenanceCost = maintenanceCost;
 		this.level= level;
 		this.position = position;
+		this.hasStation = false;
 		this.determineMaxCapacity();
 	}
 	
-	public District(String name, Station station, int density, float prosperity, double maintenanceCost, String type, Point position) {
+	public District(String name, Station station, int density, float prosperity, double maintenanceCost, String type, Point position, int id) {
 		this(name,station,density, prosperity,maintenanceCost,type,1, position);
 	}
 	
@@ -38,6 +41,7 @@ public class District
 		maintenanceCost = 0;
 		level = 2;
 		station = null;
+		hasStation = false;
 		determineMaxCapacity();
 	}
 	
@@ -67,6 +71,7 @@ public class District
 	
 	public void setStation(Station station) {
 		this.station = station;
+		hasStation = true;
 	}
 	
 	public int getDensity() {
@@ -124,6 +129,14 @@ public class District
 
 	public void setType(DistrictType type) {
 		this.type = type;
+	}
+	
+	public boolean containsStation() {
+		return !this.station.equals(null);
+	}
+	
+	public boolean hasStation() {
+		return hasStation;
 	}
 	
 }
