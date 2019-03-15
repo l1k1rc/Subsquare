@@ -24,8 +24,8 @@ public class CityFactory {
 		return new District(position, type);
 	}	
 	
-	public static Station creatStation() {
-		return new Station(1);
+	public static Station creatStation(int id) {
+		return new Station(1, id);
 	}
 	
 	public static SubwayLine creatSubwayLine(Station begin,Station end) {

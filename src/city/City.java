@@ -106,4 +106,15 @@ public class City{
 	public void setProsperity(float prosperity) {
 		this.prosperity = prosperity;
 	}
+	
+	public Point getPositionById(int id) {
+		Point pos = null;
+		for(District district : districts.values()) {
+			if(district.hasStation()) {
+				if(district.getStation().getId() == id)
+					pos = district.getPosition();
+			}
+		}
+		return pos;
+	}
 }
