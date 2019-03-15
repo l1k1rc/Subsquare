@@ -62,44 +62,27 @@ public class Scene extends JPanel {
 			}
 			g2.drawRect(x * 28, y * 28, 28, 28);
 		}
+		drawLine(g2);
+		drawCity(g2);
+	}
+
+	private void drawLine(Graphics g) {
 		if (drawLine) {
-			g2.setColor(Color.GREEN);
-			ImageIcon line = new ImageIcon(getClass().getResource("/images/Obstacle/rail.png"));
-			ImageIcon line2 = new ImageIcon(getClass().getResource("/images/Obstacle/rail2.png"));
 
 			int x_A = MainFrame.getPosition_districtA().getAbscisse() * 28;
 			int x_B = MainFrame.getPosition_dicstrictB().getAbscisse() * 28;
 			int y_A = MainFrame.getPosition_districtA().getOrdonne() * 28;
 			int y_B = MainFrame.getPosition_dicstrictB().getOrdonne() * 28;
-			//g2.drawLine(x_A, y_A, x_B, y_B);
+			g2.drawLine(x_A, y_A, x_B, y_B);
 			/* TO SEND TO THE ENGINE TO UPDATE THE GRAPHICS */
-			while (x_A != x_B) {
-				if (x_A < x_B) {
-					x_A += 28;
-					g2.drawImage(line2.getImage(), x_A, y_A, null);
-				} else if (x_A > x_B) {
-					x_A -= 28;
-					g2.drawImage(line2.getImage(), x_A, y_A, null);
-				}
-			}
-			while (y_A != y_B) {
-				if (y_A < y_B) {
-					y_A += 28;
-					g2.drawImage(line.getImage(), x_A, y_A, null);
-				} else {
-					y_A -= 28;
-					g2.drawImage(line.getImage(), x_A, y_A, null);
-				}
-			}
+			
 		}
-		drawCity(g2);
 	}
 
 	private void drawCity(Graphics g) {
 		for (Iterator<District> it = city.getDistricts().values().iterator(); it.hasNext();) {
 			District d = it.next();
-			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28,
-					null);
+			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28,null);
 		}
 	}
 

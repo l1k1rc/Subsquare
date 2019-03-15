@@ -67,7 +67,6 @@ public class PanelAPI extends JPanel {
 		tabButtonAPI[2].setToolTipText("Construire un quartier des services publics");
 		tabButtonAPI[3].setToolTipText("COnstruire une station de métro");
 		tabButtonAPI[4].setToolTipText("Construire une ligne de métro");
-		
 
 		/* BUTTON :: build a residential area */
 		tabButtonAPI[0].addActionListener(new ActionListener() {
@@ -114,16 +113,19 @@ public class PanelAPI extends JPanel {
 
 			}
 		});
-		//BUTTON :: Metro line
+		// BUTTON :: Metro line
 		tabButtonAPI[4].addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				buildMetroLine = true;
+				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
+						new ImageIcon(getClass().getResource("/images/Obstacle/rail.png")).getImage(), new Point(0,0),
+						"custom cursor"));
 			}
 		});
-		
+
 	}
 
 	public static boolean getbuildPublicDistrict() {
@@ -149,6 +151,7 @@ public class PanelAPI extends JPanel {
 	public static void setbuildResidentialDistrict(boolean b) {
 		buildResidentialDistrict = b;
 	}
+
 	public static boolean getbuildMetroLine() {
 		return buildMetroLine;
 	}
@@ -156,6 +159,5 @@ public class PanelAPI extends JPanel {
 	public static void setbuildMetroLine(boolean b) {
 		buildMetroLine = b;
 	}
-	
 
 }

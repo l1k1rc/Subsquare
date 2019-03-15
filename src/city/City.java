@@ -2,13 +2,15 @@ package city;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 
 import engine.TimeSimulator;
 import used.Point;
 
 public class City{
-	
+	/* Design pattern singleton  :: private constructor and static getter */
 	private static City instance = new City();
 	
 	private TimeSimulator timeSim;
@@ -19,6 +21,7 @@ public class City{
 	private int taxes=1000;
 	private int density=rnd.nextInt(5)+1;
 	private int servicing=500;
+	
 	private HashMap<Point,District> districts;
 	
 	private ArrayList<SubwayLine> subwayLines;
@@ -83,7 +86,15 @@ public class City{
 	}
 	
 	public District getDistrictByPosition(Point pos){	
-		return districts.get(pos);
+		District district = null;
+		
+		for(District dist : districts.values()) {
+			if(dist.getPosition().equals(pos)) {
+				district = dist;
+				break;
+			}
+		}	
+		return district;
 	}
 	
 	public void setTaxes(int taxes) {
@@ -106,4 +117,25 @@ public class City{
 	public void setProsperity(float prosperity) {
 		this.prosperity = prosperity;
 	}
+	
+	public boolean isDistrictPosition(Point position) {
+		boolean contains = false;
+		Set<Point> pos = districts.keySet();
+		
+		for(Point p : pos) {
+			if(p.equals(position)) {
+				contains = true;
+				 break;
+			}
+		}	
+		return contains;
+	}
+
+	public void displayPositions() {
+		for (Iterator<District> it = getDistricts().values().iterator(); it.hasNext();) {
+			District d = it.next();
+			System.out.println("Hashmap:("+d.getPosition().getAbscisse()+":"+d.getPosition().getOrdonne()+")");
+		}
+	}
+	
 }

@@ -68,6 +68,7 @@ public class Simulation {
 	
 	public void buildStation(Point pos) {
 		District d = city.getDistrictByPosition(pos);
+		System.out.println("DISTRICT :" + d);
 		if(!d.equals(null)) {
 			if(d.getStation().equals(null)) {
 				Station st = CityFactory.creatStation();
@@ -85,6 +86,7 @@ public class Simulation {
 				SubwayLine line = CityFactory.creatSubwayLine(d1.getStation(),d2.getStation());
 				city.addSubwayLine(line);
 				city.spendMoney(StationData.constructLineCost);
+				System.out.println("OK");
 			}
 		}
 	}

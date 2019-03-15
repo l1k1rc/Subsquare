@@ -33,6 +33,7 @@ import used.Point;
  *
  */
 public class MainFrame extends JFrame implements Runnable {
+
 	private static final long serialVersionUID = 1L;
 	private static int THREAD_MAP = GridParameters.speed;
 	private City city = City.getInstance();
@@ -139,12 +140,18 @@ public class MainFrame extends JFrame implements Runnable {
 			public void mouseReleased(MouseEvent e) {
 				Point position = new Point(e.getX() / 28, e.getY() / 28);
 
-				if (!scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getIsFree()
+				if (city.isDistrictPosition(position)
 						&& PanelAPI.getbuildMetroLine() == true) {
+					PanelAPI.setbuildMetroLine(false);
 					System.out.println("Fin de la ligne");
+					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					position_dicstrictB = new Point(position.getAbscisse(), position.getOrdonne());
 					System.out.println(position_dicstrictB);
 					scene.setDrawLine(true);
+					System.out.println("A : " + position_districtA + "B :" + position_dicstrictB);
+					simulation.buildStation(position_dicstrictB);
+					simulation.buildSubwayLine(position_districtA, position_dicstrictB);// WhERE THE GRAPHICS ARE
+																						// UPDATED ???
 				}
 			}
 
@@ -155,12 +162,12 @@ public class MainFrame extends JFrame implements Runnable {
 				 * can draw a line on the map. If he click a second time, the builder is over
 				 */
 				Point position = new Point(e.getX() / 28, e.getY() / 28);
-				if (!scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getIsFree()
-						&& PanelAPI.getbuildMetroLine() == true) {
+				
+				if (city.isDistrictPosition(position )&& PanelAPI.getbuildMetroLine() == true) {
 					System.out.println("Ceci est un quartier");
 					position_districtA = new Point(position.getAbscisse(), position.getOrdonne());
 					System.out.println(position_districtA);
-					//simulation.buildSubwayLine(position_districtA, position_dicstrictB); WhERE THE GRAPHICS ARE UPDATED ???
+					simulation.buildStation(position_districtA);
 				}
 			}
 
@@ -187,6 +194,7 @@ public class MainFrame extends JFrame implements Runnable {
 				 */
 				if (PanelAPI.getbuildPublicDistrict()) {
 					simulation.buildDistrict(position, new PublicDistrict());
+					System.out.println("position district créé : "+position);
 					PanelAPI.setbuildPublicDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
@@ -205,6 +213,7 @@ public class MainFrame extends JFrame implements Runnable {
 					 * When the user double click on a position, a JPanel is displayed beside the
 					 * map and show to the user the information about the position
 					 */
+					System.out.println("position : "+position);
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
 					PanelPrivStat pStat = new PanelPrivStat();
@@ -221,7 +230,8 @@ public class MainFrame extends JFrame implements Runnable {
 					 * When the place isn't free, a panel with all information about the
 					 * position/district will be displayed
 					 */
-					if (!scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getIsFree()) {
+					if (city.isDistrictPosition(position)) {
+						System.out.println("Position occupé par un quartier ");
 						pStat.setposLabel("Attention : cette place est occupée");
 						pStat.setPriceInformation("Prix de la zone : 200g");
 						pStat.setTypeLabel("Type de quartier : ");
@@ -243,7 +253,7 @@ public class MainFrame extends JFrame implements Runnable {
 				/* To draw the grid around an area and manage the line builder */
 				Point position = new Point(e.getX() / 28, e.getY() / 28); // to know the exact position
 				if (PanelAPI.getbuildPublicDistrict() || PanelAPI.getbuildPrivateDistrict()
-						|| PanelAPI.getbuildResidentialDistrict()) {
+						|| PanelAPI.getbuildResidentialDistrict() || PanelAPI.getbuildMetroLine()) {
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
 				} else if (PanelAPI.getbuildMetroLine() == true && buildMetroLine_click == true) {
