@@ -3,6 +3,7 @@ package mocks;
 import city.District;
 import city.Station;
 import used.Point;
+import used.Random;
 
 /**
  * @author raphael
@@ -14,12 +15,12 @@ public class DistrictLevelUpMock {
 	private Point point;
 	
 	public DistrictLevelUpMock() {
-		station = new Station(1);
+		station = new Station(1, Random.randomInt(8, false));
 		point = new Point(1,1);
 	}
 	
 	public District DistrictLevel1() {
-		District district = new District("DistrictTest", station, 40, 50, 70, "Private", point);
+		District district = new District("DistrictTest", station, 40, 50, 70, "Private", 0, point);
 		return district;
 	}
 	

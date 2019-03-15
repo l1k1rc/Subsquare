@@ -8,9 +8,11 @@ public class Station {
 	private ArrayList<SubwayLine> subwayLines;
 	private int level;
 	private int maxCapacity;
+	private int id;
 	
-	public Station(int level) {
+	public Station(int level, int id) {
 		this.level = level;
+		this.id = id;
 		this.determineMaxCapacity();
 	}
 	
@@ -47,6 +49,14 @@ public class Station {
 	
 	public void setMaxCapacity(int maxCapacity) {
 		this.maxCapacity = maxCapacity;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

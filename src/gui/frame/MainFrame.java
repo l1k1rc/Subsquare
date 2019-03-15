@@ -219,6 +219,7 @@ public class MainFrame extends JFrame implements Runnable {
 					PanelPrivStat pStat = new PanelPrivStat();
 					pStat.setBounds(1400, 0, 250, 1150);
 					pStat.setposLabel("Position de ce quartier : " + position);
+					pStat.setPriceInformation("Prix de la zone : 200g");
 					pStat.setTypeLabel("Pas de type de quartier");
 					getContentPane().add(pStat);
 					/*
@@ -233,8 +234,10 @@ public class MainFrame extends JFrame implements Runnable {
 					if (city.isDistrictPosition(position)) {
 						System.out.println("Position occupé par un quartier ");
 						pStat.setposLabel("Attention : cette place est occupée");
-						pStat.setPriceInformation("Prix de la zone : 200g");
+						pStat.setPriceInformation("");
 						pStat.setTypeLabel("Type de quartier : ");
+						pStat.setIsSubwayStation("Station de Métro : ");
+						pStat.setdensityLabel("Population :");
 						/* To draw a line between 2 points */
 						/*
 						 * if (buildLine_A == false && buildLine_B == false) { buildLine_A = true;
