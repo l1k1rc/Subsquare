@@ -21,6 +21,7 @@ public class City{
 	private int taxes=1000;
 	private int density=rnd.nextInt(5)+1;
 	private int servicing=500;
+	private int nbStation;
 	
 	private HashMap<Point,District> districts;
 	
@@ -31,6 +32,8 @@ public class City{
 	private City() {
 		timeSim = new TimeSimulator();
 		districts = new HashMap<Point, District>();
+		subwayLines = new ArrayList<SubwayLine>();
+		nbStation = 0;
 	}
 	
 	public void addDistrict(Point position,District district) {
@@ -147,5 +150,13 @@ public class City{
 			}
 		}
 		return pos;
+	}
+
+	public int nbStations() {
+		return nbStation;
+	}
+	
+	public void addStation() {
+		this.nbStation++;
 	}
 }

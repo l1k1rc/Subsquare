@@ -19,6 +19,7 @@ public class Simulation {
 	private GridParameters parameters;
 	private static int simulationNumberOfTurn;
 	private int idStation = 0;
+	private FloydPathFinding floyd = new FloydPathFinding(city.nbStations(), city);
 	
 	public Simulation(GridParameters parameters) {
 		this.parameters=parameters;
@@ -69,13 +70,14 @@ public class Simulation {
 	
 	public void buildStation(Point pos) {
 		District d = city.getDistrictByPosition(pos);
-		System.out.println("DISTRICT :" + d);
 		if(!d.equals(null)) {
-			if(d.hasStation()) {
+			if(!d.hasStation()) {
 				Station st = CityFactory.creatStation(idStation);
 				idStation++;
+				city.addStation();
 				d.setStation(st);
 				city.spendMoney(StationData.constructStationCost);
+				setFloyd(new FloydPathFinding(city.nbStations(), city));
 			}
 		}
 	}
@@ -83,15 +85,25 @@ public class Simulation {
 	public void buildSubwayLine(Point begin,Point end) {
 		District d1 = city.getDistrictByPosition(begin);
 		District d2 = city.getDistrictByPosition(end);
-		System.out.println(d1+","+d2);
 		if(!d1.equals(null) && !d2.equals(null)) {
-			if(!d1.hasStation() && !d2.hasStation()) {
-				SubwayLine line = CityFactory.creatSubwayLine(d1.getStation(),d2.getStation());
-				System.out.println(line);
-				city.addSubwayLine(line);
+			if(d1.hasStation() && d2.hasStation()) {
+				SubwayLine line1 = CityFactory.creatSubwayLine(d1.getStation(),d2.getStation());
+				SubwayLine line2 = CityFactory.creatSubwayLine(d2.getStation(),d1.getStation());
+				d1.getStation().addSubwayLine(line1);
+				d2.getStation().addSubwayLine(line2);
+				city.addSubwayLine(line1);
+				city.addSubwayLine(line2);
 				city.spendMoney(StationData.constructLineCost);
-				System.out.println("OK");
+				setFloyd(new FloydPathFinding(city.nbStations(), city));
 			}
 		}
+	}
+	
+	public FloydPathFinding getFloyd() {
+		return floyd;
+	}
+	
+	public void setFloyd(FloydPathFinding floyd) {
+		this.floyd = floyd;
 	}
 }

@@ -140,18 +140,12 @@ public class MainFrame extends JFrame implements Runnable {
 			public void mouseReleased(MouseEvent e) {
 				Point position = new Point(e.getX() / 28, e.getY() / 28);
 
-				if (city.isDistrictPosition(position)
-						&& PanelAPI.getbuildMetroLine() == true) {
+				if (city.isDistrictPosition(position) && PanelAPI.getbuildMetroLine()) {
 					PanelAPI.setbuildMetroLine(false);
-					System.out.println("Fin de la ligne");
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					position_dicstrictB = new Point(position.getAbscisse(), position.getOrdonne());
-					System.out.println(position_dicstrictB);
-					scene.setDrawLine(true);
-					System.out.println("A : " + position_districtA + "B :" + position_dicstrictB);
 					simulation.buildStation(position_dicstrictB);
-					simulation.buildSubwayLine(position_districtA, position_dicstrictB);// WhERE THE GRAPHICS ARE
-																						// UPDATED ???
+					simulation.buildSubwayLine(position_districtA, position_dicstrictB);
 				}
 			}
 
@@ -164,9 +158,7 @@ public class MainFrame extends JFrame implements Runnable {
 				Point position = new Point(e.getX() / 28, e.getY() / 28);
 				
 				if (city.isDistrictPosition(position )&& PanelAPI.getbuildMetroLine() == true) {
-					System.out.println("Ceci est un quartier");
 					position_districtA = new Point(position.getAbscisse(), position.getOrdonne());
-					System.out.println(position_districtA);
 					simulation.buildStation(position_districtA);
 				}
 			}
@@ -194,7 +186,6 @@ public class MainFrame extends JFrame implements Runnable {
 				 */
 				if (PanelAPI.getbuildPublicDistrict()) {
 					simulation.buildDistrict(position, new PublicDistrict());
-					System.out.println("position district créé : "+position);
 					PanelAPI.setbuildPublicDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
@@ -209,11 +200,6 @@ public class MainFrame extends JFrame implements Runnable {
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (e.getClickCount() == 2) {
-					/*
-					 * When the user double click on a position, a JPanel is displayed beside the
-					 * map and show to the user the information about the position
-					 */
-					System.out.println("position : "+position);
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
 					PanelPrivStat pStat = new PanelPrivStat();
@@ -232,7 +218,6 @@ public class MainFrame extends JFrame implements Runnable {
 					 * position/district will be displayed
 					 */
 					if (city.isDistrictPosition(position)) {
-						System.out.println("Position occupé par un quartier ");
 						pStat.setposLabel("Attention : cette place est occupée");
 						pStat.setPriceInformation("");
 						pStat.setTypeLabel("Type de quartier : ");
@@ -285,8 +270,6 @@ public class MainFrame extends JFrame implements Runnable {
 	}
 
 	public void updateGUI() {
-		// TODO repaint method of the scene
-		// TODO check new statistics ..
 		updateTime();
 		updateBudget();
 		updateTaxes();
@@ -356,5 +339,4 @@ public class MainFrame extends JFrame implements Runnable {
 	public static void setCursorOnScene(Cursor c) {
 		scene.setCursor(c);
 	}
-
 }

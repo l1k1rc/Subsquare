@@ -18,15 +18,17 @@ public class FloydPathFinding {
 	public FloydPathFinding(int nbSom, City city) {
 		this.nbSom = nbSom;
 		initMatrixs(city);
+		pathFinding();
 	}
 	
 	public FloydPathFinding(int nbSom, int[][] P, double[][] D) {
 		this.nbSom = nbSom;
 		this.P = P;
 		this.D = D;
+		pathFinding();
 	}
 	
-	private void initMatrixs(City city) {
+	public void initMatrixs(City city) {
 		this.P = new int[nbSom][nbSom];
 		this.D = new double[nbSom][nbSom];
 		
@@ -39,7 +41,7 @@ public class FloydPathFinding {
 			P[s][s] = s;
 		}
 		for(District district : city.getDistricts().values()) {
-			if(district.containsStation()) {
+			if(district.hasStation()) {
 				Station station = district.getStation();
 				int id = station.getId();
 				for(SubwayLine subway : station.getSubwayLines()) {
@@ -78,7 +80,7 @@ public class FloydPathFinding {
 		this.D = D;
 	}
 	
-	public void pathFinding() {
+	private void pathFinding() {
 		for(int k = 0; k < nbSom; k++) {
 			for(int s = 0; s < nbSom; s++) {
 				for(int t = 0; t < nbSom; t++) {

@@ -23,7 +23,7 @@ public class Scene extends JPanel {
 	private City city = City.getInstance();
 	private Grid grid;;
 	private Graphics g2;
-	private boolean drawGrid = false, drawLine = false;
+	private boolean drawGrid = false;
 
 	private Point pos_gridPoint;
 
@@ -62,21 +62,7 @@ public class Scene extends JPanel {
 			}
 			g2.drawRect(x * 28, y * 28, 28, 28);
 		}
-		drawLine(g2);
 		drawCity(g2);
-	}
-
-	private void drawLine(Graphics g) {
-		if (drawLine) {
-
-			int x_A = MainFrame.getPosition_districtA().getAbscisse() * 28;
-			int x_B = MainFrame.getPosition_dicstrictB().getAbscisse() * 28;
-			int y_A = MainFrame.getPosition_districtA().getOrdonne() * 28;
-			int y_B = MainFrame.getPosition_dicstrictB().getOrdonne() * 28;
-			g2.drawLine(x_A, y_A, x_B, y_B);
-			/* TO SEND TO THE ENGINE TO UPDATE THE GRAPHICS */
-			
-		}
 	}
 
 	private void drawCity(Graphics g) {
@@ -94,10 +80,6 @@ public class Scene extends JPanel {
 		this.drawGrid = drawGrid;
 	}
 
-	public void setDrawLine(boolean drawLine) {
-		this.drawLine = drawLine;
-	}
-
 	public boolean isDrawGrid() {
 		return drawGrid;
 	}
@@ -108,9 +90,5 @@ public class Scene extends JPanel {
 
 	public void setPos_gridPoint(Point pos_gridPoint) {
 		this.pos_gridPoint = pos_gridPoint;
-	}
-
-	public void setLine(boolean line) {
-		this.drawLine = line;
 	}
 }

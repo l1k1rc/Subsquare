@@ -13,6 +13,7 @@ public class Station {
 	public Station(int level, int id) {
 		this.level = level;
 		this.id = id;
+		subwayLines = new ArrayList<SubwayLine>();
 		this.determineMaxCapacity();
 	}
 	
@@ -33,6 +34,10 @@ public class Station {
 	
 	public void setSubwayLines(ArrayList<SubwayLine> subwayLines) {
 		this.subwayLines = subwayLines;
+	}
+	
+	public void addSubwayLine(SubwayLine line) {
+		subwayLines.add(line);
 	}
 	
 	public int getLevel() {

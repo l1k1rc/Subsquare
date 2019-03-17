@@ -20,7 +20,6 @@ public class testFloyd {
 						{-4, -1, INFINI, 0}};
 		
 		FloydPathFinding floyd = new FloydPathFinding(nbSom, P, D);
-		floyd.pathFinding();
 		
 		System.out.println("matrix of P");
 		for(int s = 0; s < nbSom; s++) {

@@ -134,5 +134,4 @@ public class District
 	public boolean hasStation() {
 		return hasStation;
 	}
-	
 }
