@@ -110,7 +110,9 @@ public class AStarPathFinding {
 					if(grid.getBoxAt(i, j).getIsFree() && !grid.getBoxAt(i, j).getGroundType().containsTree) {
 						Point neighbor = new Point(j, i);
 						// Ignore the neighbor which is already evaluated.
-						if(!closedSet.contains(neighbor)) {
+						if(closedSet.contains(neighbor))
+							continue;
+						
 							// The distance from start to a neighbor
 							double distS0 = 0d;
 							for(Point pos : gScore.keySet())
@@ -123,15 +125,16 @@ public class AStarPathFinding {
 							for(Point pos : gScore.keySet())
 								if(pos.equals(neighbor))
 									distS1 = gScore.get(pos);
-							if(!openSet.contains(neighbor) && tentative_gScore < distS1) {
+							if(!openSet.contains(neighbor))
 								openSet.add(neighbor);
-
+							else if(tentative_gScore >= distS1)
+								continue;
+							
 								// This path is the best until now. Record it!
 								cameFrom.put(neighbor, current);
+							//	System.out.println(neighbor);
 								gScore.put(neighbor, tentative_gScore);
 								fScore.put(neighbor, neighbor.distance(gool));
-							}
-						}
 					}
 				}
 			}
