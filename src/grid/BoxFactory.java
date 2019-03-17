@@ -44,6 +44,4 @@ public class BoxFactory {
 //		logger.info("Wall Ground creat at : ("+abscisse+","+ordonne+")");
 		return new Wall(abscisse,ordonne);
 	}
-	
-	
 }

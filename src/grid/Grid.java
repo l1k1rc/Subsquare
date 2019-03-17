@@ -24,6 +24,12 @@ public class Grid {
 		width = GridParameters.WIDTH;
 		boxs = new Box[height][width];
 	}
+	
+	public Grid(int height, int width) {
+		this.height = height;
+		this.width = width;
+		boxs = new Box[height][width];
+	}
 
 	/**********		methodes		**********/
 	
@@ -38,8 +44,6 @@ public class Grid {
 	public Box getBoxAt(int abscisse,int ordonne) {
 		return boxs[abscisse][ordonne];
 	}
-	
-	
 	
 	/**
 	 * set the Box.

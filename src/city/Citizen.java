@@ -1,15 +1,18 @@
 package city;
 
+import used.Direction;
 import used.Point;
 
 public class Citizen {
 	private String workDistrict;
 	private String originDistrict;
+	private Direction lastDirection;
 	private Point position;
 	
 	public Citizen(String workDistrict, String originDistrict, Point position) {
 		this.workDistrict = workDistrict;
 		this.originDistrict = originDistrict;
+		lastDirection=Direction.randomDirection();
 		this.position = position;
 	}
 
@@ -35,5 +38,13 @@ public class Citizen {
 
 	public void setPosition(Point position) {
 		this.position = position;
+	}
+	
+	public Direction getLastDirection() {
+		return lastDirection;
+	}
+	
+	public void setLastDirection(Direction lastDirection) {
+		this.lastDirection=lastDirection;
 	}
 }

@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import engine.FloydPathFinding;
 
-public class testFloyd {
+public class TestFloyd {
 	private final static int INFINI = Integer.MAX_VALUE;
 	
 	public static void main(String[] args) {
