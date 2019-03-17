@@ -18,7 +18,7 @@ public class TestAStar {
 		Grid grid = buildGrid.getGrid();
 		
 		Point p1 = new Point(1,1);
-		Point p2 = new Point(19, 19);
+		Point p2 = new Point(4,10);
 		
 		System.out.println("the box "+p1+" is "+(grid.getBoxAt(p1.getAbscisse(), p1.getOrdonne()).getIsFree() ? "free":"not free"));
 		System.out.println("the box "+p2+" is "+(grid.getBoxAt(p2.getAbscisse(), p2.getOrdonne()).getIsFree() ? "free":"not free"));
