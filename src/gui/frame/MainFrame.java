@@ -46,7 +46,7 @@ public class MainFrame extends JFrame implements Runnable {
 	private City city = City.getInstance();
 	private static Scene scene = new Scene();
 	private Simulation simulation;
-	private boolean buildMetroLine_click = false;
+	private boolean buildMetroLine_click = false, doSecondLine = false;
 	private static boolean stop = true;
 
 	private PanelScore pScore = new PanelScore();
@@ -149,12 +149,13 @@ public class MainFrame extends JFrame implements Runnable {
 			public void mouseReleased(MouseEvent e) {
 				Point position = new Point(e.getX() / 28, e.getY() / 28);
 
-				if (city.isDistrictPosition(position) && PanelAPI.getbuildMetroLine()) {
+				if (city.isDistrictPosition(position) && PanelAPI.getbuildMetroLine() && doSecondLine==true) {
 					PanelAPI.setbuildMetroLine(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					position_dicstrictB = new Point(position.getAbscisse(), position.getOrdonne());
 					simulation.buildStation(position_dicstrictB);
 					simulation.buildSubwayLine(position_districtA, position_dicstrictB);
+					doSecondLine=false;
 				}
 			}
 
@@ -166,9 +167,10 @@ public class MainFrame extends JFrame implements Runnable {
 				 */
 				Point position = new Point(e.getX() / 28, e.getY() / 28);
 
-				if (city.isDistrictPosition(position) && PanelAPI.getbuildMetroLine() == true) {
+				if (city.isDistrictPosition(position) && PanelAPI.getbuildMetroLine()) {
 					position_districtA = new Point(position.getAbscisse(), position.getOrdonne());
 					simulation.buildStation(position_districtA);
+					doSecondLine= true;
 				}
 			}
 
