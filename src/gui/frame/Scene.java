@@ -70,7 +70,7 @@ public class Scene extends JPanel {
 						if (city.getDistrictByPosition(p).hasStation()) {
 							for (int i = 0; i < city.getDistrictByPosition(p).getStation().getSubwayLines()
 									.size(); i++) {
-								g2.setColor(Color.blue);
+								g2.setColor(city.getDistrictByPosition(p).getStation().getSubwayLines().get(i).getColorLine());
 								g2.drawLine( // NEED POSITION FROM A STATION
 										city.getDistrictByPosition(p).getStation().getSubwayLines().get(i)
 												.getStationFrom().getStationPos().getAbscisse()*28,
