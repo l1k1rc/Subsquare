@@ -42,13 +42,21 @@ public class Scene extends JPanel {
 		paintGlobalGrid(g);
 	}
 
+	/*
+	 * This method allow to draw the map with each obstacle and district. Moreover,
+	 * this method implements a drawGrid boolean object which allows to the user,
+	 * when an API is selected, to draw a rectangle beside the cursor to detect with a
+	 * color if the position is free or not. 
+	 * On the second part, the stationView
+	 * boolean allows to see another view which display the subway lines and the
+	 * districts.
+	 */
 	public void paintGlobalGrid(Graphics g) {
 		g2 = (Graphics2D) g;
 		// Anti-aliasing given to the graphics2D object
-		RenderingHints rh = new RenderingHints(
-	             RenderingHints.KEY_TEXT_ANTIALIASING,
-	             RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-	    ((Graphics2D) g2).setRenderingHints(rh);
+		RenderingHints rh = new RenderingHints(RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		((Graphics2D) g2).setRenderingHints(rh);
 		// the dimension of the grid
 		for (int y = 0; y < grid.height; y++) {
 			for (int x = 0; x < grid.width; x++) {
@@ -77,17 +85,18 @@ public class Scene extends JPanel {
 						if (city.getDistrictByPosition(p).hasStation()) {
 							for (int i = 0; i < city.getDistrictByPosition(p).getStation().getSubwayLines()
 									.size(); i++) {
-								g2.setColor(city.getDistrictByPosition(p).getStation().getSubwayLines().get(i).getColorLine());
-				                ((Graphics2D) g2).setStroke(new BasicStroke(6));
+								g2.setColor(city.getDistrictByPosition(p).getStation().getSubwayLines().get(i)
+										.getColorLine());
+								((Graphics2D) g2).setStroke(new BasicStroke(6));
 								g2.drawLine( // NEED POSITION FROM A STATION
 										city.getDistrictByPosition(p).getStation().getSubwayLines().get(i)
-												.getStationFrom().getStationPos().getAbscisse()*28,
+												.getStationFrom().getStationPos().getAbscisse() * 28,
 										city.getDistrictByPosition(p).getStation().getSubwayLines().get(i)
-												.getStationFrom().getStationPos().getOrdonne()*28,
+												.getStationFrom().getStationPos().getOrdonne() * 28,
 										city.getDistrictByPosition(p).getStation().getSubwayLines().get(i)
-												.getStationEnd().getStationPos().getAbscisse()*28,
+												.getStationEnd().getStationPos().getAbscisse() * 28,
 										city.getDistrictByPosition(p).getStation().getSubwayLines().get(i)
-												.getStationEnd().getStationPos().getOrdonne()*28);
+												.getStationEnd().getStationPos().getOrdonne() * 28);
 							}
 						}
 					}
