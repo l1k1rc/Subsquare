@@ -1,7 +1,7 @@
 package engine;
 
+import java.awt.Color;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import city.Citizen;
 import city.City;
@@ -24,8 +24,7 @@ public class Simulation {
 	private static int simulationNumberOfTurn;
 	private int idStation = 0;
 	private FloydPathFinding floyd = new FloydPathFinding(city.nbStations(), city);
-	private HashMap<Citizen, District> searchWork = new HashMap<Citizen, District>();
-	//TODO citizen go to find work
+	private AStarPathFinding aStar;
 	
 	public Simulation(GridParameters parameters) {
 		this.parameters=parameters;
@@ -35,6 +34,7 @@ public class Simulation {
 	public void generatGrid() {
 		GridBuilder buildGrid = new GridBuilder(parameters);
 		grid = buildGrid.getGrid();
+		aStar = new AStarPathFinding(grid);
 	}
 	
 	public void simulationNextTurn() {
@@ -46,13 +46,24 @@ public class Simulation {
 	}
 	
 	public void citizenToDo(Citizen citizen) {
-		if(citizen.employed()) {
-			//TODO citizen go to work
+		if(!citizen.isMove()) {
+			if(citizen.employed()) {
+				//TODO citizen go to work
+			}
+			else {
+				ArrayList<District> searchWork = city.getDistrictByType((citizen.getQI() > 120) ? "pri" : "pub");
+				District closest = getClosestDistrict(citizen.getPosition(), searchWork);
+				if(closest != null) {
+					ArrayList<Point> path = aStar.aStart(citizen.getPosition(), closest.getPosition());
+					if(path.size()>0) {
+						citizen.setPath(path);
+						citizen.setMove(true);
+					}
+				}
+			}
 		}
 		else {
-			ArrayList<District> searchWork = city.getDistrictByType((citizen.getQI() > 120) ? "pri" : "pub");
-			District closest = getClosestDistrict(citizen.getPosition(), searchWork);
-			this.searchWork.put(citizen, closest);
+			citizen.move();
 		}
 	}
 	
@@ -61,7 +72,7 @@ public class Simulation {
 		double min = Double.MAX_VALUE;
 		for(District dist : searchWork) {
 			double tmp = position.distance(dist.getPosition());
-			if(tmp < min) {
+			if(tmp < min && tmp < 10d) {
 				min = tmp;
 				result = dist;
 			}
@@ -106,7 +117,7 @@ public class Simulation {
 		District d = city.getDistrictByPosition(pos);
 		if(!d.equals(null)) {
 			if(!d.hasStation()) {
-				Station st = CityFactory.creatStation(idStation);
+				Station st = CityFactory.creatStation(idStation, pos);
 				idStation++;
 				city.addStation();
 				d.setStation(st);
@@ -119,10 +130,11 @@ public class Simulation {
 	public void buildSubwayLine(Point begin,Point end) {
 		District d1 = city.getDistrictByPosition(begin);
 		District d2 = city.getDistrictByPosition(end);
+		Color colorLine = new Color((int)(Math.random() * 0x1000000));
 		if(!d1.equals(null) && !d2.equals(null)) {
 			if(d1.hasStation() && d2.hasStation()) {
-				SubwayLine line1 = CityFactory.creatSubwayLine(d1.getStation(),d2.getStation());
-				SubwayLine line2 = CityFactory.creatSubwayLine(d2.getStation(),d1.getStation());
+				SubwayLine line1 = CityFactory.creatSubwayLine(d1.getStation(),d2.getStation(),colorLine);
+				SubwayLine line2 = CityFactory.creatSubwayLine(d2.getStation(),d1.getStation(),colorLine);
 				d1.getStation().addSubwayLine(line1);
 				d2.getStation().addSubwayLine(line2);
 				city.addSubwayLine(line1);
@@ -146,5 +158,13 @@ public class Simulation {
 	
 	public void setFloyd(FloydPathFinding floyd) {
 		this.floyd = floyd;
+	}
+	
+	public AStarPathFinding getaStar() {
+		return aStar;
+	}
+	
+	public void setaStar(AStarPathFinding aStar) {
+		this.aStar = aStar;
 	}
 }

@@ -16,6 +16,7 @@ import used.Point;
  */
 class GridTest {
 
+	@SuppressWarnings("unused")
 	private static Grid gridT;
 
 	/**
@@ -36,6 +37,7 @@ class GridTest {
 	 */
 	@Test
 	void testPrefDistanceObstacle() {
+		@SuppressWarnings("unused")
 		Point pT = new Point(2,2);
 	}
 

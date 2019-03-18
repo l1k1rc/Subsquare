@@ -25,7 +25,7 @@ public class AStarPathFinding {
 		this.grid = grid;
 	}
 	
-	public ArrayList<Point> reconstruct_path(HashMap<Point, Point> cameFrom, Point current){
+	public ArrayList<Point> reconstruct_path(HashMap<Point, Point> cameFrom, Point current, boolean order){
 		ArrayList<Point> total_path = new ArrayList<Point>();
 		total_path.add(current);
 		
@@ -33,7 +33,7 @@ public class AStarPathFinding {
 			if(!total_path.contains(cameFrom.get(curr)))
 				total_path.add(cameFrom.get(curr));
 		
-		Collections.sort(total_path, new PointCmp());
+		Collections.sort(total_path, new PointCmp(order));
 		return total_path;
 	}
 	
@@ -85,7 +85,7 @@ public class AStarPathFinding {
 		HashMap<Point, Double> fScore = new HashMap<Point, Double>();
 		for(int s = 0; s < grid.height; s++) {
 			for(int t = 0; t < grid.width; t++) {
-				if(grid.getBoxAt(s, t).getIsFree() && !grid.getBoxAt(s, t).getGroundType().containsTree) {
+				if(!grid.getBoxAt(s, t).getGroundType().isWall() && !grid.getBoxAt(s, t).getGroundType().containsTree) {
 					Point pos = new Point(t, s);
 					if(pos.equals(start))
 						// For the first node, that value is completely heuristic.
@@ -99,7 +99,7 @@ public class AStarPathFinding {
 		while(!openSet.isEmpty()) {
 			Point current = getLowestValuePoint(openSet, fScore);
 			if(current.equals(gool)) {
-				path = reconstruct_path(cameFrom, current);
+				path = reconstruct_path(cameFrom, current, new PointCmp(true).compare(start, gool) < 0);
 				break;
 			}
 			openSet.remove(current);
@@ -107,7 +107,7 @@ public class AStarPathFinding {
 			
 			for(int i = current.getOrdonne()-1; i <= current.getOrdonne()+1; i++) {
 				for(int j = current.getAbscisse()-1; j <= current.getAbscisse()+1; j++) {
-					if(grid.getBoxAt(i, j).getIsFree() && !grid.getBoxAt(i, j).getGroundType().containsTree) {
+					if(!grid.getBoxAt(i, j).getGroundType().isWall() && !grid.getBoxAt(i, j).getGroundType().containsTree) {
 						Point neighbor = new Point(j, i);
 						// Ignore the neighbor which is already evaluated.
 						if(closedSet.contains(neighbor))
@@ -144,11 +144,16 @@ public class AStarPathFinding {
 }
 
 class PointCmp implements Comparator<Point> {
+	private boolean order;
+	public PointCmp(boolean order) {
+		this.order = order;
+	}
     public int compare(Point a, Point b) {
         int xComp = Integer.compare(a.getAbscisse(), b.getAbscisse());
+        int signe = order ? 1 : -1;
         if(xComp == 0)
-            return Integer.compare(a.getOrdonne(), b.getOrdonne());
+            return signe*Integer.compare(a.getOrdonne(), b.getOrdonne());
         else
-            return xComp;
+            return signe*xComp;
     }
 }

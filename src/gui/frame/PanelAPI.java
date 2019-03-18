@@ -113,6 +113,18 @@ public class PanelAPI extends JPanel {
 
 			}
 		});
+		// BUTTON :: Build station
+		tabButtonAPI[3].addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(Scene.isStationView()) 
+					Scene.setStationView(false);
+				else
+					Scene.setStationView(true);
+			}
+		});
 		// BUTTON :: Metro line
 		tabButtonAPI[4].addActionListener(new ActionListener() {
 
