@@ -154,6 +154,17 @@ public class City{
 		return pos;
 	}
 	
+	public int getIdByPosition(Point position) {
+		int id = 0;
+		for(District district : districts.values()) {
+			if(district.hasStation()) {
+				if(district.getPosition().equals(position))
+					id = district.getStation().getId();
+			}
+		}
+		return id;
+	}
+	
 	public ArrayList<District> getDistrictByType(String type){
 		ArrayList<District> result = new ArrayList<District>();
 			for(District dis : districts.values()) {

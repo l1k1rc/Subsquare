@@ -2,6 +2,7 @@ package engine;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import city.Citizen;
 import city.City;
@@ -40,15 +41,21 @@ public class Simulation {
 	public void simulationNextTurn() {
 		
 		for(Citizen citizen : city.getCitizens())
-			citizenToDo(citizen);
+			citizenGoToWork(citizen);
 		
 		simulationNumberOfTurn++;
 	}
 	
-	public void citizenToDo(Citizen citizen) {
+	public void citizenGoToWork(Citizen citizen) {
 		if(!citizen.isMove()) {
 			if(citizen.employed()) {
-				//TODO citizen go to work
+				int begin = city.getIdByPosition(citizen.getOriginDistrict().getPosition());
+				int end = city.getIdByPosition(citizen.getWorkDistrict().getPosition());
+				ArrayList<Point> path = getStationsPosByFloyd(begin, end);
+				if(path.size()>0) {
+					citizen.setPath(path);
+					citizen.setMove(true);
+				}
 			}
 			else {
 				ArrayList<District> searchWork = city.getDistrictByType((citizen.getQI() > 120) ? "pri" : "pub");
@@ -76,6 +83,17 @@ public class Simulation {
 				min = tmp;
 				result = dist;
 			}
+		}
+		return result;
+	}
+	
+	public ArrayList<Point> getStationsPosByFloyd(int begin, int end){
+		ArrayList<Point> result = new ArrayList<Point>();
+		Stack<Integer> sommets = floyd.getPath(begin, end);
+		for(Integer som : sommets) {
+			Point pos = city.getPositionById(som);
+			if(pos != null)
+				result.add(pos);
 		}
 		return result;
 	}
