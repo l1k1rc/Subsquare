@@ -1,5 +1,6 @@
 package engine;
 
+import city.Citizen;
 import city.City;
 import city.CityFactory;
 import city.District;
@@ -30,9 +31,17 @@ public class Simulation {
 		GridBuilder buildGrid = new GridBuilder(parameters);
 		grid = buildGrid.getGrid();
 	}
+	
 	public void simulationNextTurn() {
-		// TODO the next turn of the simulation
+		
+		for(Citizen citizen : city.getCitizens())
+			citizenToDo(citizen);
+		
 		simulationNumberOfTurn++;
+	}
+	
+	public void citizenToDo(Citizen citizen) {
+		//TODO act of the citizen
 	}
 	
 	//getters:
@@ -51,10 +60,10 @@ public class Simulation {
 	
 	// builders:
 	
-	public void buildDistrict(Point position,DistrictType type) {
+	public void buildDistrict(Point position,DistrictType type,String name) {
 		Box box = grid.getBoxAt(position.getOrdonne(),position.getAbscisse());
 		if(box.getIsFree()) {
-			District ds = CityFactory.creatDistrict(position, type);
+			District ds = CityFactory.creatDistrict(position, type, name);
 			city.addDistrict(position,ds);
 			if(box.getGroundType().containsTree)
 				box.getGroundType().setContainsTree(false);
@@ -96,6 +105,13 @@ public class Simulation {
 				city.spendMoney(StationData.constructLineCost);
 				setFloyd(new FloydPathFinding(city.nbStations(), city));
 			}
+		}
+	}
+	
+	public void creatCitizens(District workDistrict, District originDistrict, boolean unknowWork, int nbCitizens) {
+		for(int i = 0; i <= nbCitizens; i++) {
+			Citizen ctz = CityFactory.createCitizen(workDistrict, originDistrict, unknowWork);
+			city.addCitizen(ctz);
 		}
 	}
 	

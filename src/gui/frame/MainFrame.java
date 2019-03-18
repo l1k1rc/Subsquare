@@ -7,6 +7,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,6 +21,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import city.City;
+import city.District;
 import city.PrivateDistrict;
 import city.PublicDistrict;
 import city.ResidentialDistrict;
@@ -23,6 +29,7 @@ import engine.GridParameters;
 import engine.Simulation;
 import engine.TimeSimulator;
 import used.Point;
+import used.Random;
 
 //import engine.Simulation;
 /**
@@ -53,6 +60,7 @@ public class MainFrame extends JFrame implements Runnable {
 	private JMenuItem item_leave = new JMenuItem("Leave without save");
 
 	private static Point position_districtA, position_dicstrictB;
+	public static ArrayList<String>DistrictName=new ArrayList<String>();
 
 	/********* construct *********/
 	public MainFrame() {
@@ -62,6 +70,7 @@ public class MainFrame extends JFrame implements Runnable {
 		simulation = new Simulation(GridParameters.getInstance());
 		simulation.generatGrid();
 		scene.setGrid(simulation.getGrid());
+		generDistrictName("/districName/districNames.txt");
 		init();
 		launchGUI();
 	}
@@ -185,17 +194,22 @@ public class MainFrame extends JFrame implements Runnable {
 				 * district is build
 				 */
 				if (PanelAPI.getbuildPublicDistrict()) {
-					simulation.buildDistrict(position, new PublicDistrict());
+					simulation.buildDistrict(position, new PublicDistrict(), 
+							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
 					PanelAPI.setbuildPublicDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildPrivateDistrict()) {
-					simulation.buildDistrict(position, new PrivateDistrict());
+					simulation.buildDistrict(position, new PrivateDistrict(),
+							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
 					PanelAPI.setbuildPrivateDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildResidentialDistrict()) {
-					simulation.buildDistrict(position, new ResidentialDistrict());
+					simulation.buildDistrict(position, new ResidentialDistrict(),
+							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
+					District dis = City.getInstance().getDistrictByPosition(position);
+					simulation.creatCitizens(null, dis, true, Random.randomInt1(30));
 					PanelAPI.setbuildResidentialDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
@@ -338,5 +352,21 @@ public class MainFrame extends JFrame implements Runnable {
 	/* to change the cursor when an API is selected */
 	public static void setCursorOnScene(Cursor c) {
 		scene.setCursor(c);
+	}
+	
+	public void generDistrictName(String title) {
+		
+		URL url = getClass().getResource(title);
+		String ligne;
+		try {
+			URLConnection ucon = url.openConnection();
+			BufferedReader read = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
+			while((ligne=read.readLine()) != null) {
+				DistrictName.add(ligne);
+			}
+			read.close();
+		} catch (Exception e) {
+
+		}
 	}
 }

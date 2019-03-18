@@ -14,6 +14,7 @@ public class City{
 	private static City instance = new City();
 	
 	private TimeSimulator timeSim;
+	private ArrayList<Citizen> citizens;
 	
 	Random rnd = new Random();
 
@@ -34,6 +35,7 @@ public class City{
 		districts = new HashMap<Point, District>();
 		subwayLines = new ArrayList<SubwayLine>();
 		nbStation = 0;
+		citizens=new ArrayList<Citizen>();
 	}
 	
 	public void addDistrict(Point position,District district) {
@@ -158,5 +160,18 @@ public class City{
 	
 	public void addStation() {
 		this.nbStation++;
+	}
+	
+	public void addCitizen(Citizen citizen) {
+		if(!citizens.contains(citizen))
+			citizens.add(citizen);
+	}
+	
+	public ArrayList<Citizen> getCitizens() {
+		return citizens;
+	}
+
+	public void setCitizens(ArrayList<Citizen> citizens) {
+		this.citizens = citizens;
 	}
 }

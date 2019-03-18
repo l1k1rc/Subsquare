@@ -33,7 +33,7 @@ public class District
 		this(name,station,density, prosperity,maintenanceCost,type,1, position);
 	}
 	
-	public District(Point position,DistrictType type) {
+	public District(Point position,DistrictType type, String name) {
 		this.position = position;
 		this.type = type;
 		density = 0;
@@ -42,6 +42,7 @@ public class District
 		level = 2;
 		station = null;
 		hasStation = false;
+		this.name = name;
 		determineMaxCapacity();
 	}
 	

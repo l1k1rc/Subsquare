@@ -4,31 +4,40 @@ import used.Direction;
 import used.Point;
 
 public class Citizen {
-	private String workDistrict;
-	private String originDistrict;
+	private District workDistrict;
+	private District originDistrict;
 	private Direction lastDirection;
 	private Point position;
+	private boolean employed;
 	
-	public Citizen(String workDistrict, String originDistrict, Point position) {
+	public Citizen(District workDistrict, District originDistrict, Point position) {
 		this.workDistrict = workDistrict;
 		this.originDistrict = originDistrict;
 		lastDirection=Direction.randomDirection();
 		this.position = position;
+		employed = true;
+	}
+	
+	public Citizen(District originDistrict, Point position) {
+		this.originDistrict = originDistrict;
+		this.position = position;
+		lastDirection = Direction.randomDirection();
+		employed = false;
 	}
 
-	public String getWorkDistrict() {
+	public District getWorkDistrict() {
 		return workDistrict;
 	}
 
-	public void setWorkDistrict(String workDistrict) {
+	public void setWorkDistrict(District workDistrict) {
 		this.workDistrict = workDistrict;
 	}
 
-	public String getOriginDistrict() {
+	public District getOriginDistrict() {
 		return originDistrict;
 	}
 
-	public void setOriginDistrict(String originDistrict) {
+	public void setOriginDistrict(District originDistrict) {
 		this.originDistrict = originDistrict;
 	}
 
@@ -46,5 +55,9 @@ public class Citizen {
 	
 	public void setLastDirection(Direction lastDirection) {
 		this.lastDirection=lastDirection;
+	}
+	
+	public boolean employed() {
+		return employed;
 	}
 }
