@@ -114,6 +114,7 @@ public class Citizen {
 				if(work.getType().isPrivate() || work.getType().isPublic()) {
 					if(work.getMaxCapacity() - work.getType().getNbWorkers() > 10) {
 						setWorkDistrict(work);
+						work.getType().setNbWorkers(work.getType().getNbWorkers()+1);
 						employed = true;
 					}
 				}

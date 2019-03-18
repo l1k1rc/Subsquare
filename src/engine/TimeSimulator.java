@@ -45,9 +45,17 @@ public class TimeSimulator
 	        ampm = "PM";
 		return getHour()+"h:"+getMinute()+"min"+" "+ampm;
 	}
+	//am if = 0 pm else
+	public boolean AM_PM() {
+		return am_pm == 0;
+	}
 	
 	public String getDay() {
 		return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
+	}
+	
+	public String getMounth() {
+		return calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 	}
 	
 	public String getDate() {

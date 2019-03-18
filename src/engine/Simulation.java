@@ -40,21 +40,32 @@ public class Simulation {
 	
 	public void simulationNextTurn() {
 		
-		for(Citizen citizen : city.getCitizens())
-			citizenGoToWork(citizen);
+		for(Citizen citizen : city.getCitizens()) {
+			if(city.getTimeSimulator().getHour()==9 && city.getTimeSimulator().AM_PM())
+				citizenGoToWork(citizen);
+			else if(city.getTimeSimulator().getHour()==6 && !city.getTimeSimulator().AM_PM())
+				citizenGoToHome(citizen);
+		}
 		
 		simulationNumberOfTurn++;
 	}
 	
+	private void citizenGoToHome(Citizen citizen) {
+		// TODO citizen go to home
+		
+	}
+
 	public void citizenGoToWork(Citizen citizen) {
 		if(!citizen.isMove()) {
 			if(citizen.employed()) {
-				int begin = city.getIdByPosition(citizen.getOriginDistrict().getPosition());
-				int end = city.getIdByPosition(citizen.getWorkDistrict().getPosition());
-				ArrayList<Point> path = getStationsPosByFloyd(begin, end);
-				if(path.size()>0) {
-					citizen.setPath(path);
-					citizen.setMove(true);
+				if(!citizen.getPosition().equals(citizen.getWorkDistrict().getPosition())) {
+					int begin = city.getIdByPosition(citizen.getOriginDistrict().getPosition());
+					int end = city.getIdByPosition(citizen.getWorkDistrict().getPosition());
+					ArrayList<Point> path = getStationsPosByFloyd(begin, end);
+					if(path.size()>0) {
+						citizen.setPath(path);
+						citizen.setMove(true);
+					}
 				}
 			}
 			else {
@@ -69,9 +80,8 @@ public class Simulation {
 				}
 			}
 		}
-		else {
+		else
 			citizen.move();
-		}
 	}
 	
 	private District getClosestDistrict(Point position, ArrayList<District> searchWork) {
