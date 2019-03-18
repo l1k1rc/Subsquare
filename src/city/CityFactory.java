@@ -27,8 +27,8 @@ public class CityFactory {
 		return new District(position, type, name);
 	}	
 	
-	public static Station creatStation(int id) {
-		return new Station(1, id);
+	public static Station creatStation(int id, Point pos) {
+		return new Station(1, id, pos);
 	}
 	
 	public static SubwayLine creatSubwayLine(Station begin,Station end) {

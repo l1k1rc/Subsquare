@@ -60,7 +60,7 @@ public class MainFrame extends JFrame implements Runnable {
 	private JMenuItem item_leave = new JMenuItem("Leave without save");
 
 	private static Point position_districtA, position_dicstrictB;
-	public static ArrayList<String>DistrictName=new ArrayList<String>();
+	public static ArrayList<String> DistrictName = new ArrayList<String>();
 
 	/********* construct *********/
 	public MainFrame() {
@@ -165,8 +165,8 @@ public class MainFrame extends JFrame implements Runnable {
 				 * can draw a line on the map. If he click a second time, the builder is over
 				 */
 				Point position = new Point(e.getX() / 28, e.getY() / 28);
-				
-				if (city.isDistrictPosition(position )&& PanelAPI.getbuildMetroLine() == true) {
+
+				if (city.isDistrictPosition(position) && PanelAPI.getbuildMetroLine() == true) {
 					position_districtA = new Point(position.getAbscisse(), position.getOrdonne());
 					simulation.buildStation(position_districtA);
 				}
@@ -194,7 +194,7 @@ public class MainFrame extends JFrame implements Runnable {
 				 * district is build
 				 */
 				if (PanelAPI.getbuildPublicDistrict()) {
-					simulation.buildDistrict(position, new PublicDistrict(), 
+					simulation.buildDistrict(position, new PublicDistrict(),
 							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
 					PanelAPI.setbuildPublicDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -234,9 +234,10 @@ public class MainFrame extends JFrame implements Runnable {
 					if (city.isDistrictPosition(position)) {
 						pStat.setposLabel("Attention : cette place est occupée");
 						pStat.setPriceInformation("");
-						pStat.setTypeLabel("Type de quartier : ");
-						pStat.setIsSubwayStation("Station de Métro : ");
-						pStat.setdensityLabel("Population :");
+						pStat.setTypeLabel("Type de quartier : "+city.getDistrictByPosition(position).getType().toString());
+						pStat.setIsSubwayStation("Station de Métro : "+ city.getDistrictByPosition(position).getStation());
+						pStat.setdensityLabel("Population : "+ city.getDistrictByPosition(position).getDensity());
+						
 						/* To draw a line between 2 points */
 						/*
 						 * if (buildLine_A == false && buildLine_B == false) { buildLine_A = true;
@@ -353,15 +354,15 @@ public class MainFrame extends JFrame implements Runnable {
 	public static void setCursorOnScene(Cursor c) {
 		scene.setCursor(c);
 	}
-	
+
 	public void generDistrictName(String title) {
-		
+
 		URL url = getClass().getResource(title);
 		String ligne;
 		try {
 			URLConnection ucon = url.openConnection();
 			BufferedReader read = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
-			while((ligne=read.readLine()) != null) {
+			while ((ligne = read.readLine()) != null) {
 				DistrictName.add(ligne);
 			}
 			read.close();

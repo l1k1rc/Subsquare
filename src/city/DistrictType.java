@@ -20,4 +20,15 @@ public abstract class DistrictType
 	public Image getImage() {
 		return image;
 	}
+	public String toString() {
+		if(isPrivate()) {
+			return "Quartier privé";
+		}else if(isPublic()) {
+			return "Service public";
+		}else if(isResidential()){
+			return "Quartier résidentiel";
+		}else {
+			return "No";
+		}
+	}
 }

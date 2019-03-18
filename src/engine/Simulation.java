@@ -81,7 +81,7 @@ public class Simulation {
 		District d = city.getDistrictByPosition(pos);
 		if(!d.equals(null)) {
 			if(!d.hasStation()) {
-				Station st = CityFactory.creatStation(idStation);
+				Station st = CityFactory.creatStation(idStation, d.getPosition());
 				idStation++;
 				city.addStation();
 				d.setStation(st);

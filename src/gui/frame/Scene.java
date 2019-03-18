@@ -24,7 +24,7 @@ public class Scene extends JPanel {
 	private Grid grid;;
 	private Graphics g2;
 	private boolean drawGrid = false;
-
+	private static boolean stationView = false;
 	private Point pos_gridPoint;
 
 	public Scene() {
@@ -62,13 +62,38 @@ public class Scene extends JPanel {
 			}
 			g2.drawRect(x * 28, y * 28, 28, 28);
 		}
+		if (stationView) {
+			for (int y = 0; y < grid.height; y++) {
+				for (int x = 0; x < grid.width; x++) {
+					Point p = new Point(x, y);
+					if (city.isDistrictPosition(p)) {
+						if (city.getDistrictByPosition(p).hasStation()) {
+							for (int i = 0; i < city.getDistrictByPosition(p).getStation().getSubwayLines()
+									.size(); i++) {
+								g2.setColor(Color.blue);
+								g2.drawLine( // NEED POSITION FROM A STATION
+										city.getDistrictByPosition(p).getStation().getSubwayLines().get(i)
+												.getStationFrom().getStationPos().getAbscisse()*28,
+										city.getDistrictByPosition(p).getStation().getSubwayLines().get(i)
+												.getStationFrom().getStationPos().getOrdonne()*28,
+										city.getDistrictByPosition(p).getStation().getSubwayLines().get(i)
+												.getStationEnd().getStationPos().getAbscisse()*28,
+										city.getDistrictByPosition(p).getStation().getSubwayLines().get(i)
+												.getStationEnd().getStationPos().getOrdonne()*28);
+							}
+						}
+					}
+				}
+			}
+		}
 		drawCity(g2);
 	}
 
 	private void drawCity(Graphics g) {
 		for (Iterator<District> it = city.getDistricts().values().iterator(); it.hasNext();) {
 			District d = it.next();
-			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28,null);
+			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28,
+					null);
 		}
 	}
 
@@ -82,6 +107,14 @@ public class Scene extends JPanel {
 
 	public boolean isDrawGrid() {
 		return drawGrid;
+	}
+
+	public static void setStationView(boolean stationViewS) {
+		stationView = stationViewS;
+	}
+
+	public static boolean isStationView() {
+		return stationView;
 	}
 
 	public Grid getGrid() {
