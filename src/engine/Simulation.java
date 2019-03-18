@@ -1,5 +1,8 @@
 package engine;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import city.Citizen;
 import city.City;
 import city.CityFactory;
@@ -21,6 +24,8 @@ public class Simulation {
 	private static int simulationNumberOfTurn;
 	private int idStation = 0;
 	private FloydPathFinding floyd = new FloydPathFinding(city.nbStations(), city);
+	private HashMap<Citizen, District> searchWork = new HashMap<Citizen, District>();
+	//TODO citizen go to find work
 	
 	public Simulation(GridParameters parameters) {
 		this.parameters=parameters;
@@ -41,7 +46,27 @@ public class Simulation {
 	}
 	
 	public void citizenToDo(Citizen citizen) {
-		//TODO act of the citizen
+		if(citizen.employed()) {
+			//TODO citizen go to work
+		}
+		else {
+			ArrayList<District> searchWork = city.getDistrictByType((citizen.getQI() > 120) ? "pri" : "pub");
+			District closest = getClosestDistrict(citizen.getPosition(), searchWork);
+			this.searchWork.put(citizen, closest);
+		}
+	}
+	
+	private District getClosestDistrict(Point position, ArrayList<District> searchWork) {
+		District result = null;
+		double min = Double.MAX_VALUE;
+		for(District dist : searchWork) {
+			double tmp = position.distance(dist.getPosition());
+			if(tmp < min) {
+				min = tmp;
+				result = dist;
+			}
+		}
+		return result;
 	}
 	
 	//getters:

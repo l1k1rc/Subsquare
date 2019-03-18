@@ -2,6 +2,7 @@ package city;
 
 import used.Direction;
 import used.Point;
+import used.Random;
 
 public class Citizen {
 	private District workDistrict;
@@ -9,6 +10,7 @@ public class Citizen {
 	private Direction lastDirection;
 	private Point position;
 	private boolean employed;
+	private int QI;
 	
 	public Citizen(District workDistrict, District originDistrict, Point position) {
 		this.workDistrict = workDistrict;
@@ -16,6 +18,7 @@ public class Citizen {
 		lastDirection=Direction.randomDirection();
 		this.position = position;
 		employed = true;
+		QI = Random.randomInt(90, 200);
 	}
 	
 	public Citizen(District originDistrict, Point position) {
@@ -59,5 +62,13 @@ public class Citizen {
 	
 	public boolean employed() {
 		return employed;
+	}
+	
+	public int getQI() {
+		return QI;
+	}
+	
+	public void setQI(int QI) {
+		this.QI = QI;
 	}
 }

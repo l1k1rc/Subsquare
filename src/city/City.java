@@ -153,6 +153,27 @@ public class City{
 		}
 		return pos;
 	}
+	
+	public ArrayList<District> getDistrictByType(String type){
+		ArrayList<District> result = new ArrayList<District>();
+			for(District dis : districts.values()) {
+				switch (type) {
+				case "pri":
+					if(dis.getType().isPrivate())
+						result.add(dis);
+					break;
+				case "pub":
+					if(dis.getType().isPublic())
+						result.add(dis);	
+					break;			
+				case "res":
+					if(dis.getType().isResidential())
+						result.add(dis);
+					break;
+				}
+			}
+		return result;
+	}
 
 	public int nbStations() {
 		return nbStation;
