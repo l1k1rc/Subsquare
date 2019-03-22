@@ -1,6 +1,8 @@
 package gui.frame;
 
 import java.awt.*;
+import java.util.HashMap;
+
 import javax.swing.*;
 
 public class StatsFrame extends JFrame {
@@ -8,13 +10,21 @@ public class StatsFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private HashMap<String, int[]> hmData = new HashMap<String, int[]>();
 	public StatsFrame(){
 		this.setTitle("Statistics");
 		setIconImage(new ImageIcon("subsquare_icon.png").getImage());
 		this.setSize(400, 500);
 		this.setLocationRelativeTo(null);
-		setContentPane(manual());
+		int[] data1 = {101,4,97};
+		int[] data2 = {46,1,59};
+		int[] data3 = {71,0,86};
+		hmData.put("Data1", data1);
+		hmData.put("Data2", data2);
+		hmData.put("Data3", data3);
+
+		//setContentPane(manual());
+		setContentPane(new BuildChart(hmData).getContentPane());
 		this.setVisible(true);
 	}
 	
