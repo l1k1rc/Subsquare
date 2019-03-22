@@ -18,10 +18,10 @@ public class City{
 	
 	Random rnd = new Random();
 
-	private int budget=50000;
+	private int budget=1000;
 	private int taxes=1000;
 	private int density=rnd.nextInt(5)+1;
-	private int servicing=500;
+	private int servicing=400;
 	private int nbStation;
 	
 	private HashMap<Point,District> districts;
@@ -111,6 +111,9 @@ public class City{
 	}
 	public void setServicing(int servicing) {
 		this.servicing=servicing;
+	}
+	public int getServicing() {
+		return this.servicing;
 	}
 	public static City getInstance() {
 		return instance;
