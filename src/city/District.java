@@ -1,5 +1,8 @@
 package city;
 
+import java.util.ArrayList;
+
+import engine.Simulation;
 import staticData.districtData;
 import used.Point;
 
@@ -15,6 +18,8 @@ public class District
 	private float prosperity;
 	private int level;
 	private int maxCapacity;
+	private District nearestPublicDistrict;
+
 	
 	public District(String name, Station station, int density, float prosperity
 			, double maintenanceCost, String type,int level, Point position) {
@@ -53,6 +58,12 @@ public class District
 		case 3 : this.setMaxCapacity(districtData.maxInhabitantsCapacityLevel3);
 			break;
 		}
+	}
+	
+	public void defineNearestPublicDistrict(City city) {
+		ArrayList<District> publicDistrictsList = city.getDistrictByType("pub");
+		District nearestPub = Simulation.getClosestDistrict(this.getPosition(), publicDistrictsList);
+		this.setNearestPublicDistrict(nearestPub);
 	}
 	
 	
@@ -124,4 +135,14 @@ public class District
 	public boolean hasStation() {
 		return hasStation;
 	}
+
+	public District getNearestPublicDistrict() {
+		return nearestPublicDistrict;
+	}
+
+	public void setNearestPublicDistrict(District nearestPublicDistrict) {
+		this.nearestPublicDistrict = nearestPublicDistrict;
+	}
+	
+	
 }

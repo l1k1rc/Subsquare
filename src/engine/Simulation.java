@@ -87,7 +87,7 @@ public class Simulation {
 			citizen.move();
 	}
 	
-	private District getClosestDistrict(Point position, ArrayList<District> searchWork) {
+	public static District getClosestDistrict(Point position, ArrayList<District> searchWork) {
 		District result = null;
 		double min = Double.MAX_VALUE;
 		for(District dist : searchWork) {

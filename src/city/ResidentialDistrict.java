@@ -1,5 +1,10 @@
 package city;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
+import engine.Simulation;
+
 public class ResidentialDistrict extends DistrictType
 {
 	private int nbCitizens;
@@ -71,5 +76,6 @@ public class ResidentialDistrict extends DistrictType
 	public void setMaintenanceCost(float taxes) {
 		
 	}
+	
 
 }

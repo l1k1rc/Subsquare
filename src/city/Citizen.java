@@ -121,4 +121,14 @@ public class Citizen {
 			}
 		}
 	}
+
+	public boolean isEmployed() {
+		return employed;
+	}
+
+	public void setEmployed(boolean employed) {
+		this.employed = employed;
+	}
+	
+	
 }
