@@ -11,6 +11,7 @@ public class TimeSimulator
 	
 	private int secondCount = 0;
 	private int am_pm;
+	private String currentMonth;
 		
 	public TimeSimulator() {
 		calendar = Calendar.getInstance();
@@ -23,6 +24,7 @@ public class TimeSimulator
 		calendar.set(Calendar.SECOND,0);
 		calendar.set(Calendar.MINUTE,0);
 		calendar.set(Calendar.HOUR,0);
+		currentMonth = getMounth();
 	}	
 	
 	public int getSecond() {
@@ -71,9 +73,19 @@ public class TimeSimulator
 		return day == Calendar.SATURDAY || day == Calendar.SUNDAY;
 	}
 	
+	public boolean isEndOfMonth() {
+		if(!getMounth().equals(currentMonth)) {
+			currentMonth = getMounth();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public void update() {
-		calendar.add(Calendar.MINUTE,10);
-		this.am_pm = calendar.get(Calendar.AM_PM);
+		calendar.add(Calendar.MINUTE,20);
+		am_pm = calendar.get(Calendar.AM_PM);
 		secondCount++;
 	}
 }

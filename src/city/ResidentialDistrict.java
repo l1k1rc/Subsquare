@@ -3,10 +3,14 @@ package city;
 public class ResidentialDistrict extends DistrictType
 {
 	private int nbCitizens;
+	private float taxes;
+	private float utilityCost;
 	
 	public ResidentialDistrict() {
-		setImage("/images/City/Residential/0.png");
 		nbCitizens = 0;
+		taxes = 0;
+		utilityCost = 0;
+		setImage("/images/City/Residential/0.png");
 	}
 
 	public int getNbCitizens() {
@@ -44,6 +48,27 @@ public class ResidentialDistrict extends DistrictType
 	@Override
 	public void setNbWorkers(int nbWorkers) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public float getTaxes() {
+		// TODO Auto-generated method stub
+		return taxes;
+	}
+
+	@Override
+	public void setTaxes(float taxes) {
+		// TODO Auto-generated method stub
+		this.taxes=taxes;
+	}
+
+	@Override
+	public float getMaintenanceCost() {
+		return 0;
+	}
+
+	@Override
+	public void setMaintenanceCost(float taxes) {
 		
 	}
 

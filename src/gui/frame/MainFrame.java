@@ -25,6 +25,7 @@ import city.District;
 import city.PrivateDistrict;
 import city.PublicDistrict;
 import city.ResidentialDistrict;
+import engine.EconomyManager;
 import engine.GridParameters;
 import engine.Simulation;
 import engine.TimeSimulator;
@@ -304,19 +305,19 @@ public class MainFrame extends JFrame implements Runnable {
 	}
 
 	public void updateTaxes() {
-		pScore.getTaxesField().setText(city.getTaxesField());
+		pScore.getTaxesField().setText(simulation.getEcoManager().getTaxes()+" €/month");
 	}
 
 	public void updateBudget() {
-		pScore.getBudgetField().setText(city.getBudgetField());
+		pScore.getBudgetField().setText(simulation.getEcoManager().getBudget()+" €");
 	}
 
 	public void updateDensity() {
-		pScore.getDensityField().setText(city.getDensityField());
+		pScore.getDensityField().setText(city.getDensity()+" inhabitants");
 	}
 
 	public void updateServicing() {
-		pScore.getServicingField().setText(city.getServicingField());
+		pScore.getServicingField().setText(city.getServicing()+" €/month");
 	}
 
 	@Override

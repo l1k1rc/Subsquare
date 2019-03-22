@@ -5,11 +5,13 @@ public class PublicDistrict extends DistrictType
 	private int nbWorkers;
 	private int nbVisitors;
 	private float constructionCosts;
+	private float maintenanceCost;
 	
 	public PublicDistrict() {
 		setImage("/images/City/Public/0.png");
 		nbVisitors =0 ;
 		nbVisitors = 0;
+		maintenanceCost = 0;
 	}
 
 	public int getNbWorkers() {
@@ -52,6 +54,29 @@ public class PublicDistrict extends DistrictType
 	public boolean isResidential() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public float getTaxes() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setTaxes(float taxes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public float getMaintenanceCost() {
+		// TODO Auto-generated method stub
+		return maintenanceCost;
+	}
+
+	@Override
+	public void setMaintenanceCost(float maintenanceCost) {
+		this.maintenanceCost = maintenanceCost;
 	}
 
 }

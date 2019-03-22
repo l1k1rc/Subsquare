@@ -7,14 +7,14 @@ public class District
 {	
 	private String name;
 	private DistrictType type;
+	private Point position;
 	private Station station;
+	private boolean hasStation;
+	
 	private int density;
 	private float prosperity;
-	private double maintenanceCost;
 	private int level;
-	private Point position;
 	private int maxCapacity;
-	private boolean hasStation;
 	
 	public District(String name, Station station, int density, float prosperity
 			, double maintenanceCost, String type,int level, Point position) {
@@ -22,7 +22,6 @@ public class District
 		this.station = station;
 		this.density = density;
 		this.prosperity = prosperity;
-		this.maintenanceCost = maintenanceCost;
 		this.level= level;
 		this.position = position;
 		this.hasStation = false;
@@ -38,7 +37,6 @@ public class District
 		this.type = type;
 		density = 0;
 		prosperity = 0;
-		maintenanceCost = 0;
 		level = 2;
 		station = null;
 		hasStation = false;
@@ -90,15 +88,6 @@ public class District
 	public void setProsperity(float prosperity) {
 		this.prosperity = prosperity;
 	}
-	
-	public double getMaintenanceCost() {
-		return maintenanceCost;
-	}
-	
-	public void setMaintenanceCost(double maintenanceCost) {
-		this.maintenanceCost = maintenanceCost;
-	}
-
 	
 	public int getLevel() {
 		return level;
