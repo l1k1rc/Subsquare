@@ -211,7 +211,7 @@ public class MainFrame extends JFrame implements Runnable {
 					simulation.buildDistrict(position, new ResidentialDistrict(),
 							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
 					District dis = City.getInstance().getDistrictByPosition(position);
-					simulation.creatCitizens(null, dis, true, Random.randomInt1(30));
+					simulation.creatCitizens(null, dis, true, 1);
 					PanelAPI.setbuildResidentialDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);

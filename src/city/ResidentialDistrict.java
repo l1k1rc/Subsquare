@@ -35,4 +35,16 @@ public class ResidentialDistrict extends DistrictType
 		return true;
 	}
 
+	@Override
+	public int getNbWorkers() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setNbWorkers(int nbWorkers) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

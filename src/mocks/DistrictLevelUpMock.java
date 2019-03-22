@@ -15,8 +15,8 @@ public class DistrictLevelUpMock {
 	private Point point;
 	
 	public DistrictLevelUpMock() {
-		station = new Station(1, Random.randomInt(8, false));
 		point = new Point(1,1);
+		station = new Station(1, Random.randomInt(8, false), point);
 	}
 	
 	public District DistrictLevel1() {

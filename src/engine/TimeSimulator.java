@@ -10,9 +10,11 @@ public class TimeSimulator
 	private SimpleDateFormat formatter;
 	
 	private int secondCount = 0;
+	private int am_pm;
 		
 	public TimeSimulator() {
 		calendar = Calendar.getInstance();
+		this.am_pm = calendar.get(Calendar.AM_PM);
 		formatter = new SimpleDateFormat("dd MMMM yyyy",Locale.ENGLISH);
 		init();
 	}
@@ -36,11 +38,24 @@ public class TimeSimulator
 	}
 	
 	public String getTime() {
-		return getHour()+"h:"+getMinute()+"min";
+	    String ampm = "ampm";
+	    if (am_pm == 0)
+	        ampm = "AM";
+	    else
+	        ampm = "PM";
+		return getHour()+"h:"+getMinute()+"min"+" "+ampm;
+	}
+	//am if = 0 pm else
+	public boolean AM_PM() {
+		return am_pm == 0;
 	}
 	
 	public String getDay() {
 		return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
+	}
+	
+	public String getMounth() {
+		return calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 	}
 	
 	public String getDate() {
@@ -58,7 +73,7 @@ public class TimeSimulator
 	
 	public void update() {
 		calendar.add(Calendar.MINUTE,10);
+		this.am_pm = calendar.get(Calendar.AM_PM);
 		secondCount++;
 	}
-	
 }

@@ -10,7 +10,9 @@ public abstract class DistrictType
 
 	public abstract boolean isPublic();
 	public abstract boolean isPrivate(); 
-	public abstract boolean isResidential(); 
+	public abstract boolean isResidential();
+	public abstract int getNbWorkers();
+	public abstract void setNbWorkers(int nbWorkers);
 	
 	public void setImage(String path) {
 		ImageIcon img = new ImageIcon(getClass().getResource(path));
