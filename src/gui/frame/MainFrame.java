@@ -239,6 +239,12 @@ public class MainFrame extends JFrame implements Runnable {
 						pStat.setTypeLabel("Type de quartier : "+city.getDistrictByPosition(position).getType().toString());
 						pStat.setIsSubwayStation("Station de Métro : "+ city.getDistrictByPosition(position).getStation());
 						pStat.setdensityLabel("Population : "+ city.getDistrictByPosition(position).getDensity());
+						//city.getDistrictByPosition(position).get
+						//LEVEL
+						//Cout maintenance
+						//Propérité
+						//position
+						//capacité max
 						
 						/* To draw a line between 2 points */
 						/*
