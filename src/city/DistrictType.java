@@ -11,6 +11,13 @@ public abstract class DistrictType
 	public abstract boolean isPublic();
 	public abstract boolean isPrivate(); 
 	public abstract boolean isResidential();
+	
+	public abstract float getTaxes();
+	public abstract void setTaxes(float taxes);	
+	
+	public abstract float getMaintenanceCost();
+	public abstract void setMaintenanceCost(float taxes);	
+	
 	public abstract int getNbWorkers();
 	public abstract void setNbWorkers(int nbWorkers);
 	

@@ -27,6 +27,8 @@ public class Simulation {
 	private FloydPathFinding floyd = new FloydPathFinding(city.nbStations(), city);
 	private AStarPathFinding aStar;
 	
+	private EconomyManager ecoMan = new EconomyManager(city);
+	
 	public Simulation(GridParameters parameters) {
 		this.parameters=parameters;
 		simulationNumberOfTurn=1;
@@ -47,6 +49,7 @@ public class Simulation {
 				citizenGoToHome(citizen);
 		}
 		
+		ecoMan.updateData();
 		simulationNumberOfTurn++;
 	}
 	
@@ -122,6 +125,10 @@ public class Simulation {
 		return grid;
 	}
 	
+	public EconomyManager getEcoManager() {
+		return ecoMan;
+	}
+	
 	// builders:
 	
 	public void buildDistrict(Point position,DistrictType type,String name) {
@@ -135,7 +142,7 @@ public class Simulation {
 				float cost = box.getGroundType().getDegre()*districtData.constructionCost;
 				if(box.getGroundType().containsTree)
 					cost = cost*2;
-				city.spendMoney(cost);
+				ecoMan.spendMoney(cost);
 			}
 			box.setIsFree(false);
 		}	
@@ -149,7 +156,7 @@ public class Simulation {
 				idStation++;
 				city.addStation();
 				d.setStation(st);
-				city.spendMoney(StationData.constructStationCost);
+				ecoMan.spendMoney(StationData.constructStationCost);
 				setFloyd(new FloydPathFinding(city.nbStations(), city));
 			}
 		}
@@ -167,7 +174,7 @@ public class Simulation {
 				d2.getStation().addSubwayLine(line2);
 				city.addSubwayLine(line1);
 				city.addSubwayLine(line2);
-				city.spendMoney(StationData.constructLineCost);
+				ecoMan.spendMoney(StationData.constructLineCost);
 				setFloyd(new FloydPathFinding(city.nbStations(), city));
 			}
 		}
