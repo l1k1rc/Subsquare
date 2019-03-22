@@ -3,15 +3,21 @@ package city;
 import java.util.ArrayList;
 
 import staticData.StationData;
+import used.Point;
 
 public class Station {
 	private ArrayList<SubwayLine> subwayLines;
 	private int level;
 	private int maxCapacity;
+	private int id;
+	private Point stationPos;
 	
-	public Station(int level) {
+	public Station(int level, int id, Point pos) {
 		this.level = level;
+		this.id = id;
+		subwayLines = new ArrayList<SubwayLine>();
 		this.determineMaxCapacity();
+		this.setStationPos(new Point(pos.getAbscisse(), pos.getOrdonne()));
 	}
 	
 	public void determineMaxCapacity() {
@@ -33,6 +39,10 @@ public class Station {
 		this.subwayLines = subwayLines;
 	}
 	
+	public void addSubwayLine(SubwayLine line) {
+		subwayLines.add(line);
+	}
+	
 	public int getLevel() {
 		return level;
 	}
@@ -47,6 +57,22 @@ public class Station {
 	
 	public void setMaxCapacity(int maxCapacity) {
 		this.maxCapacity = maxCapacity;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Point getStationPos() {
+		return stationPos;
+	}
+
+	public void setStationPos(Point stationPos) {
+		this.stationPos = stationPos;
 	}
 
 }

@@ -7,6 +7,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,6 +21,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import city.City;
+import city.District;
 import city.PrivateDistrict;
 import city.PublicDistrict;
 import city.ResidentialDistrict;
@@ -23,6 +29,7 @@ import engine.GridParameters;
 import engine.Simulation;
 import engine.TimeSimulator;
 import used.Point;
+import used.Random;
 
 //import engine.Simulation;
 /**
@@ -33,12 +40,13 @@ import used.Point;
  *
  */
 public class MainFrame extends JFrame implements Runnable {
+
 	private static final long serialVersionUID = 1L;
 	private static int THREAD_MAP = GridParameters.speed;
 	private City city = City.getInstance();
 	private static Scene scene = new Scene();
 	private Simulation simulation;
-	private boolean buildMetroLine_click = false;
+	private boolean buildMetroLine_click = false, doSecondLine = false;
 	private static boolean stop = true;
 
 	private PanelScore pScore = new PanelScore();
@@ -51,6 +59,9 @@ public class MainFrame extends JFrame implements Runnable {
 	private JMenuItem item_manual = new JMenuItem("User's manual");
 	private JMenuItem item_leave = new JMenuItem("Leave without save");
 
+	private static Point position_districtA, position_dicstrictB;
+	public static ArrayList<String> DistrictName = new ArrayList<String>();
+
 	/********* construct *********/
 	public MainFrame() {
 		super("Subsquare");
@@ -59,6 +70,7 @@ public class MainFrame extends JFrame implements Runnable {
 		simulation = new Simulation(GridParameters.getInstance());
 		simulation.generatGrid();
 		scene.setGrid(simulation.getGrid());
+		generDistrictName("/districName/districNames.txt");
 		init();
 		launchGUI();
 	}
@@ -135,6 +147,16 @@ public class MainFrame extends JFrame implements Runnable {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				Point position = new Point(e.getX() / 28, e.getY() / 28);
+
+				if (city.isDistrictPosition(position) && PanelAPI.getbuildMetroLine() && doSecondLine==true) {
+					PanelAPI.setbuildMetroLine(false);
+					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+					position_dicstrictB = new Point(position.getAbscisse(), position.getOrdonne());
+					simulation.buildStation(position_dicstrictB);
+					simulation.buildSubwayLine(position_districtA, position_dicstrictB);
+					doSecondLine=false;
+				}
 			}
 
 			@Override
@@ -143,11 +165,12 @@ public class MainFrame extends JFrame implements Runnable {
 				 * When the user click on the panel Scene and if he press the API associated, he
 				 * can draw a line on the map. If he click a second time, the builder is over
 				 */
-				if (buildMetroLine_click == false && PanelAPI.getbuildMetroLine() == true)
-					buildMetroLine_click = true;
-				else {
-					buildMetroLine_click = false;
-					PanelAPI.setbuildMetroLine(false);
+				Point position = new Point(e.getX() / 28, e.getY() / 28);
+
+				if (city.isDistrictPosition(position) && PanelAPI.getbuildMetroLine()) {
+					position_districtA = new Point(position.getAbscisse(), position.getOrdonne());
+					simulation.buildStation(position_districtA);
+					doSecondLine= true;
 				}
 			}
 
@@ -173,42 +196,50 @@ public class MainFrame extends JFrame implements Runnable {
 				 * district is build
 				 */
 				if (PanelAPI.getbuildPublicDistrict()) {
-					simulation.buildDistrict(position,new PublicDistrict());
+					simulation.buildDistrict(position, new PublicDistrict(),
+							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
 					PanelAPI.setbuildPublicDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildPrivateDistrict()) {
-					simulation.buildDistrict(position,new PrivateDistrict());
+					simulation.buildDistrict(position, new PrivateDistrict(),
+							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
 					PanelAPI.setbuildPrivateDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildResidentialDistrict()) {
-					simulation.buildDistrict(position,new ResidentialDistrict());
+					simulation.buildDistrict(position, new ResidentialDistrict(),
+							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
+					District dis = City.getInstance().getDistrictByPosition(position);
+					simulation.creatCitizens(null, dis, true, 1);
 					PanelAPI.setbuildResidentialDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (e.getClickCount() == 2) {
-					/*
-					 * When the user double click on a position, a JPanel is displayed beside the
-					 * map and show to the user the information about the position
-					 */
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
 					PanelPrivStat pStat = new PanelPrivStat();
 					pStat.setBounds(1400, 0, 250, 1150);
 					pStat.setposLabel("Position de ce quartier : " + position);
+					pStat.setPriceInformation("Prix de la zone : 200g");
 					pStat.setTypeLabel("Pas de type de quartier");
 					getContentPane().add(pStat);
 					/*
 					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
-					 * obstacle ORDONNE // ABSCISSE
+					 * obstacle
 					 */
 
-
-					if (!scene.getGrid().getBoxAt(position.getOrdonne(),position.getAbscisse()).getIsFree()) {
+					/*
+					 * When the place isn't free, a panel with all information about the
+					 * position/district will be displayed
+					 */
+					if (city.isDistrictPosition(position)) {
 						pStat.setposLabel("Attention : cette place est occupée");
-						pStat.setPriceInformation("Prix de la zone : 200g");
-						pStat.setTypeLabel("Type de quartier : ");
+						pStat.setPriceInformation("");
+						pStat.setTypeLabel("Type de quartier : "+city.getDistrictByPosition(position).getType().toString());
+						pStat.setIsSubwayStation("Station de Métro : "+ city.getDistrictByPosition(position).getStation());
+						pStat.setdensityLabel("Population : "+ city.getDistrictByPosition(position).getDensity());
+						
 						/* To draw a line between 2 points */
 						/*
 						 * if (buildLine_A == false && buildLine_B == false) { buildLine_A = true;
@@ -227,14 +258,16 @@ public class MainFrame extends JFrame implements Runnable {
 				/* To draw the grid around an area and manage the line builder */
 				Point position = new Point(e.getX() / 28, e.getY() / 28); // to know the exact position
 				if (PanelAPI.getbuildPublicDistrict() || PanelAPI.getbuildPrivateDistrict()
-						|| PanelAPI.getbuildResidentialDistrict()) {
+						|| PanelAPI.getbuildResidentialDistrict() || PanelAPI.getbuildMetroLine()) {
 					scene.setDrawGrid(true);
 					scene.setPos_gridPoint(position);
 				} else if (PanelAPI.getbuildMetroLine() == true && buildMetroLine_click == true) {
 					/* Pour la partie line metro */
-				/*	Point line_position = new Point(e.getX() / 28, e.getY() / 28);
-					scene.setLine(true);
-					simulation.buildDistrict(line_position,new ResidentialDistrict());*/
+					/*
+					 * Point line_position = new Point(e.getX() / 28, e.getY() / 28);
+					 * scene.setLine(true); simulation.buildDistrict(line_position,new
+					 * ResidentialDistrict());
+					 */
 				}
 
 			}
@@ -254,8 +287,6 @@ public class MainFrame extends JFrame implements Runnable {
 	}
 
 	public void updateGUI() {
-		// TODO repaint method of the scene
-		// TODO check new statistics ..
 		updateTime();
 		updateBudget();
 		updateTaxes();
@@ -271,15 +302,19 @@ public class MainFrame extends JFrame implements Runnable {
 		pScore.getDateField().setText(timeSim.getDate());
 		pScore.getHourField().setText(timeSim.getTime());
 	}
+
 	public void updateTaxes() {
 		pScore.getTaxesField().setText(city.getTaxesField());
 	}
+
 	public void updateBudget() {
 		pScore.getBudgetField().setText(city.getBudgetField());
 	}
+
 	public void updateDensity() {
 		pScore.getDensityField().setText(city.getDensityField());
 	}
+
 	public void updateServicing() {
 		pScore.getServicingField().setText(city.getServicingField());
 	}
@@ -309,9 +344,32 @@ public class MainFrame extends JFrame implements Runnable {
 		return scene;
 	}
 
+	public static Point getPosition_districtA() {
+		return position_districtA;
+	}
+
+	public static Point getPosition_dicstrictB() {
+		return position_dicstrictB;
+	}
+
 	/* to change the cursor when an API is selected */
 	public static void setCursorOnScene(Cursor c) {
 		scene.setCursor(c);
 	}
 
+	public void generDistrictName(String title) {
+
+		URL url = getClass().getResource(title);
+		String ligne;
+		try {
+			URLConnection ucon = url.openConnection();
+			BufferedReader read = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
+			while ((ligne = read.readLine()) != null) {
+				DistrictName.add(ligne);
+			}
+			read.close();
+		} catch (Exception e) {
+
+		}
+	}
 }

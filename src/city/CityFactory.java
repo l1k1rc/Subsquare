@@ -1,5 +1,7 @@
 package city;
 
+import java.awt.Color;
+
 import used.Point;
 
 /**
@@ -15,20 +17,23 @@ public class CityFactory {
 	 * @return Citizen
 	 */
 
-	public static Citizen createCitizen(String workDistrict, String originDistrict, Point position) {
+	public static Citizen createCitizen(District workDistrict, District originDistrict, boolean unknowWork) {
 //		logger.info("Citizen creation at : ("+workDistrict+","+originDistrict+","+position.getAbscisse()+","+position.getOrdonne()+")");
-		return new Citizen(workDistrict, originDistrict, position);
+		if(unknowWork)
+			return new Citizen(originDistrict, originDistrict.getPosition());
+		else
+			return new Citizen(workDistrict, originDistrict, originDistrict.getPosition());
 	}
 	
-	public static District creatDistrict(Point position,DistrictType type) {
-		return new District(position, type);
+	public static District creatDistrict(Point position,DistrictType type,String name) {
+		return new District(position, type, name);
 	}	
 	
-	public static Station creatStation() {
-		return new Station(1);
+	public static Station creatStation(int id, Point pos) {
+		return new Station(1, id, pos);
 	}
 	
-	public static SubwayLine creatSubwayLine(Station begin,Station end) {
-		return new SubwayLine(begin,end);
+	public static SubwayLine creatSubwayLine(Station begin,Station end, Color colorLine) {
+		return new SubwayLine(begin,end,colorLine);
 	}
 }

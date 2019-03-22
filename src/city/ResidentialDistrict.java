@@ -1,15 +1,11 @@
 package city;
 
-import java.util.ArrayList;
-
 public class ResidentialDistrict extends DistrictType
 {
 	private int nbCitizens;
-	private ArrayList<Citizen> citizens;
 	
 	public ResidentialDistrict() {
 		setImage("/images/City/Residential/0.png");
-		citizens=new ArrayList<Citizen>();
 		nbCitizens = 0;
 	}
 
@@ -19,14 +15,6 @@ public class ResidentialDistrict extends DistrictType
 
 	public void setNbCitizens(int nbCitizens) {
 		this.nbCitizens = nbCitizens;
-	}
-
-	public ArrayList<Citizen> getCitizens() {
-		return citizens;
-	}
-
-	public void setCitizens(ArrayList<Citizen> citizens) {
-		this.citizens = citizens;
 	}
 
 	@Override
@@ -45,6 +33,18 @@ public class ResidentialDistrict extends DistrictType
 	public boolean isResidential() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public int getNbWorkers() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setNbWorkers(int nbWorkers) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

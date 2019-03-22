@@ -67,7 +67,6 @@ public class PanelAPI extends JPanel {
 		tabButtonAPI[2].setToolTipText("Construire un quartier des services publics");
 		tabButtonAPI[3].setToolTipText("COnstruire une station de métro");
 		tabButtonAPI[4].setToolTipText("Construire une ligne de métro");
-		
 
 		/* BUTTON :: build a residential area */
 		tabButtonAPI[0].addActionListener(new ActionListener() {
@@ -79,7 +78,7 @@ public class PanelAPI extends JPanel {
 				// click, the clicklistener is launched
 				// the mouse is changed to notificate this
 				// at the end, the var is false
-				buildPublicDistrict = true;
+				buildResidentialDistrict = true;
 				/* Method to change the icon to notify the user he's building a new place */
 
 				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
@@ -106,7 +105,7 @@ public class PanelAPI extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				buildResidentialDistrict = true;
+				buildPublicDistrict = true;
 
 				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
 						new ImageIcon(getClass().getResource("/images/cursor/build_srvp.png")).getImage(),
@@ -114,16 +113,31 @@ public class PanelAPI extends JPanel {
 
 			}
 		});
-		//BUTTON :: Metro line
+		// BUTTON :: Build station
+		tabButtonAPI[3].addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(Scene.isStationView()) 
+					Scene.setStationView(false);
+				else
+					Scene.setStationView(true);
+			}
+		});
+		// BUTTON :: Metro line
 		tabButtonAPI[4].addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				buildMetroLine = true;
+				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
+						new ImageIcon(getClass().getResource("/images/Obstacle/rail.png")).getImage(), new Point(0,0),
+						"custom cursor"));
 			}
 		});
-		
+
 	}
 
 	public static boolean getbuildPublicDistrict() {
@@ -149,6 +163,7 @@ public class PanelAPI extends JPanel {
 	public static void setbuildResidentialDistrict(boolean b) {
 		buildResidentialDistrict = b;
 	}
+
 	public static boolean getbuildMetroLine() {
 		return buildMetroLine;
 	}
@@ -156,6 +171,5 @@ public class PanelAPI extends JPanel {
 	public static void setbuildMetroLine(boolean b) {
 		buildMetroLine = b;
 	}
-	
 
 }

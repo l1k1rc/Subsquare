@@ -2,16 +2,19 @@ package city;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 
 import engine.TimeSimulator;
 import used.Point;
 
 public class City{
-	
+	/* Design pattern singleton  :: private constructor and static getter */
 	private static City instance = new City();
 	
 	private TimeSimulator timeSim;
+	private ArrayList<Citizen> citizens;
 	
 	Random rnd = new Random();
 
@@ -19,6 +22,8 @@ public class City{
 	private int taxes=1000;
 	private int density=rnd.nextInt(5)+1;
 	private int servicing=500;
+	private int nbStation;
+	
 	private HashMap<Point,District> districts;
 	
 	private ArrayList<SubwayLine> subwayLines;
@@ -28,6 +33,9 @@ public class City{
 	private City() {
 		timeSim = new TimeSimulator();
 		districts = new HashMap<Point, District>();
+		subwayLines = new ArrayList<SubwayLine>();
+		nbStation = 0;
+		citizens=new ArrayList<Citizen>();
 	}
 	
 	public void addDistrict(Point position,District district) {
@@ -83,7 +91,15 @@ public class City{
 	}
 	
 	public District getDistrictByPosition(Point pos){	
-		return districts.get(pos);
+		District district = null;
+		
+		for(District dist : districts.values()) {
+			if(dist.getPosition().equals(pos)) {
+				district = dist;
+				break;
+			}
+		}	
+		return district;
 	}
 	
 	public void setTaxes(int taxes) {
@@ -105,5 +121,89 @@ public class City{
 
 	public void setProsperity(float prosperity) {
 		this.prosperity = prosperity;
+	}
+	
+	public boolean isDistrictPosition(Point position) {
+		boolean contains = false;
+		Set<Point> pos = districts.keySet();
+		
+		for(Point p : pos) {
+			if(p.equals(position)) {
+				contains = true;
+				 break;
+			}
+		}	
+		return contains;
+	}
+
+	public void displayPositions() {
+		for (Iterator<District> it = getDistricts().values().iterator(); it.hasNext();) {
+			District d = it.next();
+			System.out.println("Hashmap:("+d.getPosition().getAbscisse()+":"+d.getPosition().getOrdonne()+")");
+		}
+	}
+	
+	public Point getPositionById(int id) {
+		Point pos = null;
+		for(District district : districts.values()) {
+			if(district.hasStation()) {
+				if(district.getStation().getId() == id)
+					pos = district.getPosition();
+			}
+		}
+		return pos;
+	}
+	
+	public int getIdByPosition(Point position) {
+		int id = 0;
+		for(District district : districts.values()) {
+			if(district.hasStation()) {
+				if(district.getPosition().equals(position))
+					id = district.getStation().getId();
+			}
+		}
+		return id;
+	}
+	
+	public ArrayList<District> getDistrictByType(String type){
+		ArrayList<District> result = new ArrayList<District>();
+			for(District dis : districts.values()) {
+				switch (type) {
+				case "pri":
+					if(dis.getType().isPrivate())
+						result.add(dis);
+					break;
+				case "pub":
+					if(dis.getType().isPublic())
+						result.add(dis);	
+					break;			
+				case "res":
+					if(dis.getType().isResidential())
+						result.add(dis);
+					break;
+				}
+			}
+		return result;
+	}
+
+	public int nbStations() {
+		return nbStation;
+	}
+	
+	public void addStation() {
+		this.nbStation++;
+	}
+	
+	public void addCitizen(Citizen citizen) {
+		if(!citizens.contains(citizen))
+			citizens.add(citizen);
+	}
+	
+	public ArrayList<Citizen> getCitizens() {
+		return citizens;
+	}
+
+	public void setCitizens(ArrayList<Citizen> citizens) {
+		this.citizens = citizens;
 	}
 }

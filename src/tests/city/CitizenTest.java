@@ -6,6 +6,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import city.Citizen;
+import city.CityFactory;
+import city.PrivateDistrict;
+import city.PublicDistrict;
+import city.ResidentialDistrict;
 import used.Point;
 /**
  * Training testU for Citizen
@@ -21,18 +25,20 @@ class CitizenTest {
 	@BeforeAll
 	public static void setUpBeforeClass() throws Exception {
 		pos = new Point(5,6);
-		ctz = new Citizen("Private", "Home", pos);
+		ctz = new Citizen(CityFactory.creatDistrict(pos, new PrivateDistrict(), "Work"), 
+				CityFactory.creatDistrict(pos, new ResidentialDistrict(), "Home"), pos);
 		
 	}
 
 	@Test
 	void testCitizen() {
-		ctz = new Citizen("Private", "Home", pos);
+		ctz = new Citizen(CityFactory.creatDistrict(pos, new PrivateDistrict(), "Private"), 
+				CityFactory.creatDistrict(pos, new ResidentialDistrict(), "Home"), pos);
 		expectedStr = "Private";
-		assertEquals(expectedStr, ctz.getWorkDistrict());
+		assertEquals(expectedStr, ctz.getWorkDistrict().getName());
 		
 		expectedStr = "Home";
-		assertEquals(expectedStr, ctz.getOriginDistrict());
+		assertEquals(expectedStr, ctz.getOriginDistrict().getName());
 
 		expectedPos = new Point(5,6);
 		assertEquals(expectedPos, ctz.getPosition());
@@ -41,7 +47,7 @@ class CitizenTest {
 
 	@Test
 	void testSetWorkDistrict() {
-		ctz.setWorkDistrict("Public");
+		ctz.setWorkDistrict(CityFactory.creatDistrict(pos, new PublicDistrict(), "Public"));
 		expectedStr = "Public";
 		assertEquals(expectedStr, ctz.getWorkDistrict());
 		
@@ -49,7 +55,7 @@ class CitizenTest {
 
 	@Test
 	void testSetOriginDistrict() {
-		ctz.setOriginDistrict("Bridge");
+		ctz.setOriginDistrict(CityFactory.creatDistrict(pos, new PrivateDistrict(), "Bridge"));
 		expectedStr = "Bridge";
 		assertEquals(expectedStr, ctz.getOriginDistrict());
 	}

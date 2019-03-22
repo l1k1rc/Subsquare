@@ -38,7 +38,7 @@ public class GridBuilder {
 
 	/**
 	 * This method places obstacles and the ground,
-	 * 
+	 * It builds 3 forest at a random position.
 	 * @param ground
 	 */
 
