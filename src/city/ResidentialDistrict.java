@@ -1,29 +1,24 @@
 package city;
 
-import java.awt.Point;
-import java.util.ArrayList;
-
-import engine.Simulation;
-
 public class ResidentialDistrict extends DistrictType
 {
 	private int nbCitizens;
 	private float taxes;
-	private float utilityCost;
 	
 	public ResidentialDistrict() {
 		nbCitizens = 0;
 		taxes = 0;
-		utilityCost = 0;
 		setImage("/images/City/Residential/0.png");
 	}
-
+	
+	@Override
 	public int getNbCitizens() {
 		return nbCitizens;
 	}
-
-	public void setNbCitizens(int nbCitizens) {
-		this.nbCitizens = nbCitizens;
+	
+	@Override
+	public void setNbCitizens(int nbCtz) {
+		this.nbCitizens = nbCtz;
 	}
 
 	@Override
@@ -74,6 +69,18 @@ public class ResidentialDistrict extends DistrictType
 
 	@Override
 	public void setMaintenanceCost(float taxes) {
+		
+	}
+
+	@Override
+	public float getConstructionCost() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setConstructionCost(float constCost) {
+		// TODO Auto-generated method stub
 		
 	}
 	

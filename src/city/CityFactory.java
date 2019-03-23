@@ -26,7 +26,7 @@ public class CityFactory {
 	}
 	
 	public static District creatDistrict(Point position,DistrictType type,String name) {
-		return new District(position, type, name);
+		return new District(position, type, name,1);
 	}	
 	
 	public static Station creatStation(int id, Point pos) {

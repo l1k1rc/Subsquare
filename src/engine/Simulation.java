@@ -11,10 +11,12 @@ import city.District;
 import city.DistrictType;
 import city.Station;
 import city.SubwayLine;
+import economy.EconomyManager;
+import economy.EcoData;
 import grid.Box;
 import grid.Grid;
+import staticData.DistrictData;
 import staticData.StationData;
-import staticData.districtData;
 import used.Point;
 
 public class Simulation {
@@ -139,10 +141,10 @@ public class Simulation {
 			if(box.getGroundType().containsTree)
 				box.getGroundType().setContainsTree(false);
 			if(type.isPublic()){
-				float cost = box.getGroundType().getDegre()*districtData.constructionCost;
+				float cost = box.getGroundType().getDegre()*EcoData.CONST_DISTRICT;
 				if(box.getGroundType().containsTree)
 					cost = cost*2;
-				ecoMan.spendMoney(cost);
+				ecoMan.setMoney(cost,"const");
 			}
 			box.setIsFree(false);
 		}	
@@ -156,7 +158,7 @@ public class Simulation {
 				idStation++;
 				city.addStation();
 				d.setStation(st);
-				ecoMan.spendMoney(StationData.constructStationCost);
+				ecoMan.setMoney(EcoData.CONST_STATION,"const");
 				setFloyd(new FloydPathFinding(city.nbStations(), city));
 			}
 		}
@@ -174,7 +176,7 @@ public class Simulation {
 				d2.getStation().addSubwayLine(line2);
 				city.addSubwayLine(line1);
 				city.addSubwayLine(line2);
-				ecoMan.spendMoney(StationData.constructLineCost);
+				ecoMan.setMoney(EcoData.CONST_SBLINE,"const");
 				setFloyd(new FloydPathFinding(city.nbStations(), city));
 			}
 		}

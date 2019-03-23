@@ -1,71 +1,47 @@
 package city;
 
-import java.util.ArrayList;
-
-import engine.Simulation;
-import staticData.districtData;
+import staticData.DistrictData;
 import used.Point;
 
 public class District
 {	
-	private String name;
 	private DistrictType type;
+
+	private String name;
 	private Point position;
 	private Station station;
 	private boolean hasStation;
 	
-	private int density;
+	private float unemployement;
 	private float prosperity;
 	private int level;
 	private int maxCapacity;
-	private District nearestPublicDistrict;
 
 	
-	public District(String name, Station station, int density, float prosperity
-			, double maintenanceCost, String type,int level, Point position) {
+	public District(Point position,DistrictType type, String name,int level)
+	{
 		this.name = name;
-		this.station = station;
-		this.density = density;
-		this.prosperity = prosperity;
-		this.level= level;
-		this.position = position;
-		this.hasStation = false;
-		this.determineMaxCapacity();
-	}
-	
-	public District(String name, Station station, int density, float prosperity, double maintenanceCost, String type, Point position, int id) {
-		this(name,station,density, prosperity,maintenanceCost,type,1, position);
-	}
-	
-	public District(Point position,DistrictType type, String name) {
-		this.position = position;
 		this.type = type;
-		density = 0;
-		prosperity = 0;
-		level = 2;
-		station = null;
-		hasStation = false;
-		this.name = name;
+		this.position = position;
+		this.level= level;
+		
+		this.prosperity = 0;
+		this.station = null;
+		this.hasStation = false;
+		
 		determineMaxCapacity();
 	}
 	
 	public void determineMaxCapacity() {
 		switch (this.getLevel()) {
-		case 1 : this.setMaxCapacity(districtData.maxInhabitantsCapacityLevel1);
+		case 1 : this.setMaxCapacity(DistrictData.maxInhabitantsCapacityLevel1);
 			break;
-		case 2 : this.setMaxCapacity(districtData.maxInhabitantsCapacityLevel2);
+		case 2 : this.setMaxCapacity(DistrictData.maxInhabitantsCapacityLevel2);
 			break;
-		case 3 : this.setMaxCapacity(districtData.maxInhabitantsCapacityLevel3);
+		case 3 : this.setMaxCapacity(DistrictData.maxInhabitantsCapacityLevel3);
 			break;
 		}
 	}
-	
-	public void defineNearestPublicDistrict(City city) {
-		ArrayList<District> publicDistrictsList = city.getDistrictByType("pub");
-		District nearestPub = Simulation.getClosestDistrict(this.getPosition(), publicDistrictsList);
-		this.setNearestPublicDistrict(nearestPub);
-	}
-	
 	
 	public String getName() {
 		return name;
@@ -82,14 +58,6 @@ public class District
 	public void setStation(Station station) {
 		this.station = station;
 		hasStation = true;
-	}
-	
-	public int getDensity() {
-		return density;
-	}
-	
-	public void setDensity(int density) {
-		this.density = density;
 	}
 	
 	public float getProsperity() {
@@ -135,14 +103,15 @@ public class District
 	public boolean hasStation() {
 		return hasStation;
 	}
-
-	public District getNearestPublicDistrict() {
-		return nearestPublicDistrict;
+	
+	public float getUnemployement() {
+		return unemployement;
 	}
 
-	public void setNearestPublicDistrict(District nearestPublicDistrict) {
-		this.nearestPublicDistrict = nearestPublicDistrict;
+	public void setUnemployement(float unemployement) {
+		this.unemployement = unemployement;
 	}
+
 	
 	
 }

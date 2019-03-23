@@ -25,7 +25,6 @@ import city.District;
 import city.PrivateDistrict;
 import city.PublicDistrict;
 import city.ResidentialDistrict;
-import engine.EconomyManager;
 import engine.GridParameters;
 import engine.Simulation;
 import engine.TimeSimulator;
@@ -239,7 +238,7 @@ public class MainFrame extends JFrame implements Runnable {
 						pStat.setPriceInformation("");
 						pStat.setTypeLabel("Type de quartier : "+city.getDistrictByPosition(position).getType().toString());
 						pStat.setIsSubwayStation("Station de Métro : "+ city.getDistrictByPosition(position).getStation());
-						pStat.setdensityLabel("Population : "+ city.getDistrictByPosition(position).getDensity());
+						pStat.setdensityLabel("Population : "+ city.getDistrictByPosition(position).getType().getNbCitizens());
 						
 						/* To draw a line between 2 points */
 						/*
@@ -313,7 +312,7 @@ public class MainFrame extends JFrame implements Runnable {
 	}
 
 	public void updateDensity() {
-		pScore.getDensityField().setText(city.getDensity()+" inhabitants");
+		pScore.getDensityField().setText(city.getNbCitizens()+" inhabitants");
 	}
 
 	public void updateServicing() {

@@ -12,11 +12,17 @@ public abstract class DistrictType
 	public abstract boolean isPrivate(); 
 	public abstract boolean isResidential();
 	
+	public abstract float getConstructionCost();
+	public abstract void setConstructionCost(float constCost);
+	
 	public abstract float getTaxes();
 	public abstract void setTaxes(float taxes);	
 	
 	public abstract float getMaintenanceCost();
-	public abstract void setMaintenanceCost(float taxes);	
+	public abstract void setMaintenanceCost(float taxes);
+	
+	public abstract int getNbCitizens();
+	public abstract void setNbCitizens(int nbCtz);
 	
 	public abstract int getNbWorkers();
 	public abstract void setNbWorkers(int nbWorkers);
@@ -29,6 +35,7 @@ public abstract class DistrictType
 	public Image getImage() {
 		return image;
 	}
+	
 	public String toString() {
 		if(isPrivate()) {
 			return "Quartier privé";

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import city.District;
 import engine.DistrictLevelUp;
 import mocks.DistrictLevelUpMock;
-import staticData.districtData;
+import staticData.DistrictData;
 
 class DistrictLevelUpTest {
 	
@@ -33,7 +33,7 @@ class DistrictLevelUpTest {
 		//Exp
 		District districtExp1 = lduMock.DistrictLevel1();
 		districtExp1.setLevel(2);
-		districtExp1.setMaxCapacity(districtData.maxInhabitantsCapacityLevel2);
+		districtExp1.setMaxCapacity(DistrictData.maxInhabitantsCapacityLevel2);
 		//Comp
 		assertEquals("Le district niveau 1 aurait dû passer niveau 2", districtExp1.getLevel(), districtTest1.getLevel());
 		assertEquals("Le district devrait être de capacité 2", districtExp1.getMaxCapacity(), districtTest1.getMaxCapacity());
@@ -43,7 +43,7 @@ class DistrictLevelUpTest {
 		//Exp
 		District districtExp2 = lduMock.DistrictLevel2();
 		districtExp2.setLevel(3);
-		districtExp2.setMaxCapacity(districtData.maxInhabitantsCapacityLevel3);
+		districtExp2.setMaxCapacity(DistrictData.maxInhabitantsCapacityLevel3);
 		//Comp
 		assertEquals("Le district niveau 2 aurait dû passer niveau 3", districtExp2.getLevel(), districtTest2.getLevel());
 		assertEquals("Le district devrait être de capacité 3", districtExp2.getMaxCapacity(), districtTest2.getMaxCapacity());

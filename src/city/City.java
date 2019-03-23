@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import engine.EconomyManager;
 import engine.TimeSimulator;
 import used.Point;
 
@@ -20,9 +19,9 @@ public class City
 	private ArrayList<Citizen> citizens;
 
 	private int nbStation;
-	private float density;
 	private int servicing=500;
 	private float prosperity;
+	private float unemployement;
 
 	private City() {
 		timeSim = new TimeSimulator();
@@ -34,14 +33,6 @@ public class City
 	
 	public static City getInstance() {
 		return instance;
-	}
-	
-	public float getDensity() {
-		return density;
-	}
-
-	public void setDensity(float density) {
-		this.density = density;
 	}
 
 	public int getServicing() {
@@ -215,6 +206,30 @@ public class City
 	public int getNbCitizens() {
 		return citizens.size();
 	}
+
+	public float getUnemployement() {
+		return unemployement;
+	}
+
+	public void setUnemployement(float unemployement) {
+		this.unemployement = unemployement;
+	}
+	
+	public String interpretProsprerity()
+	{
+		if (prosperity<=0.25) {
+			return "Critical";
+		}
+		else if (prosperity>0.25 && prosperity<=0.50) {
+			return "Low";
+		}
+		else if (prosperity>0.50 && prosperity<=0.75) {
+			return "Good";
+		}
+		else{
+			return "Excelent";
+		}
+	}
 	
 	@Override
 	public String toString() {
@@ -223,7 +238,6 @@ public class City
 				"SubwayLines=" + subwayLines +"\n"+
 				"nbStation=" + nbStation +"\n"+
 				"Citizens=" + getNbCitizens() +"\n"+
-				"density=" + density +"\n"+
 				"Prosperity=" + prosperity;
 	}
 	

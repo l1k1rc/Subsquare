@@ -1,6 +1,5 @@
 package city;
 
-import staticData.districtData;
 
 public class PrivateDistrict extends DistrictType
 {
@@ -57,6 +56,30 @@ public class PrivateDistrict extends DistrictType
 
 	@Override
 	public void setMaintenanceCost(float taxes) {
+		
+	}
+
+	@Override
+	public float getConstructionCost() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setConstructionCost(float constCost) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getNbCitizens() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setNbCitizens(int nbCtz) {
+		// TODO Auto-generated method stub
 		
 	}
 
