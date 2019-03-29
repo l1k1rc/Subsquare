@@ -6,6 +6,8 @@ import city.Citizen;
 import city.City;
 import city.District;
 import city.Station;
+import engine.Simulation;
+import used.Point;
 
 public class EcoCalculator
 {	
@@ -56,22 +58,38 @@ public class EcoCalculator
 		return unempl/citizens.size();
 	}
 	
-	/*public static float calcTravelTime(City city, District district) {
+	static public double sqr(double a) {
+	        return a*a;
+	}
+	
+	public static float calcTravelTime(City city, District district) {
 		ArrayList<Citizen> citizens = new ArrayList<Citizen>();
 		citizens = city.getCitizensByDistrict(district);
-		int travelTime = 0;
-		
+		int totalTravelTime = 0;
+		int travelTime;
 		for (Citizen i : citizens) {
-			 if(i.isEmployed()) {
-				 Point workingDistrictPosition = i.getWorkDistrict().getPosition();
-				 Point originDistrictPosition = i.getOriginDistrict().getPosition();
-				 double distance = Math.sqrt(sqr(workingDistrictPosition.getOrdonne() - originDistrictPosition.getOrdonne()) + sqr(workingDistrictPosition.getAbscisse() - originDistrictPosition.getAbscisse()));
-				 travelTime+= distance;
-			 }
+			travelTime = 0;
+			if(i.isEmployed()) {
+				if(!i.getPosition().equals(i.getWorkDistrict().getPosition())) {
+					int begin = city.getIdByPosition(i.getOriginDistrict().getPosition());
+					int end = city.getIdByPosition(i.getWorkDistrict().getPosition());
+					ArrayList<Point> path = Simulation.getStationsPosByFloyd(begin, end);
+					Point actualPos = i.getPosition();
+					for (Point target : path) {
+						double distance = Math.sqrt(sqr(actualPos.getOrdonne() - target.getOrdonne()) + sqr(actualPos.getAbscisse() - target.getAbscisse()));
+						if(distance<0) {
+							distance*= (-1);
+						}
+						actualPos = target;
+						travelTime+=distance;
+					}
+				}
+			}
+			totalTravelTime+=travelTime;
 		}
 		
-		
-		return 0;
-	}*/
+		int moyTravelTime = totalTravelTime/citizens.size();
+		return moyTravelTime;
+	}
 	
 }

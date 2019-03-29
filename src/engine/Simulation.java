@@ -21,12 +21,12 @@ import used.Point;
 
 public class Simulation {
 	
-	private City city = City.getInstance();
+	private static City city = City.getInstance();
 	private Grid grid;
 	private GridParameters parameters;
 	private static int simulationNumberOfTurn;
 	private int idStation = 0;
-	private FloydPathFinding floyd = new FloydPathFinding(city.nbStations(), city);
+	private static FloydPathFinding floyd = new FloydPathFinding(city.nbStations(), city);
 	private AStarPathFinding aStar;
 	
 	private EconomyManager ecoMan = new EconomyManager(city);
@@ -102,7 +102,7 @@ public class Simulation {
 		return result;
 	}
 	
-	public ArrayList<Point> getStationsPosByFloyd(int begin, int end){
+	public static ArrayList<Point> getStationsPosByFloyd(int begin, int end){
 		ArrayList<Point> result = new ArrayList<Point>();
 		Stack<Integer> sommets = floyd.getPath(begin, end);
 		for(Integer som : sommets) {
