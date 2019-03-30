@@ -238,7 +238,7 @@ public class MainFrame extends JFrame implements Runnable {
 						pStat.setPriceInformation("");
 						pStat.setTypeLabel("Type de quartier : "+city.getDistrictByPosition(position).getType().toString());
 						pStat.setIsSubwayStation("Station de Métro : "+ city.getDistrictByPosition(position).getStation());
-						pStat.setdensityLabel("Population : "+ city.getDistrictByPosition(position).getDensity());
+						pStat.setdensityLabel("Population : "+ city.getDistrictByPosition(position).getType().getNbCitizens());
 						
 						/* To draw a line between 2 points */
 						/*
@@ -304,19 +304,19 @@ public class MainFrame extends JFrame implements Runnable {
 	}
 
 	public void updateTaxes() {
-		pScore.getTaxesField().setText(city.getTaxesField());
+		pScore.getTaxesField().setText(simulation.getEcoManager().getTaxes()+" €/month");
 	}
 
 	public void updateBudget() {
-		pScore.getBudgetField().setText(city.getBudgetField());
+		pScore.getBudgetField().setText(simulation.getEcoManager().getBudget()+" €");
 	}
 
 	public void updateDensity() {
-		pScore.getDensityField().setText(city.getDensityField());
+		pScore.getDensityField().setText(city.getNbCitizens()+" inhabitants");
 	}
 
 	public void updateServicing() {
-		pScore.getServicingField().setText(city.getServicingField());
+		pScore.getServicingField().setText(city.getServicing()+" €/month");
 	}
 
 	@Override

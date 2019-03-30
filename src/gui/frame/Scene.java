@@ -13,7 +13,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import city.Citizen;
 import city.City;
 import city.District;
 import engine.GridParameters;

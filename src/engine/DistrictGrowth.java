@@ -13,7 +13,6 @@ public class DistrictGrowth {
 	
 	public DistrictGrowth(District district) throws Exception{
 		this.district = district;
-		this.prosperity = ProsperityCalculator.prosperityInterpretor(district.getProsperity());
 	}
 	
 	/*public int populationGrowth(String prosperity) {
