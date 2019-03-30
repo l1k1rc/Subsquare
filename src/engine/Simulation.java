@@ -41,18 +41,20 @@ public class Simulation {
 	public void simulationNextTurn() {
 		
 		for(Citizen citizen : city.getCitizens()) {
-			if(city.getTimeSimulator().getHour()==9 && city.getTimeSimulator().AM_PM())
-				citizenGoToWork(citizen);
-			else if(city.getTimeSimulator().getHour()==6 && !city.getTimeSimulator().AM_PM())
-				citizenGoToHome(citizen);
+			if(!city.getTimeSimulator().isWeekEnd()) {
+				if(city.getTimeSimulator().getHour()==9 && city.getTimeSimulator().AM_PM())
+					citizenGoToWork(citizen);
+				else if(city.getTimeSimulator().getHour()==6 && !city.getTimeSimulator().AM_PM())
+					citizenGoToHome(citizen);
+			}
+			//TODO weekends
 		}
 		
 		simulationNumberOfTurn++;
 	}
 	
-	private void citizenGoToHome(Citizen citizen) {
-		// TODO citizen go to home
-		
+	public void citizenGoToHome(Citizen citizen) {
+
 	}
 
 	public void citizenGoToWork(Citizen citizen) {
@@ -70,7 +72,7 @@ public class Simulation {
 			}
 			else {
 				ArrayList<District> searchWork = city.getDistrictByType((citizen.getQI() > 120) ? "pri" : "pub");
-				District closest = getClosestDistrict(citizen.getPosition(), searchWork);
+				District closest = getClosestDistrict(citizen.getPosition(), searchWork, citizen);
 				if(closest != null) {
 					ArrayList<Point> path = aStar.aStart(citizen.getPosition(), closest.getPosition());
 					if(path.size()>0) {
@@ -84,12 +86,12 @@ public class Simulation {
 			citizen.move();
 	}
 	
-	private District getClosestDistrict(Point position, ArrayList<District> searchWork) {
+	private District getClosestDistrict(Point position, ArrayList<District> searchWork, Citizen citizen) {
 		District result = null;
 		double min = Double.MAX_VALUE;
 		for(District dist : searchWork) {
 			double tmp = position.distance(dist.getPosition());
-			if(tmp < min && tmp < 10d) {
+			if(tmp < min && tmp < 10d && !citizen.getNoWork().contains(dist)) {
 				min = tmp;
 				result = dist;
 			}
