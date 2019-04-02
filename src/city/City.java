@@ -58,7 +58,8 @@ public class City
 	public void addSubwayLine(SubwayLine line) {
 		subwayLines.add(line);
 	}
-		
+	
+	//Contains all district build on the map
 	public HashMap<Point,District> getDistricts() {
 		return districts;
 	}
