@@ -319,7 +319,7 @@ public class MainFrame extends JFrame implements Runnable {
 	}
 
 	public void updateServicing() {
-		pScore.getServicingField().setText(city.getServicing()+" €/month");
+		pScore.getServicingField().setText(general_economy.getMaintenanceCost()+" €/month");
 	}
 
 	@Override

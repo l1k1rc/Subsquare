@@ -126,5 +126,6 @@ public class PanelPrivStat extends JPanel {
 	public void setdensityLabel(String density) {
 		this.densityLabel.setText(density);
 	}
+	
 
 }
