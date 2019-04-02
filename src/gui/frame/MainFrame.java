@@ -18,7 +18,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import city.City;
@@ -29,7 +28,6 @@ import city.ResidentialDistrict;
 import engine.GridParameters;
 import engine.Simulation;
 import engine.TimeSimulator;
-import staticData.districtData;
 import used.Point;
 import used.Random;
 
@@ -151,13 +149,13 @@ public class MainFrame extends JFrame implements Runnable {
 			public void mouseReleased(MouseEvent e) {
 				Point position = new Point(e.getX() / 28, e.getY() / 28);
 
-				if (city.isDistrictPosition(position) && PanelAPI.getbuildMetroLine() && doSecondLine == true) {
+				if (city.isDistrictPosition(position) && PanelAPI.getbuildMetroLine() && doSecondLine==true) {
 					PanelAPI.setbuildMetroLine(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					position_dicstrictB = new Point(position.getAbscisse(), position.getOrdonne());
 					simulation.buildStation(position_dicstrictB);
 					simulation.buildSubwayLine(position_districtA, position_dicstrictB);
-					doSecondLine = false;
+					doSecondLine=false;
 				}
 			}
 
@@ -172,7 +170,7 @@ public class MainFrame extends JFrame implements Runnable {
 				if (city.isDistrictPosition(position) && PanelAPI.getbuildMetroLine()) {
 					position_districtA = new Point(position.getAbscisse(), position.getOrdonne());
 					simulation.buildStation(position_districtA);
-					doSecondLine = true;
+					doSecondLine= true;
 				}
 			}
 
@@ -188,7 +186,6 @@ public class MainFrame extends JFrame implements Runnable {
 			 * Method to use when the user wants to interact with the map, that is to say,
 			 * build a place, a line ...
 			 */
-			@SuppressWarnings("static-access")
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
@@ -199,18 +196,11 @@ public class MainFrame extends JFrame implements Runnable {
 				 * district is build
 				 */
 				if (PanelAPI.getbuildPublicDistrict()) {
-					if (city.getBudget() >= simulation.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse())
-							.getGroundType().getDegre() * districtData.constructionCost) {
-						simulation.buildDistrict(position, new PublicDistrict(),
-								DistrictName.get(Random.randomInt(DistrictName.size(), false)));
-						PanelAPI.setbuildPublicDistrict(false);
-						setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-						scene.setDrawGrid(false);
-					} else {
-						JOptionPane jop3 = new JOptionPane();
-						jop3.showMessageDialog(null, "Impossible de construire dans cette zone. Prix ", "Erreur",
-								JOptionPane.ERROR_MESSAGE);
-					}
+					simulation.buildDistrict(position, new PublicDistrict(),
+							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
+					PanelAPI.setbuildPublicDistrict(false);
+					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildPrivateDistrict()) {
 					simulation.buildDistrict(position, new PrivateDistrict(),
 							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
@@ -231,19 +221,8 @@ public class MainFrame extends JFrame implements Runnable {
 					PanelPrivStat pStat = new PanelPrivStat();
 					pStat.setBounds(1400, 0, 250, 1150);
 					pStat.setposLabel("Position de ce quartier : " + position);
-					
-					if (simulation.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getGroundType()
-							.isContainsTree())
-						pStat.setPriceInformation("Prix de la zone : "
-								+ simulation.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse())
-										.getGroundType().getDegre() * districtData.constructionCost*2);
-					else
-						pStat.setPriceInformation("Prix de la zone : "
-								+ simulation.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse())
-										.getGroundType().getDegre() * districtData.constructionCost);
-					
+					pStat.setPriceInformation("Prix de la zone : 200g");
 					pStat.setTypeLabel("Pas de type de quartier");
-
 					getContentPane().add(pStat);
 					/*
 					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
@@ -257,18 +236,10 @@ public class MainFrame extends JFrame implements Runnable {
 					if (city.isDistrictPosition(position)) {
 						pStat.setposLabel("Attention : cette place est occupée");
 						pStat.setPriceInformation("");
-						pStat.setTypeLabel(
-								"Type de quartier : " + city.getDistrictByPosition(position).getType().toString());
-						pStat.setIsSubwayStation(
-								"Station de Métro : " + city.getDistrictByPosition(position).getStation());
-						pStat.setdensityLabel("Population : " + city.getDistrictByPosition(position).getDensity());
-						// city.getDistrictByPosition(position).get
-						// LEVEL
-						// Cout maintenance
-						// Propérité
-						// position
-						// capacité max
-
+						pStat.setTypeLabel("Type de quartier : "+city.getDistrictByPosition(position).getType().toString());
+						pStat.setIsSubwayStation("Station de Métro : "+ city.getDistrictByPosition(position).getStation());
+						pStat.setdensityLabel("Population : "+ city.getDistrictByPosition(position).getType().getNbCitizens());
+						
 						/* To draw a line between 2 points */
 						/*
 						 * if (buildLine_A == false && buildLine_B == false) { buildLine_A = true;
@@ -333,19 +304,19 @@ public class MainFrame extends JFrame implements Runnable {
 	}
 
 	public void updateTaxes() {
-		pScore.getTaxesField().setText(city.getTaxesField());
+		pScore.getTaxesField().setText(simulation.getEcoManager().getTaxes()+" €/month");
 	}
 
 	public void updateBudget() {
-		pScore.getBudgetField().setText(city.getBudgetField());
+		pScore.getBudgetField().setText(simulation.getEcoManager().getBudget()+" €");
 	}
 
 	public void updateDensity() {
-		pScore.getDensityField().setText(city.getDensityField());
+		pScore.getDensityField().setText(city.getNbCitizens()+" inhabitants");
 	}
 
 	public void updateServicing() {
-		pScore.getServicingField().setText(city.getServicingField());
+		pScore.getServicingField().setText(city.getServicing()+" €/month");
 	}
 
 	@Override

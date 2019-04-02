@@ -1,6 +1,8 @@
 package mocks;
 
 import city.District;
+import city.DistrictType;
+import city.PrivateDistrict;
 import city.Station;
 import used.Point;
 import used.Random;
@@ -18,19 +20,19 @@ public class DistrictLevelUpMock {
 		point = new Point(1,1);
 		station = new Station(1, Random.randomInt(8, false), point);
 	}
-	
+
 	public District DistrictLevel1() {
-		District district = new District("DistrictTest", station, 40, 50, 70, "Private", 0, point);
+		District district = new District(point,new PrivateDistrict(),"DistrictTest1",1);
 		return district;
 	}
 	
 	public District DistrictLevel2() {
-		District district = new District("DistrictTest", station, 40, 50, 70, "Private", 2, point);
+		District district = new District(point,new PrivateDistrict(),"DistrictTest2",2);
 		return district;
 	}
 	
 	public District DistrictLevel3() {
-		District district = new District("DistrictTest", station, 40, 50, 70, "Private", 3, point);
+		District district = new District(point,new PrivateDistrict(),"DistrictTest3",3);
 		return district;
 	}
 

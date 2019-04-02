@@ -24,7 +24,7 @@ public class Scene extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private City city = City.getInstance();
-	private Grid grid;;
+	private Grid grid;
 	private Graphics g2;
 	private boolean drawGrid = false;
 	private static boolean stationView = false;

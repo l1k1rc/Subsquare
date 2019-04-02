@@ -1,5 +1,9 @@
 package engine;
 
+import java.util.ArrayList;
+
+import city.Citizen;
+import city.City;
 import city.Station;
 
 /**
@@ -9,7 +13,7 @@ import city.Station;
  */
 public class StationLevelUp {
 	
-	public static Station StationUpper(Station stationUp) {
+	public static Station stationUpper(Station stationUp) {
 		int levelUp = stationUp.getLevel();
 		if (levelUp < 3) {
 			levelUp++;
@@ -21,5 +25,13 @@ public class StationLevelUp {
 		return stationUp;
 		
 	}
+	
+	/*public void automatedLevelUpper(City city, Station district) {
+		ArrayList<Citizen> citizens = new ArrayList<Citizen>();
+		citizens = city.getCitizensByStation(station);
+		if (station.getMaxCapacity() <= citizens.size()) {
+			stationUpper(station);
+		}
+	}*/
 
 }

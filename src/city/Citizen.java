@@ -15,6 +15,7 @@ public class Citizen {
 	private int QI;
 	private boolean move;
 	private ArrayList<Point> path = new ArrayList<Point>();
+	private ArrayList<District> noWork = new ArrayList<District>();
 	
 	public Citizen(District workDistrict, District originDistrict, Point position) {
 		this.workDistrict = workDistrict;
@@ -94,6 +95,14 @@ public class Citizen {
 	public void setPath(ArrayList<Point> path) {
 		this.path = path;
 	}
+	
+	public ArrayList<District> getNoWork() {
+		return noWork;
+	}
+	
+	public void setNoWork(ArrayList<District> noWork) {
+		this.noWork = noWork;
+	}
 
 	public void move() {
 		Point newPos = path.get(0);
@@ -117,8 +126,20 @@ public class Citizen {
 						work.getType().setNbWorkers(work.getType().getNbWorkers()+1);
 						employed = true;
 					}
+					else
+						noWork.add(work);
 				}
 			}
 		}
 	}
+
+	public boolean isEmployed() {
+		return employed;
+	}
+
+	public void setEmployed(boolean employed) {
+		this.employed = employed;
+	}
+	
+	
 }

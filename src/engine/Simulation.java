@@ -11,21 +11,23 @@ import city.District;
 import city.DistrictType;
 import city.Station;
 import city.SubwayLine;
+import economy.EcoData;
+import economy.EconomyManager;
 import grid.Box;
 import grid.Grid;
-import staticData.StationData;
-import staticData.districtData;
 import used.Point;
 
 public class Simulation {
 	
-	private City city = City.getInstance();
+	private static City city = City.getInstance();
 	private Grid grid;
 	private GridParameters parameters;
 	private static int simulationNumberOfTurn;
 	private int idStation = 0;
-	private FloydPathFinding floyd = new FloydPathFinding(city.nbStations(), city);
+	private static FloydPathFinding floyd = new FloydPathFinding(city.nbStations(), city);
 	private AStarPathFinding aStar;
+	
+	private EconomyManager ecoMan = new EconomyManager(city);
 	
 	public Simulation(GridParameters parameters) {
 		this.parameters=parameters;
@@ -41,18 +43,21 @@ public class Simulation {
 	public void simulationNextTurn() {
 		
 		for(Citizen citizen : city.getCitizens()) {
-			if(city.getTimeSimulator().getHour()==9 && city.getTimeSimulator().AM_PM())
-				citizenGoToWork(citizen);
-			else if(city.getTimeSimulator().getHour()==6 && !city.getTimeSimulator().AM_PM())
-				citizenGoToHome(citizen);
+			if(!city.getTimeSimulator().isWeekEnd()) {
+				if(city.getTimeSimulator().getHour()==9 && city.getTimeSimulator().AM_PM())
+					citizenGoToWork(citizen);
+				else if(city.getTimeSimulator().getHour()==6 && !city.getTimeSimulator().AM_PM())
+					citizenGoToHome(citizen);
+			}
+			//TODO weekends
 		}
 		
+		ecoMan.updateData();
 		simulationNumberOfTurn++;
 	}
 	
-	private void citizenGoToHome(Citizen citizen) {
-		// TODO citizen go to home
-		
+	public void citizenGoToHome(Citizen citizen) {
+
 	}
 
 	public void citizenGoToWork(Citizen citizen) {
@@ -70,7 +75,7 @@ public class Simulation {
 			}
 			else {
 				ArrayList<District> searchWork = city.getDistrictByType((citizen.getQI() > 120) ? "pri" : "pub");
-				District closest = getClosestDistrict(citizen.getPosition(), searchWork);
+				District closest = getClosestDistrict(citizen.getPosition(), searchWork, citizen);
 				if(closest != null) {
 					ArrayList<Point> path = aStar.aStart(citizen.getPosition(), closest.getPosition());
 					if(path.size()>0) {
@@ -84,12 +89,12 @@ public class Simulation {
 			citizen.move();
 	}
 	
-	private District getClosestDistrict(Point position, ArrayList<District> searchWork) {
+	public static District getClosestDistrict(Point position, ArrayList<District> searchWork, Citizen citizen) {
 		District result = null;
 		double min = Double.MAX_VALUE;
 		for(District dist : searchWork) {
 			double tmp = position.distance(dist.getPosition());
-			if(tmp < min && tmp < 10d) {
+			if(tmp < min && tmp < 10d && !citizen.getNoWork().contains(dist)) {
 				min = tmp;
 				result = dist;
 			}
@@ -97,7 +102,7 @@ public class Simulation {
 		return result;
 	}
 	
-	public ArrayList<Point> getStationsPosByFloyd(int begin, int end){
+	public static ArrayList<Point> getStationsPosByFloyd(int begin, int end){
 		ArrayList<Point> result = new ArrayList<Point>();
 		Stack<Integer> sommets = floyd.getPath(begin, end);
 		for(Integer som : sommets) {
@@ -122,6 +127,10 @@ public class Simulation {
 		return grid;
 	}
 	
+	public EconomyManager getEcoManager() {
+		return ecoMan;
+	}
+	
 	// builders:
 	
 	public void buildDistrict(Point position,DistrictType type,String name) {
@@ -130,12 +139,12 @@ public class Simulation {
 			District ds = CityFactory.creatDistrict(position, type, name);
 			city.addDistrict(position,ds);
 			if(box.getGroundType().containsTree)
-				box.getGroundType().setContainsTree(true);
+				box.getGroundType().setContainsTree(false);
 			if(type.isPublic()){
-				float cost = box.getGroundType().getDegre()*districtData.constructionCost;
+				float cost = box.getGroundType().getDegre()*EcoData.CONST_DISTRICT;
 				if(box.getGroundType().containsTree)
-					cost = cost*4;
-				city.spendMoney(cost);
+					cost = cost*2;
+				ecoMan.setMoney(cost,"const");
 			}
 			box.setIsFree(false);
 		}	
@@ -149,7 +158,7 @@ public class Simulation {
 				idStation++;
 				city.addStation();
 				d.setStation(st);
-				city.spendMoney(StationData.constructStationCost);
+				ecoMan.setMoney(EcoData.CONST_STATION,"const");
 				setFloyd(new FloydPathFinding(city.nbStations(), city));
 			}
 		}
@@ -167,7 +176,7 @@ public class Simulation {
 				d2.getStation().addSubwayLine(line2);
 				city.addSubwayLine(line1);
 				city.addSubwayLine(line2);
-				city.spendMoney(StationData.constructLineCost);
+				ecoMan.setMoney(EcoData.CONST_SBLINE,"const");
 				setFloyd(new FloydPathFinding(city.nbStations(), city));
 			}
 		}
@@ -185,7 +194,7 @@ public class Simulation {
 	}
 	
 	public void setFloyd(FloydPathFinding floyd) {
-		this.floyd = floyd;
+		Simulation.floyd = floyd;
 	}
 	
 	public AStarPathFinding getaStar() {
@@ -194,5 +203,13 @@ public class Simulation {
 	
 	public void setaStar(AStarPathFinding aStar) {
 		this.aStar = aStar;
+	}
+	
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		Simulation.city = city;
 	}
 }

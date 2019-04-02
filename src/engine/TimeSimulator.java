@@ -6,25 +6,23 @@ import java.util.Locale;
 
 public class TimeSimulator
 {	
-	private Calendar calendar;
-	private SimpleDateFormat formatter;
+	private Calendar calendar = Calendar.getInstance();;
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy",Locale.ENGLISH);
 	
-	private int secondCount = 0;
 	private int am_pm;
+
+	private String currentMonth;
+	private String currentDay;
 		
 	public TimeSimulator() {
-		calendar = Calendar.getInstance();
-		this.am_pm = calendar.get(Calendar.AM_PM);
-		formatter = new SimpleDateFormat("dd MMMM yyyy",Locale.ENGLISH);
-		init();
-	}
-	
-	private void init() {
 		calendar.set(Calendar.SECOND,0);
 		calendar.set(Calendar.MINUTE,0);
 		calendar.set(Calendar.HOUR,0);
-	}	
-	
+		currentMonth = getMounth();
+		currentDay = getDay();
+		am_pm = calendar.get(Calendar.AM_PM);
+	}
+
 	public int getSecond() {
 		return calendar.get(Calendar.SECOND);
 	}
@@ -59,11 +57,7 @@ public class TimeSimulator
 	}
 	
 	public String getDate() {
-		return formatter.format(calendar.getTime());
-	}
-	
-	public int getSecondCount() {
-		return secondCount;
+		return sdf.format(calendar.getTime());
 	}
 	
 	public boolean isWeekEnd() {
@@ -71,9 +65,24 @@ public class TimeSimulator
 		return day == Calendar.SATURDAY || day == Calendar.SUNDAY;
 	}
 	
+	public boolean isEndOfMonth() {
+		if(!getMounth().equals(currentMonth)) {
+			currentMonth = getMounth();
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isEndOfDay() {
+		if(!getDay().equals(currentDay)) {
+			currentDay = getDay();
+			return true;
+		}
+		return false;
+	}
+	
 	public void update() {
-		calendar.add(Calendar.MINUTE,10);
-		this.am_pm = calendar.get(Calendar.AM_PM);
-		secondCount++;
+		calendar.add(Calendar.MINUTE,20);
+		am_pm = calendar.get(Calendar.AM_PM);
 	}
 }
