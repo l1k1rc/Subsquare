@@ -21,6 +21,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import city.City;
+import city.CityFactory;
 import city.District;
 import city.PrivateDistrict;
 import city.PublicDistrict;
@@ -202,6 +203,7 @@ public class MainFrame extends JFrame implements Runnable {
 					simulation.buildDistrict(position, new PublicDistrict(),
 							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
 					PanelAPI.setbuildPublicDistrict(false);
+					District dis = City.getInstance().getDistrictByPosition(position);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
 				} else if (PanelAPI.getbuildPrivateDistrict()) {
@@ -210,11 +212,12 @@ public class MainFrame extends JFrame implements Runnable {
 					PanelAPI.setbuildPrivateDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
-				} else if (PanelAPI.getbuildResidentialDistrict()) {
+					District dis = City.getInstance().getDistrictByPosition(position);
+				} else if (PanelAPI.getbuildResidentialDistrict()) { // citizen created only in this district
 					simulation.buildDistrict(position, new ResidentialDistrict(),
 							DistrictName.get(Random.randomInt(DistrictName.size(), false)));
 					District dis = City.getInstance().getDistrictByPosition(position);
-					simulation.creatCitizens(null, dis, true, 1);
+					//simulation.creatCitizens(null, dis, true, 1);
 					PanelAPI.setbuildResidentialDistrict(false);
 					setCursorOnScene(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					scene.setDrawGrid(false);
@@ -241,8 +244,7 @@ public class MainFrame extends JFrame implements Runnable {
 						pStat.setPriceInformation("");
 						pStat.setTypeLabel("Type de quartier : "+city.getDistrictByPosition(position).getType().toString());
 						pStat.setIsSubwayStation("Station de Métro : "+ city.getDistrictByPosition(position).getStation());
-						pStat.setdensityLabel("Population : "+ city.getDistrictByPosition(position).getType().getNbCitizens());
-						
+						pStat.setdensityLabelPriv("Population : "+ city.getDistrictByPosition(position).getType().getNbCitizens());
 						/* To draw a line between 2 points */
 						/*
 						 * if (buildLine_A == false && buildLine_B == false) { buildLine_A = true;

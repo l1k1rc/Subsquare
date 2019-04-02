@@ -122,8 +122,7 @@ public class PanelPrivStat extends JPanel {
 	public void setIsSubwayStation(String subway) {
 		this.isSubwayStation.setText(subway);
 	}
-	
-	public void setdensityLabel(String density) {
+	public void setdensityLabelPriv(String density) {
 		this.densityLabel.setText(density);
 	}
 	

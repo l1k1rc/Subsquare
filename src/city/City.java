@@ -104,7 +104,6 @@ public class City
 	public void displayPositions() {
 		for (Iterator<District> it = getDistricts().values().iterator(); it.hasNext();) {
 			District d = it.next();
-			System.out.println("Hashmap:("+d.getPosition().getAbscisse()+":"+d.getPosition().getOrdonne()+")");
 		}
 	}
 	
@@ -215,23 +214,6 @@ public class City
 	public void setUnemployement(float unemployement) {
 		this.unemployement = unemployement;
 	}
-	
-	public String interpretProsprerity()
-	{
-		if (prosperity<=25) {
-			return "Critical";
-		}
-		else if (prosperity>25 && prosperity<=50) {
-			return "Low";
-		}
-		else if (prosperity>50 && prosperity<=75) {
-			return "Good";
-		}
-		else{
-			return "Excelent";
-		}
-	}
-	
 	@Override
 	public String toString() {
 		return  "Date=" + timeSim.getTime() +"\n"+
