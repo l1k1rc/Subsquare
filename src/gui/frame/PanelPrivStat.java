@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
+import city.City;
 import gui.fontElements.Fonts;
 
 public class PanelPrivStat extends JPanel {
@@ -30,6 +31,7 @@ public class PanelPrivStat extends JPanel {
 	private JPanel prosperity = new JPanel();
 	private JProgressBar prosperityBar;
 	private GridBagConstraints gbc = new GridBagConstraints();
+	
 	
 	public PanelPrivStat() {
 		super();

@@ -25,6 +25,7 @@ import city.District;
 import city.PrivateDistrict;
 import city.PublicDistrict;
 import city.ResidentialDistrict;
+import economy.EconomyManager;
 import engine.GridParameters;
 import engine.Simulation;
 import engine.TimeSimulator;
@@ -61,13 +62,15 @@ public class MainFrame extends JFrame implements Runnable {
 
 	private static Point position_districtA, position_dicstrictB;
 	public static ArrayList<String> DistrictName = new ArrayList<String>();
-
+	EconomyManager general_economy;
+	
 	/********* construct *********/
 	public MainFrame() {
 		super("Subsquare");
 		setIconImage(new ImageIcon("subsquare_icon.png").getImage());
 		setFocusable(true);
 		simulation = new Simulation(GridParameters.getInstance());
+		general_economy= simulation.getEcoManager();
 		simulation.generatGrid();
 		scene.setGrid(simulation.getGrid());
 		generDistrictName("/districName/districNames.txt");
@@ -304,11 +307,11 @@ public class MainFrame extends JFrame implements Runnable {
 	}
 
 	public void updateTaxes() {
-		pScore.getTaxesField().setText(simulation.getEcoManager().getTaxes()+" €/month");
+		pScore.getTaxesField().setText(general_economy.getTaxes()+" €/month");
 	}
 
 	public void updateBudget() {
-		pScore.getBudgetField().setText(simulation.getEcoManager().getBudget()+" €");
+		pScore.getBudgetField().setText(general_economy.getBudget()+" €");
 	}
 
 	public void updateDensity() {

@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 
 import city.City;
 import city.District;
+import economy.EconomyManager;
 import gui.fontElements.Fonts;
 import used.Point;
 
@@ -53,9 +54,8 @@ public class PanelScore extends JPanel {
 	public static JButton stats = new JButton(new ImageIcon("stats.png"));
 	
 	private JProgressBar prosperityBar = new JProgressBar();
-	
+
 	public PanelScore() {
-		
 		super();
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEtchedBorder());
