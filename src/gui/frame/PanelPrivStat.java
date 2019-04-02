@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
-import city.City;
 import gui.fontElements.Fonts;
 
 public class PanelPrivStat extends JPanel {
