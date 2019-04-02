@@ -11,12 +11,9 @@ public class EconomyManager
 	
 	private float budget = 50000;
 	
-	// values in each end of month:
-	private float constructionCost = 0;
 	private float maintenanceCost = 0;
 	private float taxes = 0;
 	
-	// accumulated values:
 	private float totalConstructionCost = 0;
 	private float totalMaintenanceCost = 0;
 	private float totalTaxes = 0;
@@ -65,14 +62,6 @@ public class EconomyManager
 		return totalTaxes;
 	}
 
-	public float getConstructionCost() {
-		return constructionCost;
-	}
-
-	public void setConstructionCost(float constructionCost) {
-		this.constructionCost = constructionCost;
-	}
-
 	public float getTaxes() {
 		return taxes;
 	}
@@ -98,11 +87,13 @@ public class EconomyManager
 
 			case "maint":
 				 budget-=money;
+				 maintenanceCost = money;
 				 totalMaintenanceCost+=money;
 				 break;
 				 
 			case "tax":
 				 budget+=money;
+				 taxes = money;
 				 totalTaxes+=money;
 				break;
 		}
@@ -115,24 +106,25 @@ public class EconomyManager
 		
 		float mc=0, tx=0,pr=0,emp=0;
 		
-		if(time.isEndOfDay())
-		{
-			for(District dist : districts) {
-				EcoCalculator.calcDistUnemployement(city,dist);
-				mc += EcoCalculator.calcMaintenanceCost(dist);
-				tx += EcoCalculator.calcTaxes(dist);
-				pr += EcoCalculator.calcProsperity(city, dist);
+		if(!city.isEmpty()) {
+			if(time.isEndOfDay())
+			{
+				for(District dist : districts) {
+					EcoCalculator.calcDistUnemployement(city,dist);
+					mc += EcoCalculator.calcMaintenanceCost(dist);
+					tx += EcoCalculator.calcTaxes(dist);
+					pr += EcoCalculator.calcProsperity(city, dist);
+				}
+				
+				pr/=city.getNbDistricts();
+				city.setProsperity(pr);
+				emp = EcoCalculator.calcUnemployement(city.getCitizens());
+				city.setUnemployement(emp);
+				
+				setMoney(mc,"maint");
+				setMoney(tx,"tax");
 			}
-			pr/=city.getNbDistricts();
-			city.setProsperity(pr);
-			
-			emp = EcoCalculator.calcUnemployement(city.getCitizens());
-			city.setUnemployement(emp);
-			
-			setMoney(mc,"maint");
-			setMoney(tx,"tax");
 		}
-
 	}		
 	
 	@Override
@@ -140,7 +132,6 @@ public class EconomyManager
 	{
 		return 	"Budget = " + budget +"\n"+
 	
-				"constructionCost = " + constructionCost +"\n"+
 				"maintenanceCost = " + maintenanceCost +"\n"+
 				"taxes = " + taxes +"\n"+
 				
