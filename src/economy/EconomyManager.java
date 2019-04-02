@@ -121,7 +121,7 @@ public class EconomyManager
 				EcoCalculator.calcDistUnemployement(city,dist);
 				mc += EcoCalculator.calcMaintenanceCost(dist);
 				tx += EcoCalculator.calcTaxes(dist);
-				pr += EcoCalculator.calcProsperity(dist);
+				pr += EcoCalculator.calcProsperity(city, dist);
 			}
 			pr/=city.getNbDistricts();
 			city.setProsperity(pr);

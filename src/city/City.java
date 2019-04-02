@@ -217,13 +217,13 @@ public class City
 	
 	public String interpretProsprerity()
 	{
-		if (prosperity<=0.25) {
+		if (prosperity<=25) {
 			return "Critical";
 		}
-		else if (prosperity>0.25 && prosperity<=0.50) {
+		else if (prosperity>25 && prosperity<=50) {
 			return "Low";
 		}
-		else if (prosperity>0.50 && prosperity<=0.75) {
+		else if (prosperity>50 && prosperity<=75) {
 			return "Good";
 		}
 		else{
