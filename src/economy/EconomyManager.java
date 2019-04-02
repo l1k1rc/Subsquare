@@ -9,7 +9,7 @@ public class EconomyManager
 {
 	private City city;
 	
-	private float budget = 50000;
+	private float budget = 1000;
 	
 	// values in each end of month:
 	private float constructionCost = 0;

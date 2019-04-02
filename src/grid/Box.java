@@ -24,7 +24,6 @@ public class Box {
 	public Ground getGroundType() {
 		return groundType;
 	}
-	
 	public boolean getIsFree() {
 		return isFree;
 	}

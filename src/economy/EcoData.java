@@ -1,7 +1,5 @@
 package economy;
 
-import staticData.DistrictData;
-
 public class EcoData
 {	
 	// construction:
