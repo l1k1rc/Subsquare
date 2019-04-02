@@ -92,12 +92,12 @@ public class EcoCalculator
 	}
 	
 	
-	public static int calcProsperity(City city, District district) {
-		float unemployementRate = 1-calcDistUnemployement(city, district);
+	public static float calcProsperity(City city, District district) {
+		float employementRate = 1-calcDistUnemployement(city, district);
 		float travelTime = (float) (100-(calcTravelTime(city, district)*2.127));
 		float stationOverloadRate = (calcStationOverload(district.getStation())*20);
 		
-		float prosperity = (float) (unemployementRate*((travelTime)-(stationOverloadRate)));
+		float prosperity = (float) (employementRate*((travelTime)-(stationOverloadRate)));
 		
 		if (prosperity > 100) {
 			prosperity = 100;
@@ -106,16 +106,26 @@ public class EcoCalculator
 		}
 		
 		district.setProsperity(prosperity);
-		return (int) prosperity;
+		return prosperity;
 	}
 	
-	public static String prosperityInterpretor(int prosperity) {
-		String interpretor;
-		/*if (prosperity)
-			
-		}	*/
-		
-		return "";
+	public static String interpretProsprerity(float prosperity)
+	{
+		if (prosperity<=25) {
+			return "Critical";
+		}
+		else if (prosperity>25 && prosperity<=43) {
+			return "Low";
+		}
+		else if (prosperity>43 && prosperity<=57) {
+			return "Medium";
+		}
+		else if (prosperity>57 && prosperity<=75) {
+			return "Good";
+		}
+		else{
+			return "Excelent";
+		}
 	}
 	
 }
