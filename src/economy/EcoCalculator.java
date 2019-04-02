@@ -12,6 +12,7 @@ import used.Point;
 public class EcoCalculator
 {	
 	public static float calcProsperity(District dist) {
+		
 		return 0;
 	}
 	

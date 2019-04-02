@@ -3,6 +3,10 @@
  */
 package engine;
 
+import java.util.ArrayList;
+
+import city.Citizen;
+import city.City;
 import city.District;
 
 /**
@@ -12,7 +16,7 @@ import city.District;
  */
 public class DistrictLevelUp {
 	
-	public static District DistrictUpper(District districtUp) {
+	public static District districtUpper(District districtUp) {
 		int levelUp = districtUp.getLevel();
 		if (levelUp < 3) {
 			levelUp++;
@@ -22,6 +26,14 @@ public class DistrictLevelUp {
 		}
 		return districtUp;
 		
+	}
+	
+	public void automatedLevelUpper(City city, District district) {
+		ArrayList<Citizen> citizens = new ArrayList<Citizen>();
+		citizens = city.getCitizensByDistrict(district);
+		if (district.getMaxCapacity() <= citizens.size()) {
+			districtUpper(district);
+		}
 	}
 
 }
