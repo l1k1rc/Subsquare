@@ -9,7 +9,7 @@ public class EconomyManager
 {
 	private City city;
 	
-	private float budget = 50000;
+	private float budget = 1000;
 	
 	private float maintenanceCost = 0;
 	private float taxes = 0;

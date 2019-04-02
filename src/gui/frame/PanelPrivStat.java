@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
-import city.City;
 import gui.fontElements.Fonts;
 
 public class PanelPrivStat extends JPanel {
@@ -122,8 +121,7 @@ public class PanelPrivStat extends JPanel {
 	public void setIsSubwayStation(String subway) {
 		this.isSubwayStation.setText(subway);
 	}
-	
-	public void setdensityLabel(String density) {
+	public void setdensityLabelPriv(String density) {
 		this.densityLabel.setText(density);
 	}
 	

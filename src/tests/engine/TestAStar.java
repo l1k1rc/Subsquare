@@ -20,14 +20,14 @@ public class TestAStar {
 		Point p1 = new Point(16,13);
 		Point p2 = new Point(19,12);
 		
-		System.out.println("the box "+p1+" is "+(grid.getBoxAt(p1.getAbscisse(), p1.getOrdonne()).getIsFree() ? "free":"not free"));
-		System.out.println("the box "+p2+" is "+(grid.getBoxAt(p2.getAbscisse(), p2.getOrdonne()).getIsFree() ? "free":"not free"));
+		System.out.println("the box "+p1+" is "+(grid.getBoxAt(p1.getOrdonne(), p1.getAbscisse()).getIsFree() ? "free":"not free"));
+		System.out.println("the box "+p2+" is "+(grid.getBoxAt(p2.getOrdonne(), p2.getAbscisse()).getIsFree() ? "free":"not free"));
 		
 		System.out.println("the box "+p1+" "+
-				(grid.getBoxAt(p1.getAbscisse(), p1.getOrdonne()).getGroundType().isContainsTree() 
+				(grid.getBoxAt(p1.getOrdonne(), p1.getAbscisse()).getGroundType().isContainsTree() 
 						? "contains":"not contains")+" tree");
 		System.out.println("the box "+p2+" "+
-				(grid.getBoxAt(p2.getAbscisse(), p2.getOrdonne()).getGroundType().isContainsTree() 
+				(grid.getBoxAt(p2.getOrdonne(), p2.getAbscisse()).getGroundType().isContainsTree() 
 						? "contains":"not contains")+" tree");
 		
 		AStarPathFinding a_star = new AStarPathFinding(grid);

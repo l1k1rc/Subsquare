@@ -9,6 +9,11 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.util.Iterator;
 
+import java.io.IOException; 
+import java.util.logging.Level; 
+import java.util.logging.Logger; 
+import java.util.logging.*; 
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -21,6 +26,7 @@ import grid.Grid;
 import used.Point;
 
 public class Scene extends JPanel {
+
 
 	private static final long serialVersionUID = 1L;
 	private City city = City.getInstance();
@@ -71,10 +77,13 @@ public class Scene extends JPanel {
 			}
 		}
 		if (drawGrid) {
+			 final Logger logger =  
+		                Logger.getLogger(Logger.GLOBAL_LOGGER_NAME); 
 			int x = pos_gridPoint.getAbscisse();
 			int y = pos_gridPoint.getOrdonne();
 			if (!grid.getBoxAt(y, x).getIsFree()) {
 				g2.setColor(Color.RED);
+		        //logger.log(Level.INFO, "My first Log Message"); 
 			}
 			g2.drawRect(x * 28, y * 28, 28, 28);
 		}
