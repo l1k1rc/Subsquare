@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import city.Citizen;
 import city.City;
 import city.District;
 import engine.GridParameters;
@@ -111,6 +112,9 @@ public class Scene extends JPanel {
 			District d = it.next();
 			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28,
 					null);
+		}
+		for(Citizen ctzn : city.getCitizens()) {
+			g.fillOval(ctzn.getPosition().getAbscisse() * 28, ctzn.getPosition().getOrdonne() * 28, 5, 5);
 		}
 	}
 

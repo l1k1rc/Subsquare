@@ -188,6 +188,7 @@ public class MainFrame extends JFrame implements Runnable {
 			 * Method to use when the user wants to interact with the map, that is to say,
 			 * build a place, a line ...
 			 */
+			@SuppressWarnings("static-access")
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
@@ -230,6 +231,7 @@ public class MainFrame extends JFrame implements Runnable {
 					PanelPrivStat pStat = new PanelPrivStat();
 					pStat.setBounds(1400, 0, 250, 1150);
 					pStat.setposLabel("Position de ce quartier : " + position);
+					
 					if (simulation.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getGroundType()
 							.isContainsTree())
 						pStat.setPriceInformation("Prix de la zone : "
@@ -239,6 +241,7 @@ public class MainFrame extends JFrame implements Runnable {
 						pStat.setPriceInformation("Prix de la zone : "
 								+ simulation.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse())
 										.getGroundType().getDegre() * districtData.constructionCost);
+					
 					pStat.setTypeLabel("Pas de type de quartier");
 
 					getContentPane().add(pStat);
