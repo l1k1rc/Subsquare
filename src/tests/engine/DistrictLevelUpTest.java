@@ -29,7 +29,7 @@ class DistrictLevelUpTest {
 	@Test
 	void testDistrictUpper() {
 		//test
-		DistrictLevelUp.DistrictUpper(districtTest1);
+		DistrictLevelUp.districtUpper(districtTest1);
 		//Exp
 		District districtExp1 = lduMock.DistrictLevel1();
 		districtExp1.setLevel(2);
@@ -39,7 +39,7 @@ class DistrictLevelUpTest {
 		assertEquals("Le district devrait être de capacité 2", districtExp1.getMaxCapacity(), districtTest1.getMaxCapacity());
 		
 		//test
-		DistrictLevelUp.DistrictUpper(districtTest2);
+		DistrictLevelUp.districtUpper(districtTest2);
 		//Exp
 		District districtExp2 = lduMock.DistrictLevel2();
 		districtExp2.setLevel(3);
@@ -49,7 +49,7 @@ class DistrictLevelUpTest {
 		assertEquals("Le district devrait être de capacité 3", districtExp2.getMaxCapacity(), districtTest2.getMaxCapacity());
 
 		//test
-		DistrictLevelUp.DistrictUpper(districtTest3);
+		DistrictLevelUp.districtUpper(districtTest3);
 		//Exp
 		District districtExp3 = lduMock.DistrictLevel3();
 		//Comp

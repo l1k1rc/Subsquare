@@ -25,7 +25,7 @@ class StationLevelUpTest {
 	@Test
 	void testStationUpper() {
 		//test
-		StationLevelUp.StationUpper(stationTest1);
+		StationLevelUp.stationUpper(stationTest1);
 		//Exp
 		Station stationExp1 =StationLevelUpMock.StationLevel1();
 		stationExp1.setLevel(2);
@@ -35,7 +35,7 @@ class StationLevelUpTest {
 		assertEquals("La station devrait être de capacité 2", stationExp1.getMaxCapacity(), stationTest1.getMaxCapacity());
 	
 		//test
-		StationLevelUp.StationUpper(stationTest2);
+		StationLevelUp.stationUpper(stationTest2);
 		//Exp
 		Station stationExp2 =StationLevelUpMock.StationLevel2();
 		stationExp2.setLevel(3);
@@ -45,7 +45,7 @@ class StationLevelUpTest {
 		assertEquals("La station devrait être de capacité 3", stationExp2.getMaxCapacity(), stationTest2.getMaxCapacity());
 
 		//test
-		StationLevelUp.StationUpper(stationTest3);
+		StationLevelUp.stationUpper(stationTest3);
 		//Exp
 		Station stationExp3 = StationLevelUpMock.StationLevel3();
 		//Comp
