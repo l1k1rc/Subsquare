@@ -11,10 +11,6 @@ import used.Point;
 
 public class EcoCalculator
 {	
-	public static float calcProsperity(District dist) {
-		
-		return 0;
-	}
 	
 	public static float calcStationOverload(Station station) {
 		return 0;
@@ -40,13 +36,7 @@ public class EcoCalculator
 		
 		return tx;
 	}
-	
-	public static float calcDistUnemployement(City city, District district) {
-		ArrayList<Citizen> citizens = city.getCitizensByDistrict(district);
-		float result = calcUnemployement(citizens);
-		district.setUnemployement(result);
-		return result;
-	}
+
 	
 	public static float calcUnemployement(ArrayList<Citizen> citizens) {
 		if(citizens.isEmpty()) return 0;
@@ -57,6 +47,14 @@ public class EcoCalculator
 			 }
 		}
 		return unempl/citizens.size();
+	}
+	
+	
+	public static float calcDistUnemployement(City city, District district) {
+		ArrayList<Citizen> citizens = city.getCitizensByDistrict(district);
+		float result = calcUnemployement(citizens);
+		district.setUnemployement(result);
+		return result;
 	}
 	
 	static public double sqr(double a) {
@@ -89,8 +87,35 @@ public class EcoCalculator
 			totalTravelTime+=travelTime;
 		}
 		
-		int moyTravelTime = totalTravelTime/citizens.size();
+		float moyTravelTime = totalTravelTime/citizens.size();
 		return moyTravelTime;
+	}
+	
+	
+	public static int calcProsperity(City city, District district) {
+		float unemployementRate = 1-calcDistUnemployement(city, district);
+		float travelTime = (float) (100-(calcTravelTime(city, district)*2.127));
+		float stationOverloadRate = (calcStationOverload(district.getStation())*20);
+		
+		float prosperity = (float) (unemployementRate*((travelTime)-(stationOverloadRate)));
+		
+		if (prosperity > 100) {
+			prosperity = 100;
+		} else if (prosperity < 0){
+			prosperity = 0;
+		}
+		
+		district.setProsperity(prosperity);
+		return (int) prosperity;
+	}
+	
+	public static String prosperityInterpretor(int prosperity) {
+		String interpretor;
+		/*if (prosperity)
+			
+		}	*/
+		
+		return "";
 	}
 	
 }
