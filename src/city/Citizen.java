@@ -10,6 +10,7 @@ public class Citizen {
 	private District workDistrict;
 	private District originDistrict;
 	private Direction lastDirection;
+	private Station closestStation;
 	private Point position;
 	private boolean employed;
 	private int QI;
@@ -25,6 +26,10 @@ public class Citizen {
 		employed = true;
 		move = false;
 		QI = Random.randomInt(90, 200);
+		if(originDistrict.hasStation())
+			this.closestStation = originDistrict.getStation();
+		else
+			this.closestStation = City.getInstance().getClosestStation(position);
 	}
 	
 	public Citizen(District originDistrict, Point position) {
@@ -34,6 +39,10 @@ public class Citizen {
 		employed = false;
 		move = false;
 		QI = Random.randomInt(90, 200);
+		if(originDistrict.hasStation())
+			this.closestStation = originDistrict.getStation();
+		else
+			this.closestStation = City.getInstance().getClosestStation(position);
 	}
 
 	public District getWorkDistrict() {
@@ -139,5 +148,13 @@ public class Citizen {
 
 	public void setEmployed(boolean employed) {
 		this.employed = employed;
+	}
+	
+	public Station getClosestStation() {
+		return closestStation;
+	}
+	
+	public void setClosestStation(Station closestStation) {
+		this.closestStation = closestStation;
 	}
 }

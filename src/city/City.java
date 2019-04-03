@@ -174,6 +174,19 @@ public class City
 			}
 		return result;
 	}
+	
+	public Station getClosestStation(Point position) {
+		Station station = null;
+			double min = Double.MAX_VALUE;
+			for(District dist : districts.values()) {
+				double tmp = position.distance(dist.getPosition());
+				if(tmp < min && dist.hasStation()) {
+					min = tmp;
+					station = dist.getStation();
+				}
+			}
+		return station;
+	}
 
 	public int nbStations() {
 		return nbStation;
@@ -222,6 +235,7 @@ public class City
 	public void setUnemployement(float unemployement) {
 		this.unemployement = unemployement;
 	}
+	
 	@Override
 	public String toString() {
 		return  "Date=" + timeSim.getTime() +"\n"+
@@ -231,6 +245,4 @@ public class City
 				"Citizens=" + getNbCitizens() +"\n"+
 				"Prosperity=" + prosperity;
 	}
-	
-	
 }
