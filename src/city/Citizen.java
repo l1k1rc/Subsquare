@@ -140,6 +140,4 @@ public class Citizen {
 	public void setEmployed(boolean employed) {
 		this.employed = employed;
 	}
-	
-	
 }

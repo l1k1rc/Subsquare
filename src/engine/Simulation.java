@@ -44,10 +44,15 @@ public class Simulation {
 		
 		for(Citizen citizen : city.getCitizens()) {
 			if(!city.getTimeSimulator().isWeekEnd()) {
-				if(city.getTimeSimulator().getHour()==9 && city.getTimeSimulator().AM_PM())
-					citizenGoToWork(citizen);
-				else if(city.getTimeSimulator().getHour()==6 && !city.getTimeSimulator().AM_PM())
-					citizenGoToHome(citizen);
+				if(!citizen.isMove()) {
+					if(city.getTimeSimulator().getHour()==9 && city.getTimeSimulator().AM_PM())
+						citizenGoToWork(citizen);
+					else if(city.getTimeSimulator().getHour()==6 && !city.getTimeSimulator().AM_PM())
+						citizenGoToHome(citizen);
+				}
+				else {
+					citizen.move();
+				}
 			}
 			//TODO weekends
 		}
@@ -85,8 +90,6 @@ public class Simulation {
 				}
 			}
 		}
-		else
-			citizen.move();
 	}
 	
 	public static District getClosestDistrict(Point position, ArrayList<District> searchWork, Citizen citizen) {

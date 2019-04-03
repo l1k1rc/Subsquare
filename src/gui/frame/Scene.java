@@ -13,8 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import city.City;
-import city.District;
+import city.*;
 import engine.GridParameters;
 import grid.Grid;
 import used.Point;
@@ -109,9 +108,11 @@ public class Scene extends JPanel {
 	private void drawCity(Graphics g) {
 		for (Iterator<District> it = city.getDistricts().values().iterator(); it.hasNext();) {
 			District d = it.next();
-			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28,
-					null);
+			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28, null);
 		}
+		
+		for(Citizen citizen : city.getCitizens())
+			g.fillOval( citizen.getPosition().getAbscisse() * 28, citizen.getPosition().getOrdonne() * 28, 5, 5);
 	}
 
 	public void setGrid(Grid grid) {
