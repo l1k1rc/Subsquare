@@ -24,7 +24,7 @@ import gui.frame.MainFrame;
 /**
  * <strong>Class declaring the menu of the software.
  * This one allows to start the simulation, load a previous simulation, consult the user guide and quit the software.</strong>
- * @author MATTHIEU
+ * @author l1k1
  *
  */
 public class PanelMenu extends JPanel {
