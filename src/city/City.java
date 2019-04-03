@@ -103,6 +103,7 @@ public class City
 
 	public void displayPositions() {
 		for (Iterator<District> it = getDistricts().values().iterator(); it.hasNext();) {
+			@SuppressWarnings("unused")
 			District d = it.next();
 		}
 	}

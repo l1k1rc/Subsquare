@@ -4,8 +4,6 @@ import javax.swing.UIManager;
 
 import com.jtattoo.plaf.JTattooUtilities;
 
-import gui.menu.PanelMenu;
-
 /**
  * Game launcher. Be careful, please use JTattoo, JFreeChart , JUnit5, Jcommon
  * .jar to launch the program.

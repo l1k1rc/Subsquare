@@ -1,9 +1,5 @@
 package engine;
 
-import java.util.ArrayList;
-
-import city.Citizen;
-import city.City;
 import city.Station;
 
 /**
