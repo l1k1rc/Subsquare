@@ -33,12 +33,16 @@ import engine.TimeSimulator;
 import used.Point;
 import used.Random;
 
-//import engine.Simulation;
 /**
- * Class that brings together the elements of the main window. This is where
- * events related to user actions are managed.
+ * This class allow to build the main frame of the game which will display the
+ * map, all scores about a district and the city. It implements all action
+ * buttons and launch the simulation class to operate on each data of the game.
  * 
- * @author l1k1
+ * @see Simulation {@link Simulation}
+ * @see City {@link City}
+ * @see Scene {@link Scene}
+ * @see PanelPrivStat {@link PanelPrivStat}
+ * @see PanelScore {@link PanelScore}
  *
  */
 public class MainFrame extends JFrame implements Runnable {

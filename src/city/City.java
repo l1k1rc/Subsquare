@@ -194,6 +194,10 @@ public class City
 	public ArrayList<Citizen> getCitizens() {
 		return citizens;
 	}
+	
+	public boolean isEmpty() {
+		return districts.isEmpty();
+	}
 
 	public void setCitizens(ArrayList<Citizen> citizens) {
 		this.citizens = citizens;
