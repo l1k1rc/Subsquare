@@ -19,6 +19,7 @@ import gui.fontElements.Fonts;
 
 /**
  * Regroup each API displayed in the MainFrame.
+ * 
  * @author l1k1
  *
  */
