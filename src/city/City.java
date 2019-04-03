@@ -11,7 +11,8 @@ import used.Point;
 public class City
 {
 	private static City instance = new City();
-	
+	private static City instanceTest = new City();
+
 	private TimeSimulator timeSim;
 	
 	private HashMap<Point,District> districts;
@@ -23,7 +24,7 @@ public class City
 	private float prosperity;
 	private float unemployement;
 
-	private City() {
+	public City() {
 		timeSim = new TimeSimulator();
 		districts = new HashMap<Point, District>();
 		subwayLines = new ArrayList<SubwayLine>();
@@ -33,6 +34,10 @@ public class City
 	
 	public static City getInstance() {
 		return instance;
+	}
+	
+	public static City getInstanceTest() {
+		return instanceTest;
 	}
 
 	public int getServicing() {
@@ -183,7 +188,6 @@ public class City
 	}
 	
 	public void addCitizen(Citizen citizen) {
-		if(!citizens.contains(citizen))
 			citizens.add(citizen);
 	}
 	
