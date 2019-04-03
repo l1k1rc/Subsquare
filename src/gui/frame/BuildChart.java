@@ -15,8 +15,8 @@ import org.jfree.ui.RefineryUtilities;
 
 /**
  * Class which allows to build the PieChat graphics.
- * 
- * @author MATTHIEU
+ * @see MainFrame {@link MainFrame}
+ * @author l1k1
  *
  */
 public class BuildChart extends ApplicationFrame {

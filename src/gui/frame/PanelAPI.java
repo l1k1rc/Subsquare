@@ -17,6 +17,11 @@ import javax.swing.JPanel;
 
 import gui.fontElements.Fonts;
 
+/**
+ * Regroup each API displayed in the MainFrame.
+ * @author l1k1
+ *
+ */
 public class PanelAPI extends JPanel {
 
 	private static final long serialVersionUID = 1L;

@@ -8,11 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.util.Iterator;
-
-import java.io.IOException; 
-import java.util.logging.Level; 
-import java.util.logging.Logger; 
-import java.util.logging.*; 
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -25,8 +21,14 @@ import engine.GridParameters;
 import grid.Grid;
 import used.Point;
 
+/**
+ * Allow to manage the map and build it with some sprites with paintComponent
+ * method.
+ * 
+ * @author l1k1
+ *
+ */
 public class Scene extends JPanel {
-
 
 	private static final long serialVersionUID = 1L;
 	private City city = City.getInstance();
@@ -49,14 +51,15 @@ public class Scene extends JPanel {
 		paintGlobalGrid(g);
 	}
 
-	/*
-	 * This method allow to draw the map with each obstacle and district. Moreover,
+	/**
+	 * This method allows to draw the map with each obstacle and district. Moreover,
 	 * this method implements a drawGrid boolean object which allows to the user,
-	 * when an API is selected, to draw a rectangle beside the cursor to detect with a
-	 * color if the position is free or not. 
-	 * On the second part, the stationView
+	 * when an API is selected, to draw a rectangle beside the cursor to detect with
+	 * a color if the position is free or not. On the second part, the stationView
 	 * boolean allows to see another view which display the subway lines and the
 	 * districts.
+	 * 
+	 * @param g
 	 */
 	public void paintGlobalGrid(Graphics g) {
 		g2 = (Graphics2D) g;
@@ -77,13 +80,13 @@ public class Scene extends JPanel {
 			}
 		}
 		if (drawGrid) {
-			 final Logger logger =  
-		                Logger.getLogger(Logger.GLOBAL_LOGGER_NAME); 
+			@SuppressWarnings("unused")
+			final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 			int x = pos_gridPoint.getAbscisse();
 			int y = pos_gridPoint.getOrdonne();
 			if (!grid.getBoxAt(y, x).getIsFree()) {
 				g2.setColor(Color.RED);
-		        //logger.log(Level.INFO, "My first Log Message"); 
+				// logger.log(Level.INFO, "My first Log Message");
 			}
 			g2.drawRect(x * 28, y * 28, 28, 28);
 		}
@@ -122,7 +125,7 @@ public class Scene extends JPanel {
 			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28,
 					null);
 		}
-		for(Citizen ctzn : city.getCitizens()) {
+		for (Citizen ctzn : city.getCitizens()) {
 			g.fillOval(ctzn.getPosition().getAbscisse() * 28, ctzn.getPosition().getOrdonne() * 28, 5, 5);
 		}
 	}
