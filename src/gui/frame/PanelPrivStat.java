@@ -31,6 +31,7 @@ public class PanelPrivStat extends JPanel {
 	private JProgressBar prosperityBar;
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
+	
 	public PanelPrivStat() {
 		super();
 		
@@ -120,9 +121,9 @@ public class PanelPrivStat extends JPanel {
 	public void setIsSubwayStation(String subway) {
 		this.isSubwayStation.setText(subway);
 	}
-	
-	public void setdensityLabel(String density) {
+	public void setdensityLabelPriv(String density) {
 		this.densityLabel.setText(density);
 	}
+	
 
 }

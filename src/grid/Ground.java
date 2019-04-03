@@ -38,6 +38,7 @@ public abstract class Ground {
 	public int getTreeType() {
 		return treeType;
 	}
+	
 				//setters
 	public void setAbscisse(int abscisse) {
 		position.setAbscisse(abscisse);

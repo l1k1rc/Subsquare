@@ -2,6 +2,7 @@
 package gui.frame;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,6 +17,12 @@ import javax.swing.JPanel;
 
 import gui.fontElements.Fonts;
 
+/**
+ * Regroup each API displayed in the MainFrame.
+ * 
+ * @author l1k1
+ *
+ */
 public class PanelAPI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -105,11 +112,15 @@ public class PanelAPI extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				buildPublicDistrict = true;
-
-				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
-						new ImageIcon(getClass().getResource("/images/cursor/build_srvp.png")).getImage(),
-						new Point(0, 0), "custom cursor"));
+				if (buildPublicDistrict) {
+					buildPublicDistrict = false;
+					MainFrame.setCursorOnScene(Cursor.getDefaultCursor());
+				} else {
+					buildPublicDistrict = true;
+					MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
+							new ImageIcon(getClass().getResource("/images/cursor/build_srvp.png")).getImage(),
+							new Point(0, 0), "custom cursor"));
+				}
 
 			}
 		});
@@ -119,7 +130,7 @@ public class PanelAPI extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(Scene.isStationView()) 
+				if (Scene.isStationView())
 					Scene.setStationView(false);
 				else
 					Scene.setStationView(true);
@@ -133,7 +144,7 @@ public class PanelAPI extends JPanel {
 				// TODO Auto-generated method stub
 				buildMetroLine = true;
 				MainFrame.setCursorOnScene(Toolkit.getDefaultToolkit().createCustomCursor(
-						new ImageIcon(getClass().getResource("/images/Obstacle/rail.png")).getImage(), new Point(0,0),
+						new ImageIcon(getClass().getResource("/images/Obstacle/rail.png")).getImage(), new Point(0, 0),
 						"custom cursor"));
 			}
 		});

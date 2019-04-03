@@ -5,7 +5,7 @@ import java.awt.Font;
 
 /**
  * Class which allows to regroup every fonts and colors in the program.
- * @author MATTHIEU
+ * @author l1k1
  *
  */
 public class Fonts{

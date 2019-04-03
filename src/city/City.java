@@ -11,7 +11,8 @@ import used.Point;
 public class City
 {
 	private static City instance = new City();
-	
+	private static City instanceTest = new City();
+
 	private TimeSimulator timeSim;
 	
 	private HashMap<Point,District> districts;
@@ -23,7 +24,7 @@ public class City
 	private float prosperity;
 	private float unemployement;
 
-	private City() {
+	public City() {
 		timeSim = new TimeSimulator();
 		districts = new HashMap<Point, District>();
 		subwayLines = new ArrayList<SubwayLine>();
@@ -33,6 +34,10 @@ public class City
 	
 	public static City getInstance() {
 		return instance;
+	}
+	
+	public static City getInstanceTest() {
+		return instanceTest;
 	}
 
 	public int getServicing() {
@@ -58,7 +63,8 @@ public class City
 	public void addSubwayLine(SubwayLine line) {
 		subwayLines.add(line);
 	}
-		
+	
+	//Contains all district build on the map
 	public HashMap<Point,District> getDistricts() {
 		return districts;
 	}
@@ -103,7 +109,6 @@ public class City
 	public void displayPositions() {
 		for (Iterator<District> it = getDistricts().values().iterator(); it.hasNext();) {
 			District d = it.next();
-			System.out.println("Hashmap:("+d.getPosition().getAbscisse()+":"+d.getPosition().getOrdonne()+")");
 		}
 	}
 	
@@ -183,12 +188,15 @@ public class City
 	}
 	
 	public void addCitizen(Citizen citizen) {
-		if(!citizens.contains(citizen))
 			citizens.add(citizen);
 	}
 	
 	public ArrayList<Citizen> getCitizens() {
 		return citizens;
+	}
+	
+	public boolean isEmpty() {
+		return districts.isEmpty();
 	}
 
 	public void setCitizens(ArrayList<Citizen> citizens) {
@@ -214,23 +222,6 @@ public class City
 	public void setUnemployement(float unemployement) {
 		this.unemployement = unemployement;
 	}
-	
-	public String interpretProsprerity()
-	{
-		if (prosperity<=0.25) {
-			return "Critical";
-		}
-		else if (prosperity>0.25 && prosperity<=0.50) {
-			return "Low";
-		}
-		else if (prosperity>0.50 && prosperity<=0.75) {
-			return "Good";
-		}
-		else{
-			return "Excelent";
-		}
-	}
-	
 	@Override
 	public String toString() {
 		return  "Date=" + timeSim.getTime() +"\n"+

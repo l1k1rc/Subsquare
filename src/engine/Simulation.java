@@ -142,12 +142,14 @@ public class Simulation {
 			District ds = CityFactory.creatDistrict(position, type, name);
 			city.addDistrict(position,ds);
 			if(box.getGroundType().containsTree)
-				box.getGroundType().setContainsTree(false);
+				box.getGroundType().setContainsTree(true);
 			if(type.isPublic()){
 				float cost = box.getGroundType().getDegre()*EcoData.CONST_DISTRICT;
 				if(box.getGroundType().containsTree)
-					cost = cost*2;
+					cost = cost*4;
 				ecoMan.setMoney(cost,"const");
+			}else if(type.isResidential()){
+				creatCitizens(null, ds, false, 5);
 			}
 			box.setIsFree(false);
 		}	
@@ -186,10 +188,11 @@ public class Simulation {
 	}
 	
 	public void creatCitizens(District workDistrict, District originDistrict, boolean unknowWork, int nbCitizens) {
-		for(int i = 0; i <= nbCitizens; i++) {
+		for(int i = 0; i < nbCitizens; i++) {
 			Citizen ctz = CityFactory.createCitizen(workDistrict, originDistrict, unknowWork);
 			city.addCitizen(ctz);
 		}
+		originDistrict.getType().setNbCitizens(nbCitizens);
 	}
 	
 	public FloydPathFinding getFloyd() {
@@ -216,3 +219,4 @@ public class Simulation {
 		Simulation.city = city;
 	}
 }
+

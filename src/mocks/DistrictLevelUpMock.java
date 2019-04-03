@@ -16,6 +16,7 @@ public class DistrictLevelUpMock {
 	private Station station;
 	private Point point;
 	
+
 	public DistrictLevelUpMock() {
 		point = new Point(1,1);
 		station = new Station(1, Random.randomInt(8, false), point);
@@ -36,4 +37,12 @@ public class DistrictLevelUpMock {
 		return district;
 	}
 
+	
+	public Point getPoint() {
+		return point;
+	}
+
+	public void setPoint(Point point) {
+		this.point = point;
+	}
 }
