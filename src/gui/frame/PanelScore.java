@@ -122,8 +122,9 @@ public class PanelScore extends JPanel {
 		stats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				//new StatsFrame(city.getDistricts().get(0).getProsperity());
+
 				for(Map.Entry mapentry :city.getDistricts().entrySet()) {
-					System.out.println("key :"+mapentry.getKey()+" value : "+mapentry.getValue());
+					System.out.println(city.getDistricts().get(mapentry.getKey()).getProsperity());
 				}
 			}
 		});
