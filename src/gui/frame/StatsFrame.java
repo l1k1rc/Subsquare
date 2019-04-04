@@ -39,8 +39,6 @@ public class StatsFrame extends JFrame {
 	private JPanel manual() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout());
-		JLabel label = new JLabel("Welcome to the statistics's window !");
-		panel.add(label);
 		return panel;
 	}
 }

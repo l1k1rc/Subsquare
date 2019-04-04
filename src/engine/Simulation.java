@@ -97,7 +97,7 @@ public class Simulation {
 			}
 		}
 		
-		//ecoMan.updateData();
+		ecoMan.updateData();
 		simulationNumberOfTurn++;
 	}
 	

@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
+import city.City;
 import gui.fontElements.Fonts;
 
 public class PanelScore extends JPanel {
@@ -50,6 +52,7 @@ public class PanelScore extends JPanel {
 	
 	private JProgressBar prosperityBar = new JProgressBar();
 
+	private City city = City.getInstance();
 	public PanelScore() {
 		super();
 		setLayout(new BorderLayout());
@@ -118,7 +121,10 @@ public class PanelScore extends JPanel {
 		
 		stats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				new StatsFrame();
+				//new StatsFrame(city.getDistricts().get(0).getProsperity());
+				for(Map.Entry mapentry :city.getDistricts().entrySet()) {
+					System.out.println("key :"+mapentry.getKey()+" value : "+mapentry.getValue());
+				}
 			}
 		});
 	}

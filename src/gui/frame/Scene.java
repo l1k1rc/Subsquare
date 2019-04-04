@@ -69,7 +69,6 @@ public class Scene extends JPanel {
 		t1.start();
 		game_over.setBounds(50,50,200,200);
 		game_over.setFont(Fonts.getF4().deriveFont(150.0f));
-		game_over();
 	}
 	public void game_over() {
 		add(game_over);

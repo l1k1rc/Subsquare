@@ -29,7 +29,7 @@ public class BuildChart extends ApplicationFrame {
 	public BuildChart(HashMap<String, int[]> data) {
 		super("");
 		// TODO Auto-generated constructor stub
-		PieChart_AWT("Classement des [************]", data);
+		PieChart_AWT("Classement des quartiers par prospérité", data);
 		RefineryUtilities.centerFrameOnScreen(this);
 	}
 
