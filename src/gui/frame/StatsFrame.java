@@ -7,6 +7,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import city.District;
+import used.Point;
+
 public class StatsFrame extends JFrame {
 	/**
 	 * Allow to launch a JinternalFrame when the user click on statistic button and
@@ -15,19 +18,12 @@ public class StatsFrame extends JFrame {
 	 * @see BuildChart {@link BuildChart}
 	 */
 	private static final long serialVersionUID = 1L;
-	private HashMap<String, int[]> hmData = new HashMap<String, int[]>();
 
-	public StatsFrame() {
+	public StatsFrame(HashMap<Point, District> hmData) {
 		this.setTitle("Statistics");
 		setIconImage(new ImageIcon("subsquare_icon.png").getImage());
 		this.setSize(400, 500);
 		this.setLocationRelativeTo(null);
-		int[] data1 = { 101, 4, 97 };
-		int[] data2 = { 46, 1, 59 };
-		int[] data3 = { 71, 0, 86 };
-		hmData.put("Data1", data1);
-		hmData.put("Data2", data2);
-		hmData.put("Data3", data3);
 
 		// setContentPane(manual());
 		setContentPane(new BuildChart(hmData).getContentPane());

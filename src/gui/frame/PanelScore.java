@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
+import city.City;
 import gui.fontElements.Fonts;
 
 public class PanelScore extends JPanel {
@@ -48,6 +51,7 @@ public class PanelScore extends JPanel {
 	
 	private JProgressBar prosperityBar = new JProgressBar();
 
+	private City city = City.getInstance();
 	public PanelScore() {
 		super();
 		setLayout(new BorderLayout());
@@ -64,7 +68,7 @@ public class PanelScore extends JPanel {
 		timeButtonPanel.setLayout(new FlowLayout());
 		statsPanel.setPreferredSize(new Dimension(160, 55));
 		
-		prosperityBar = new JProgressBar(SwingConstants.HORIZONTAL);
+		prosperityBar = new JProgressBar(SwingConstants.VERTICAL);
 		prosperityBar.setBackground(Color.red);
 		
 		prosperityLabel.setFont(Fonts.getF3());
@@ -113,6 +117,12 @@ public class PanelScore extends JPanel {
 		
 		add(timeButtonPanel, BorderLayout.NORTH);
 		add(scorePanel, BorderLayout.CENTER);
+		
+		stats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				new StatsFrame(city.getDistricts());
+			}
+		});
 	}
 	
 	public JProgressBar getProsperityBar() {
