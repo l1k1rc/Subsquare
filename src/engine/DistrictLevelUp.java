@@ -33,7 +33,7 @@ public class DistrictLevelUp {
 	public static String automatedLevelUpper(City city, District district, int increaseNbr) {
 		ArrayList<Citizen> citizens = new ArrayList<Citizen>();
 		citizens = city.getCitizensByDistrict(district);
-		if (district.getMaxCapacity() <= (citizens.size()+increaseNbr)) {
+		if ((citizens.size()+increaseNbr) > district.getMaxCapacity()) {
 			boolean upOk = districtUpper(district);
 			if(upOk) {
 				return "levelup";

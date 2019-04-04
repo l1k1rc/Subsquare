@@ -28,13 +28,15 @@ public class DistrictGrowthMock {
 			point = new Point(i,i);
 			//Update point in district generation
 			dlum.setPoint(point);
-			//New citizen
-			citizen = new Citizen(district,point);
+
 			//Generation 3 districts lvl 1
 			if(i<=3) {
 				//New district level 1
 				district = dlum.DistrictLevel1();
+				//New citizen
+				citizen = new Citizen(district,point);
 				//Generation 10 citizens in district lvl 1
+				
 				if(i==1) {
 					for(j=1; j<=10; j++) {
 						//New citizens
@@ -56,6 +58,8 @@ public class DistrictGrowthMock {
 			//Generation 3 districts lvl 2
 			} else if (i>3 && i<=6) {
 				district = dlum.DistrictLevel2();
+				//New citizen
+				citizen = new Citizen(district,point);
 				//Generation 25 citizens in district lvl 2
 				if(i==4) {
 					for(j=1; j<=25; j++) {
@@ -75,6 +79,8 @@ public class DistrictGrowthMock {
 			//Generation 3 districts lvl 3
 			} else {
 				district = dlum.DistrictLevel3();
+				//New citizen
+				citizen = new Citizen(district,point);
 				//Generation 75 citizens in district lvl 3
 				if(i==7) {
 					for(j=1; j<=75; j++) {
