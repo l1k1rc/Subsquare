@@ -18,6 +18,7 @@ import used.Point;
 
 /**
  * Class which allows to build the PieChat graphics.
+ * 
  * @see MainFrame {@link MainFrame}
  * @author l1k1
  *
@@ -58,7 +59,8 @@ public class BuildChart extends ApplicationFrame {
 	private static PieDataset createDataset(HashMap<Point, District> data) { // 5
 		DefaultPieDataset dataset = new DefaultPieDataset();
 
-		for(@SuppressWarnings("rawtypes") Map.Entry mapentry :data.entrySet()) {
+		for (@SuppressWarnings("rawtypes")
+		Map.Entry mapentry : data.entrySet()) {
 			dataset.setValue(data.get(mapentry.getKey()).getName(), data.get(mapentry.getKey()).getProsperity());
 		}
 		return dataset;
@@ -72,7 +74,7 @@ public class BuildChart extends ApplicationFrame {
 	 * @return chart
 	 */
 	private static JFreeChart createChart(PieDataset dataset) { // 4
-		JFreeChart chart = ChartFactory.createPieChart("Classement des [********************]", // chart title
+		JFreeChart chart = ChartFactory.createPieChart("Classement des quartiers par prospérité", // chart title
 				dataset, // data
 				true, // include legend
 				true, false);

@@ -330,7 +330,6 @@ public class MainFrame extends JFrame implements Runnable {
 			stop=true;
 			scene.game_over();
 		}*/
-		System.out.println(""+pScore.getProsperityBar().getValue());
 		scene.updateUI();
 		scene.repaint();
 	}
