@@ -123,7 +123,7 @@ public class PanelScore extends JPanel {
 			public void actionPerformed(ActionEvent event) {
 				//new StatsFrame(city.getDistricts().get(0).getProsperity());
 
-				for(Map.Entry mapentry :city.getDistricts().entrySet()) {
+				for(@SuppressWarnings("rawtypes")Map.Entry mapentry :city.getDistricts().entrySet()) {
 					System.out.println(city.getDistricts().get(mapentry.getKey()).getProsperity());
 				}
 			}
