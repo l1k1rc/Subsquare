@@ -97,7 +97,11 @@ public class Simulation {
 			}
 		}
 		
-		ecoMan.updateData();
+
+		if(simulationNumberOfTurn > 40)
+			ecoMan.updateData();
+		
+		DistrictLevelUp.automatedLevelUpperPublicPrivate(city);
 		simulationNumberOfTurn++;
 	}
 	
@@ -156,8 +160,12 @@ public class Simulation {
 					int end = toGo.getStation().getId();
 					
 					path = getStationsPosByFloyd(begin, end);
+					double floyd_dist = calculateTravelDistance(path, false);
+					citizen.icreaseTravelSubWay(floyd_dist);
 					if(path == null || path.size() == 0) {
 						path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+						double dist = calculateTravelDistance(path, true);
+						citizen.increaseTravelFoot(dist);
 					}
 				}
 				else {
@@ -167,17 +175,25 @@ public class Simulation {
 						int end = closest.getStation().getId();
 						
 						path = getStationsPosByFloyd(begin, end);
+						double floyd_dist = calculateTravelDistance(path, false);
+						citizen.icreaseTravelSubWay(floyd_dist);
 						if(path == null || path.size() == 0) {
 							path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+							double dist = calculateTravelDistance(path, true);
+							citizen.increaseTravelFoot(dist);
 						}
 						else {
 							ArrayList<Point> path_tmp = aStar.aStart(closest.getPosition(), toGo.getPosition());
+							double dist = calculateTravelDistance(path, true);
+							citizen.increaseTravelFoot(dist);
 							if(path_tmp != null)
 								path.addAll(path_tmp);	
 						}
 					}
 					else {
 						path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+						double dist = calculateTravelDistance(path, true);
+						citizen.increaseTravelFoot(dist);
 					}
 				}
 			}
@@ -189,19 +205,29 @@ public class Simulation {
 						int end = toGo.getStation().getId();
 						
 						path = aStar.aStart(citizen.getPosition(), closest.getPosition());
+						double dist = calculateTravelDistance(path, true);
+						citizen.increaseTravelFoot(dist);
 						ArrayList<Point> path_tmp = getStationsPosByFloyd(begin, end);
+						double floyd_dist = calculateTravelDistance(path, false);
+						citizen.icreaseTravelSubWay(floyd_dist);
 							if(path_tmp != null)
 								path.addAll(path_tmp);
 							else {
 								path_tmp = aStar.aStart(closest.getPosition(), toGo.getPosition());
+								double dist1 = calculateTravelDistance(path, true);
+								citizen.increaseTravelFoot(dist1);
 							}
 					}
 					else {
 						path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+						double dist = calculateTravelDistance(path, true);
+						citizen.increaseTravelFoot(dist);
 					}
 				}
 				else {
 					path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+					double dist = calculateTravelDistance(path, true);
+					citizen.increaseTravelFoot(dist);
 				}
 			}
 		}
@@ -209,13 +235,19 @@ public class Simulation {
 			District closest = getClosestDistrictStation(citizen.getPosition());
 			if(closest != null) {
 				path = aStar.aStart(citizen.getPosition(), closest.getPosition());
+				double dist = calculateTravelDistance(path, true);
+				citizen.increaseTravelFoot(dist);
 				if(toGo.hasStation()) {
 					int begin = closest.getStation().getId();
 					int end = toGo.getStation().getId();
 						
 					ArrayList<Point>tmp_path = getStationsPosByFloyd(begin, end);
+					double floyd_dist = calculateTravelDistance(path, false);
+					citizen.icreaseTravelSubWay(floyd_dist);
 					if(tmp_path == null || tmp_path.size() == 0) {
 						tmp_path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+						double dist1 = calculateTravelDistance(path, true);
+						citizen.increaseTravelFoot(dist1);
 					}
 					if(tmp_path != null && tmp_path.size() > 0) {
 						path.addAll(tmp_path);
@@ -228,14 +260,20 @@ public class Simulation {
 						int end = closest1.getStation().getId();
 						
 						ArrayList<Point>tmp_path = getStationsPosByFloyd(begin, end);
+						double floyd_dist = calculateTravelDistance(path, false);
+						citizen.icreaseTravelSubWay(floyd_dist);
 						if(tmp_path == null || tmp_path.size() == 0) {
 							tmp_path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+							double dist1 = calculateTravelDistance(path, true);
+							citizen.increaseTravelFoot(dist1);
 						}
 						if(tmp_path != null && tmp_path.size() > 0) {
 							path.addAll(tmp_path);
 						}
 						
 						ArrayList<Point>tmp_path1 = aStar.aStart(closest1.getPosition(), toGo.getPosition());
+						double dist1 = calculateTravelDistance(path, true);
+						citizen.increaseTravelFoot(dist1);
 						if(tmp_path1 != null && tmp_path1.size() > 0) {
 							path.addAll(tmp_path1);
 						}
@@ -244,12 +282,30 @@ public class Simulation {
 			}
 			else {
 				path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+				double dist = calculateTravelDistance(path, true);
+				citizen.increaseTravelFoot(dist);
 			}
 		}
 				
 		return path;
 	}
 
+	public double calculateTravelDistance(ArrayList<Point> path, boolean isFoot) {
+		double dist = 0d;
+		if(path != null) {	
+			for(int i = 0; i < path.size(); i++) {
+				if(i != path.size()-1) {
+					dist += path.get(i).distance(path.get(i+1));
+					if(isFoot)
+						dist *= EcoData.travelOnFoot_Cost;
+					else
+						dist *= EcoData.travelInTrain_Cost;
+				}
+			}
+		}
+		return dist;
+	}
+	
 	public District getClosestDistrictStation(Point position) {
 		District result = null;
 		double min = Double.MAX_VALUE;

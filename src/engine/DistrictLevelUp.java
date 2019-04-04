@@ -20,8 +20,18 @@ public class DistrictLevelUp {
 		int levelUp = districtUp.getLevel();
 		if (levelUp < 3) {
 			levelUp++;
+			String path = "/images/City/";
+			if(districtUp.getType().isPublic()) {
+				path += "Public/"+levelUp+".png";
+			}
+			else if(districtUp.getType().isPrivate()){
+				path += "Private/"+levelUp+".png";
+			}
+			else {
+				path += "Residential/"+levelUp+".png";
+			}
+			districtUp.getType().setImage(path);
 			districtUp.setLevel(levelUp);
-			//Increase maximum inhabitants capacity in district
 			districtUp.determineMaxCapacity();
 			
 			return true;
@@ -42,6 +52,16 @@ public class DistrictLevelUp {
 			}
 		}
 		return "notmaxcap";
+	}
+	
+	public static void automatedLevelUpperPublicPrivate(City city) {
+		for (District district : city.getDistricts().values()) {
+			if(!district.getType().isResidential()) {
+				if (district.getType().getNbWorkers() > district.getMaxCapacity()) {
+					districtUpper(district);
+				}
+			}
+		}
 	}
 
 }

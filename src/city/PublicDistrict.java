@@ -8,7 +8,7 @@ public class PublicDistrict extends DistrictType
 	private float maintenanceCost;
 	
 	public PublicDistrict() {
-		setImage("/images/City/Public/0.png");
+		setImage("/images/City/Public/1.png");
 		nbVisitors =0 ;
 		nbWorkers = 0;
 		maintenanceCost = 0;

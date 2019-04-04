@@ -57,16 +57,9 @@ public class BuildChart extends ApplicationFrame {
 	 */
 	private static PieDataset createDataset(HashMap<Point, District> data) { // 5
 		DefaultPieDataset dataset = new DefaultPieDataset();
-		for (@SuppressWarnings("rawtypes")
-		Map.Entry mapentry : data.entrySet()) {
-			/* Here you can set your values in the label of your frame */
-			
-			 dataset.setValue("val",
-			 data.get(mapentry.getKey()).getProsperity());
-			 dataset.setValue("val2",
-			 data.get(mapentry.getKey()).getProsperity());
-			 dataset.setValue("val3",
-			 data.get(mapentry.getKey()).getProsperity());
+
+		for(@SuppressWarnings("rawtypes") Map.Entry mapentry :data.entrySet()) {
+			dataset.setValue(data.get(mapentry.getKey()).getName(), data.get(mapentry.getKey()).getProsperity());
 		}
 		return dataset;
 	}

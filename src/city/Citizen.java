@@ -13,9 +13,9 @@ public class Citizen {
 	private Station closestStation;
 	private Point position;
 	private boolean employed,SearchArrive;
-	private int QI;
+	private int QI, timeToSearchWork;
 	private boolean move;
-	private int timeToSearchWork;
+	private double travelFoot, travelSubWay;
 	private ArrayList<Point> path = new ArrayList<Point>();
 	private ArrayList<District> noWork = new ArrayList<District>();
 	
@@ -135,7 +135,7 @@ public class Citizen {
 			if(!employed) {
 				District work = City.getInstance().getDistrictByPosition(newPos);
 				SearchArrive = true;
-				if(work.getType().isPrivate() || work.getType().isPublic()) {
+				if(work != null && (work.getType().isPrivate() || work.getType().isPublic())) {
 					if(work.getMaxCapacity() - work.getType().getNbWorkers() > 10) {
 						setWorkDistrict(work);
 						work.getType().setNbWorkers(work.getType().getNbWorkers()+1);
@@ -179,5 +179,21 @@ public class Citizen {
 	
 	public void setSearchArrive(boolean searchArrive) {
 		SearchArrive = searchArrive;
+	}
+	
+	public double getTravelFoot() {
+		return travelFoot;
+	}
+	
+	public void increaseTravelFoot(double travel) {
+		this.travelFoot += travel;
+	}
+	
+	public double getTravelSubWay() {
+		return travelSubWay;
+	}
+	
+	public void icreaseTravelSubWay(double travel) {
+		this.travelSubWay += travel;
 	}
 }

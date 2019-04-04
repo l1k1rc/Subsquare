@@ -8,7 +8,7 @@ public class ResidentialDistrict extends DistrictType
 	public ResidentialDistrict() {
 		nbCitizens = 0;
 		taxes = 0;
-		setImage("/images/City/Residential/0.png");
+		setImage("/images/City/Residential/1.png");
 	}
 	
 	@Override

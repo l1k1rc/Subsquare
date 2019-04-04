@@ -104,7 +104,8 @@ public class FloydPathFinding {
 		while(!quit) {
 			path.push(target);
 			
-			target = P[begin][target];
+			if(begin >= 0 && target >= 0 && begin <= nbSom && target <= nbSom)
+				target = P[begin][target];
 			if(target == begin)
 				quit = true;
 		}
