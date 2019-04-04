@@ -20,7 +20,7 @@ import used.Point;
  * Class which allows to build the PieChat graphics.
  * 
  * @see MainFrame {@link MainFrame}
- * @author l1k1
+ * @author CHEF
  *
  */
 public class BuildChart extends ApplicationFrame {

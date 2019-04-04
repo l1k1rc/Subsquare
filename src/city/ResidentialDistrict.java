@@ -1,21 +1,26 @@
 package city;
 
-public class ResidentialDistrict extends DistrictType
-{
+/**
+ * implements a residential district with an associated picture.
+ * 
+ * @author MOEs
+ *
+ */
+public class ResidentialDistrict extends DistrictType {
 	private int nbCitizens;
 	private float taxes;
-	
+
 	public ResidentialDistrict() {
 		nbCitizens = 0;
 		taxes = 0;
 		setImage("/images/City/Residential/1.png");
 	}
-	
+
 	@Override
 	public int getNbCitizens() {
 		return nbCitizens;
 	}
-	
+
 	@Override
 	public void setNbCitizens(int nbCtz) {
 		this.nbCitizens = nbCtz;
@@ -59,7 +64,7 @@ public class ResidentialDistrict extends DistrictType
 	@Override
 	public void setTaxes(float taxes) {
 		// TODO Auto-generated method stub
-		this.taxes=taxes;
+		this.taxes = taxes;
 	}
 
 	@Override
@@ -69,7 +74,7 @@ public class ResidentialDistrict extends DistrictType
 
 	@Override
 	public void setMaintenanceCost(float taxes) {
-		
+
 	}
 
 	@Override
@@ -81,8 +86,7 @@ public class ResidentialDistrict extends DistrictType
 	@Override
 	public void setConstructionCost(float constCost) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
 
 }

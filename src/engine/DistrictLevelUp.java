@@ -11,7 +11,7 @@ import city.District;
 
 /**
  * This class increase of 1 the level of a district 
- * @author raphael
+ * @author QA
  *
  */
 public class DistrictLevelUp {

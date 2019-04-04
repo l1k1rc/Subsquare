@@ -1,6 +1,11 @@
 package city;
 
-
+/**
+ * implements a private district with an associated picture.
+ * 
+ * @author MOEs
+ *
+ */
 public class PrivateDistrict extends DistrictType
 {
 	private int nbWorkers;

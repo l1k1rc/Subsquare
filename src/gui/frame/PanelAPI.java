@@ -20,7 +20,7 @@ import gui.fontElements.Fonts;
 /**
  * Regroup each API displayed in the MainFrame.
  * 
- * @author l1k1
+ * @author CHEF, MOA, RVR
  *
  */
 public class PanelAPI extends JPanel {

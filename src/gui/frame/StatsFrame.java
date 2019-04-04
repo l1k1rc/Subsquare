@@ -16,6 +16,7 @@ public class StatsFrame extends JFrame {
 	 * launch a piechart from JFreechart .jar.
 	 * 
 	 * @see BuildChart {@link BuildChart}
+	 * @author CHEF, RVR
 	 */
 	private static final long serialVersionUID = 1L;
 

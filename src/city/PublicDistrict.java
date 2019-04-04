@@ -1,15 +1,20 @@
 package city;
 
-public class PublicDistrict extends DistrictType
-{
+/**
+ * implements a public district with an associated picture.
+ * 
+ * @author MOEs
+ *
+ */
+public class PublicDistrict extends DistrictType {
 	private int nbWorkers;
 	private int nbVisitors;
 	private float constructionCosts;
 	private float maintenanceCost;
-	
+
 	public PublicDistrict() {
 		setImage("/images/City/Public/1.png");
-		nbVisitors =0 ;
+		nbVisitors = 0;
 		nbWorkers = 0;
 		maintenanceCost = 0;
 	}
@@ -29,13 +34,13 @@ public class PublicDistrict extends DistrictType
 	public void setNbVisitors(int nbVisitors) {
 		this.nbVisitors = nbVisitors;
 	}
-	
+
 	@Override
 	public boolean isPublic() {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
+
 	@Override
 	public boolean isPrivate() {
 		// TODO Auto-generated method stub
@@ -57,7 +62,7 @@ public class PublicDistrict extends DistrictType
 	@Override
 	public void setTaxes(float taxes) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -80,7 +85,7 @@ public class PublicDistrict extends DistrictType
 	@Override
 	public void setConstructionCost(float constCost) {
 		this.constructionCosts = constCost;
-		
+
 	}
 
 	@Override
@@ -92,9 +97,7 @@ public class PublicDistrict extends DistrictType
 	@Override
 	public void setNbCitizens(int nbCtz) {
 		// TODO Auto-generated method stub
-		
-	}
 
-	
+	}
 
 }

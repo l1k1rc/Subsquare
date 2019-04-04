@@ -8,7 +8,7 @@ public class GridBuilder {
 	/**
 	 * This class initializes the grid's settings for the first time.
 	 * 
-	 * @author ishak
+	 * @author MOEs
 	 *
 	 */
 	private Grid grid;

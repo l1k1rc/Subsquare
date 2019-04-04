@@ -5,7 +5,11 @@ import java.util.Collection;
 import city.City;
 import city.District;
 import engine.TimeSimulator;
-
+/**
+ * 
+ * @author QA
+ *
+ */
 public class EconomyManager
 {
 	private City city;

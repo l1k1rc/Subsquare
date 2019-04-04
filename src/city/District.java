@@ -1,5 +1,6 @@
 package city;
 
+import engine.Simulation;
 import staticData.DistrictData;
 import used.Point;
 
@@ -17,7 +18,14 @@ public class District
 	private int level;
 	private int maxCapacity;
 
-	
+	/**
+	 * Create a new district on the map.
+	 * @see Simulation {@link Simulation}
+	 * @param position = @see {@link Point}, district position in the matrix on the scene
+	 * @param type = residential, private or public
+	 * @param name = district name generates randomly
+	 * @param level = level of district which defines the max capacity for the density
+	 */
 	public District(Point position,DistrictType type, String name,int level)
 	{
 		this.name = name;

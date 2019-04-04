@@ -26,6 +26,15 @@ public class PanelPrivStat extends JPanel {
 
 	private ArrayList<JLabel[]> arrayListJLabelPriv = new ArrayList<JLabel[]>();
 
+	/**
+	 * This class is the right panel of the frame which appears when the user clicks
+	 * on a position on the map. The purpose of this class is to displays each data
+	 * about a position, its location, if it's free or not, its price, and if its a
+	 * district, it will displays data about it as population, name, workers (...) .
+	 * 
+	 * @see MainFrame {@link MainFrame}
+	 * @author CHEF, MOA
+	 */
 	public PanelPrivStat() {
 		super();
 

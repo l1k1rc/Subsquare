@@ -12,7 +12,7 @@ import city.District;
 import used.Point;
 
 /**
- * @author raphael
+ * @author QA
  *
  */
 public class DistrictGrowth {

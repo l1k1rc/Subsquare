@@ -7,26 +7,31 @@ import city.City;
 import city.District;
 import city.Station;
 
-public class EcoCalculator
-{	
-	
+/**
+ * 
+ * 
+ * @author MOEs, QA
+ *
+ */
+public class EcoCalculator {
+
 	public static float calcStationOverload(City city, District district) {
 		Station targetStation = district.getStation();
 		int result;
-		if(district.getStation() != null) {
+		if (district.getStation() != null) {
 			int userStationCompt = 0;
 			ArrayList<Citizen> citizens = city.getCitizens();
 			for (Citizen citizen : citizens) {
-				if(citizen.getClosestStation() != null) {
-					if (citizen.getClosestStation().getId() == district.getStation().getId()) 
+				if (citizen.getClosestStation() != null) {
+					if (citizen.getClosestStation().getId() == district.getStation().getId())
 						userStationCompt++;
 				}
 			}
-			result = targetStation.getMaxCapacity()-userStationCompt;
-			if (result<20) {
+			result = targetStation.getMaxCapacity() - userStationCompt;
+			if (result < 20) {
 				return 20;
-			} else if (result<0) {
-				return result*(-1);
+			} else if (result < 0) {
+				return result * (-1);
 			} else {
 				return 0;
 			}
@@ -34,79 +39,78 @@ public class EcoCalculator
 			return 0;
 		}
 	}
-	
+
 	public static float calcMaintenanceCost(District dist) {
-		float mc = dist.getLevel()*EcoData.MAINT_COST;
+		float mc = dist.getLevel() * EcoData.MAINT_COST;
 		dist.getType().setMaintenanceCost(mc);
 		return mc;
 	}
-	
-	public static float calcTaxes(District dist){
+
+	public static float calcTaxes(District dist) {
 		float tx = dist.getLevel();
-		
-		if(dist.getType().isResidential()) {
-			tx *= EcoData.TAX_RES*dist.getType().getNbCitizens();
+
+		if (dist.getType().isResidential()) {
+			tx *= EcoData.TAX_RES * dist.getType().getNbCitizens();
 		}
-		if(dist.getType().isPrivate()) {
+		if (dist.getType().isPrivate()) {
 			tx *= EcoData.TAX_PRV;
 		}
-		
+
 		dist.getType().setTaxes(tx);
-		
+
 		return tx;
 	}
 
-	
 	public static float calcUnemployement(ArrayList<Citizen> citizens) {
-		if(citizens.isEmpty()) return 0;
+		if (citizens.isEmpty())
+			return 0;
 		int unempl = 0;
 		for (Citizen c : citizens) {
-			 if(!c.isEmployed()) {
-				 unempl++;
-			 }
+			if (!c.isEmployed()) {
+				unempl++;
+			}
 		}
-		return unempl/citizens.size();
+		return unempl / citizens.size();
 	}
-	
-	
+
 	public static float calcDistUnemployement(City city, District district) {
 		ArrayList<Citizen> citizens = city.getCitizensByDistrict(district);
 		float result = calcUnemployement(citizens);
 		district.setUnemployement(result);
 		return result;
 	}
-	
+
 	public static double calcTravelTime(City city, District district) {
 		ArrayList<Citizen> citizens = city.getCitizensByDistrict(district);
 		double traveling = 0d;
 		double result = 0d;
-		
-		for(Citizen citizen : citizens)
+
+		for (Citizen citizen : citizens)
 			traveling += (citizen.getTravelFoot() + citizen.getTravelSubWay());
-		
-		if(citizens.size() != 0)
+
+		if (citizens.size() != 0)
 			result = traveling / citizens.size();
-		
+
 		return result;
 	}
-	
+
 	public static int calcProsperity(City city, District district) {
-		float unemployementRate = 1-calcDistUnemployement(city, district);
-		float travelTime = (float) (100-(calcTravelTime(city, district)*2.127));
-		float stationOverloadRate = calcStationOverload(city,district);
-		
-		float prosperity = (float) (unemployementRate*((travelTime)-(stationOverloadRate)));
-		
+		float unemployementRate = 1 - calcDistUnemployement(city, district);
+		float travelTime = (float) (100 - (calcTravelTime(city, district) * 2.127));
+		float stationOverloadRate = calcStationOverload(city, district);
+
+		float prosperity = (float) (unemployementRate * ((travelTime) - (stationOverloadRate)));
+
 		if (prosperity > 100) {
 			prosperity = 100;
-		} else if (prosperity < 0){
+		} else if (prosperity < 0) {
 			prosperity = 0;
 		}
-		
+
 		district.setProsperity(prosperity);
 		return (int) prosperity;
 	}
-	
+
 	public static String prosperityInterpretor(int prosperity) {
 		String interpretor;
 		if (prosperity <= 25) {
@@ -120,8 +124,8 @@ public class EcoCalculator
 		} else {
 			interpretor = "Excelent";
 		}
-		
+
 		return interpretor;
 	}
-	
+
 }
