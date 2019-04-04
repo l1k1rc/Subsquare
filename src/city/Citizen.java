@@ -12,9 +12,10 @@ public class Citizen {
 	private Direction lastDirection;
 	private Station closestStation;
 	private Point position;
-	private boolean employed;
+	private boolean employed,SearchArrive;
 	private int QI;
 	private boolean move;
+	private int timeToSearchWork;
 	private ArrayList<Point> path = new ArrayList<Point>();
 	private ArrayList<District> noWork = new ArrayList<District>();
 	
@@ -25,6 +26,8 @@ public class Citizen {
 		this.position = position;
 		employed = true;
 		move = false;
+		SearchArrive = false;
+		timeToSearchWork = Random.randomInt(9, 13);
 		QI = Random.randomInt(90, 200);
 		if(originDistrict.hasStation())
 			this.closestStation = originDistrict.getStation();
@@ -38,7 +41,9 @@ public class Citizen {
 		lastDirection = Direction.randomDirection();
 		employed = false;
 		move = false;
+		SearchArrive = false;
 		QI = Random.randomInt(90, 200);
+		timeToSearchWork = Random.randomInt(9, 13);
 		if(originDistrict.hasStation())
 			this.closestStation = originDistrict.getStation();
 		else
@@ -129,19 +134,21 @@ public class Citizen {
 			move = false;
 			if(!employed) {
 				District work = City.getInstance().getDistrictByPosition(newPos);
+				SearchArrive = true;
 				if(work.getType().isPrivate() || work.getType().isPublic()) {
 					if(work.getMaxCapacity() - work.getType().getNbWorkers() > 10) {
 						setWorkDistrict(work);
 						work.getType().setNbWorkers(work.getType().getNbWorkers()+1);
 						employed = true;
 					}
-					else
+					else {
 						noWork.add(work);
+					}
 				}
 			}
 		}
 	}
-
+	
 	public boolean isEmployed() {
 		return employed;
 	}
@@ -156,5 +163,21 @@ public class Citizen {
 	
 	public void setClosestStation(Station closestStation) {
 		this.closestStation = closestStation;
+	}
+	
+	public int getTimeToSearchWork() {
+		return timeToSearchWork;
+	}
+	
+	public void setTimeToSearchWork(int timeToSearchWork) {
+		this.timeToSearchWork = timeToSearchWork;
+	}
+	
+	public boolean isSearchArrive() {
+		return SearchArrive;
+	}
+	
+	public void setSearchArrive(boolean searchArrive) {
+		SearchArrive = searchArrive;
 	}
 }

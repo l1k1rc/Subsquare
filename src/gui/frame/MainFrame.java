@@ -246,7 +246,7 @@ public class MainFrame extends JFrame implements Runnable {
 
 					}
 					// pStat.setTypeLabel("Pas de type de quartier");
-					// getContentPane().add(pStat);
+					 getContentPane().add(pStat);
 					/*
 					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
 					 * obstacle

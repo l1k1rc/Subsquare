@@ -137,7 +137,7 @@ public class Scene extends JPanel {
 			int x = dist.getPosition().getAbscisse();
 			int y = dist.getPosition().getOrdonne();
 			if(dist.getType().isPrivate())
-				g2.setColor(Color.RED);
+				g2.setColor(Color.GRAY);
 			else if(dist.getType().isPublic())
 				g2.setColor(Color.BLUE);
 			else
@@ -154,14 +154,16 @@ public class Scene extends JPanel {
 				}
 			}
 		}
+		
+		g2.setColor(Color.RED);
+		for (Citizen ctzn : city.getCitizens()) {
+			g.fillOval(ctzn.getPosition().getAbscisse() * 28, ctzn.getPosition().getOrdonne() * 28, 5, 5);
+		}
 	}
 	private void drawCity(Graphics g) {
 		for (Iterator<District> it = city.getDistricts().values().iterator(); it.hasNext();) {
 			District d = it.next();
 			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28, null);
-		}
-		for (Citizen ctzn : city.getCitizens()) {
-			g.fillOval(ctzn.getPosition().getAbscisse() * 28, ctzn.getPosition().getOrdonne() * 28, 5, 5);
 		}
 	}
 

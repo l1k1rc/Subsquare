@@ -29,7 +29,8 @@ public class DistrictGrowth {
 		Citizen citizen;
 		//
 	    while (iterator.hasNext()) {
-	    	Map.Entry mapentry = (Map.Entry) iterator.next();
+	    	@SuppressWarnings("rawtypes")
+			Map.Entry mapentry = (Map.Entry) iterator.next();
 	        District dist =  (District) mapentry.getValue();
 	        randNbr =  used.Random.randomInt(1,7);        	
 	        if (randNbr == 2) {
@@ -69,7 +70,8 @@ public class DistrictGrowth {
 		Citizen citizen;
 		//
 	    while (iterator.hasNext()) {
-	    	Map.Entry mapentry = (Map.Entry) iterator.next();
+	    	@SuppressWarnings("rawtypes")
+			Map.Entry mapentry = (Map.Entry) iterator.next();
 	        District dist =  (District) mapentry.getValue();
         	randNbr =  2;
         	if (randNbr == 2) {
