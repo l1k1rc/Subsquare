@@ -13,6 +13,9 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+import city.District;
+import used.Point;
+
 /**
  * Class which allows to build the PieChat graphics.
  * @see MainFrame {@link MainFrame}
@@ -26,7 +29,7 @@ public class BuildChart extends ApplicationFrame {
 	/**
 	 * Constructor which send the HashMap containing countries informations.
 	 */
-	public BuildChart(HashMap<String, int[]> data) {
+	public BuildChart(HashMap<Point, District> data) {
 		super("");
 		// TODO Auto-generated constructor stub
 		PieChart_AWT("Classement des quartiers par prospérité", data);
@@ -40,7 +43,7 @@ public class BuildChart extends ApplicationFrame {
 	 * @param hmRanking : HashMap which contains N countries with their values in
 	 *                  the "country ranking"
 	 */
-	public void PieChart_AWT(String windTitle, HashMap<String, int[]> data) { // 2
+	public void PieChart_AWT(String windTitle, HashMap<Point, District> data) { // 2
 		setContentPane(createDemoPanel(data));
 	}
 
@@ -52,22 +55,19 @@ public class BuildChart extends ApplicationFrame {
 	 *                  the "country ranking"
 	 * @return dataset
 	 */
-	private static PieDataset createDataset(HashMap<String, int[]> data) { // 5
+	private static PieDataset createDataset(HashMap<Point, District> data) { // 5
 		DefaultPieDataset dataset = new DefaultPieDataset();
 		for (@SuppressWarnings("rawtypes")
 		Map.Entry mapentry : data.entrySet()) {
 			/* Here you can set your values in the label of your frame */
 			
 			 dataset.setValue("val",
-			 data.get(mapentry.getKey())[0]);
+			 data.get(mapentry.getKey()).getProsperity());
 			 dataset.setValue("val2",
-			 data.get(mapentry.getKey())[1]);
+			 data.get(mapentry.getKey()).getProsperity());
 			 dataset.setValue("val3",
-			 data.get(mapentry.getKey())[2]);
-
-			 
+			 data.get(mapentry.getKey()).getProsperity());
 		}
-
 		return dataset;
 	}
 
@@ -93,7 +93,7 @@ public class BuildChart extends ApplicationFrame {
 	 *                  the "country ranking"
 	 * @return ChartPanel with the variable "chart" ( the panel associated )
 	 */
-	public static JPanel createDemoPanel(HashMap<String, int[]> data) { // 3
+	public static JPanel createDemoPanel(HashMap<Point, District> data) { // 3
 		JFreeChart chart = createChart(createDataset(data));
 		return new ChartPanel(chart);
 	}
