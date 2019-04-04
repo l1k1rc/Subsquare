@@ -1,7 +1,5 @@
 package city;
 
-import java.awt.Color;
-
 import used.Point;
 
 /**
@@ -33,7 +31,7 @@ public class CityFactory {
 		return new Station(1, id, pos);
 	}
 	
-	public static SubwayLine creatSubwayLine(Station begin,Station end, Color colorLine) {
-		return new SubwayLine(begin,end,colorLine);
+	public static SubwayLine creatSubwayLine(Station begin,Station end) {
+		return new SubwayLine(begin,end);
 	}
 }

@@ -64,7 +64,9 @@ public class EcoCalculator
 	public static float calcTravelTime(City city, District district) {
 		ArrayList<Citizen> citizens = new ArrayList<Citizen>();
 		citizens = city.getCitizensByDistrict(district);
-		if(citizens.isEmpty())return 0;
+
+		if(citizens.size()==0) return 0;
+
 		int totalTravelTime = 0;
 		int travelTime;
 		for (Citizen i : citizens) {

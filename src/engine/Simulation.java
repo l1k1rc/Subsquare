@@ -1,6 +1,5 @@
 package engine;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -44,10 +43,15 @@ public class Simulation {
 		
 		for(Citizen citizen : city.getCitizens()) {
 			if(!city.getTimeSimulator().isWeekEnd()) {
-				if(city.getTimeSimulator().getHour()==9 && city.getTimeSimulator().AM_PM())
-					citizenGoToWork(citizen);
-				else if(city.getTimeSimulator().getHour()==6 && !city.getTimeSimulator().AM_PM())
-					citizenGoToHome(citizen);
+				if(!citizen.isMove()) {
+					if(city.getTimeSimulator().getHour()==9 && city.getTimeSimulator().AM_PM())
+						citizenGoToWork(citizen);
+					else if(city.getTimeSimulator().getHour()==6 && !city.getTimeSimulator().AM_PM())
+						citizenGoToHome(citizen);
+				}
+				else {
+					citizen.move();
+				}
 			}
 			//TODO weekends
 		}
@@ -85,8 +89,6 @@ public class Simulation {
 				}
 			}
 		}
-		else
-			citizen.move();
 	}
 	
 	public static District getClosestDistrict(Point position, ArrayList<District> searchWork, Citizen citizen) {
@@ -169,11 +171,10 @@ public class Simulation {
 	public void buildSubwayLine(Point begin,Point end) {
 		District d1 = city.getDistrictByPosition(begin);
 		District d2 = city.getDistrictByPosition(end);
-		Color colorLine = new Color((int)(Math.random() * 0x1000000));
 		if(!d1.equals(null) && !d2.equals(null)) {
 			if(d1.hasStation() && d2.hasStation()) {
-				SubwayLine line1 = CityFactory.creatSubwayLine(d1.getStation(),d2.getStation(),colorLine);
-				SubwayLine line2 = CityFactory.creatSubwayLine(d2.getStation(),d1.getStation(),colorLine);
+				SubwayLine line1 = CityFactory.creatSubwayLine(d1.getStation(),d2.getStation());
+				SubwayLine line2 = CityFactory.creatSubwayLine(d2.getStation(),d1.getStation());
 				d1.getStation().addSubwayLine(line1);
 				d2.getStation().addSubwayLine(line2);
 				city.addSubwayLine(line1);

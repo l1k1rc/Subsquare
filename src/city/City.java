@@ -11,7 +11,8 @@ import used.Point;
 public class City
 {
 	private static City instance = new City();
-	
+	private static City instanceTest = new City();
+
 	private TimeSimulator timeSim;
 	
 	private HashMap<Point,District> districts;
@@ -23,7 +24,7 @@ public class City
 	private float prosperity;
 	private float unemployement;
 
-	private City() {
+	public City() {
 		timeSim = new TimeSimulator();
 		districts = new HashMap<Point, District>();
 		subwayLines = new ArrayList<SubwayLine>();
@@ -33,6 +34,10 @@ public class City
 	
 	public static City getInstance() {
 		return instance;
+	}
+	
+	public static City getInstanceTest() {
+		return instanceTest;
 	}
 
 	public int getServicing() {
@@ -170,6 +175,19 @@ public class City
 			}
 		return result;
 	}
+	
+	public Station getClosestStation(Point position) {
+		Station station = null;
+			double min = Double.MAX_VALUE;
+			for(District dist : districts.values()) {
+				double tmp = position.distance(dist.getPosition());
+				if(tmp < min && dist.hasStation()) {
+					min = tmp;
+					station = dist.getStation();
+				}
+			}
+		return station;
+	}
 
 	public int nbStations() {
 		return nbStation;
@@ -184,7 +202,6 @@ public class City
 	}
 	
 	public void addCitizen(Citizen citizen) {
-		if(!citizens.contains(citizen))
 			citizens.add(citizen);
 	}
 	
@@ -219,6 +236,7 @@ public class City
 	public void setUnemployement(float unemployement) {
 		this.unemployement = unemployement;
 	}
+	
 	@Override
 	public String toString() {
 		return  "Date=" + timeSim.getTime() +"\n"+
@@ -228,6 +246,4 @@ public class City
 				"Citizens=" + getNbCitizens() +"\n"+
 				"Prosperity=" + prosperity;
 	}
-	
-	
 }
