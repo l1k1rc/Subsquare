@@ -135,7 +135,7 @@ public class Citizen {
 			if(!employed) {
 				District work = City.getInstance().getDistrictByPosition(newPos);
 				SearchArrive = true;
-				if(work.getType().isPrivate() || work.getType().isPublic()) {
+				if(work != null && (work.getType().isPrivate() || work.getType().isPublic())) {
 					if(work.getMaxCapacity() - work.getType().getNbWorkers() > 10) {
 						setWorkDistrict(work);
 						work.getType().setNbWorkers(work.getType().getNbWorkers()+1);

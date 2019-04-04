@@ -1,9 +1,9 @@
 package economy;
 
 import java.util.Collection;
+
 import city.City;
 import city.District;
-import engine.DistrictGrowth;
 import engine.TimeSimulator;
 
 public class EconomyManager
