@@ -104,7 +104,7 @@ public class EcoCalculator
 						if(distanceWalk<0) {
 							distanceWalk*= (-1);
 						}
-						travelTimeFoot+=distanceWalk;
+						travelTimeFoot+=(distanceWalk*EcoData.travelOnFoot_Cost);
 					}
 					
 					
@@ -119,7 +119,7 @@ public class EcoCalculator
 							distanceSubway*= (-1);
 						}
 						actualPos = target;
-						travelTimeSubway+=distanceSubway;
+						travelTimeSubway+=(distanceSubway*EcoData.travelInTrain_Cost);
 					}
 				}
 			}
