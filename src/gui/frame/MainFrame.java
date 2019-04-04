@@ -259,8 +259,7 @@ public class MainFrame extends JFrame implements Runnable {
 					if (city.isDistrictPosition(position)) {
 						pStat.setposLabel("Attention : cette place est occupée");
 						pStat.setPriceInformation("Prix :");
-						pStat.setTypeLabel(
-								"Type de quartier : " + city.getDistrictByPosition(position).getType().toString());
+						pStat.setTypeLabel(city.getDistrictByPosition(position).getType().toString());
 						pStat.setIsSubwayStation(
 								"Station de Métro : " + city.getDistrictByPosition(position).getStation());
 						pStat.setdensityLabelPriv(
