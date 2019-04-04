@@ -97,6 +97,7 @@ public class Simulation {
 			}
 		}
 		
+
 		if(simulationNumberOfTurn > 40)
 			ecoMan.updateData();
 		

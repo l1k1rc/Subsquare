@@ -323,9 +323,14 @@ public class MainFrame extends JFrame implements Runnable {
 		updateDensity();
 		updateServicing();
 		updateProsperityBar();
-		if (pScore.getProsperityBar().getValue() == 100) {
+		if (pScore.getProsperityBar().getValue() >= 90) {
 			stop = true;
+			//scene.win();
+		}else if(pScore.getProsperityBar().getValue()<=15) {
+			stop=true;
+			scene.game_over();
 		}
+		System.out.println(""+pScore.getProsperityBar().getValue());
 		scene.updateUI();
 		scene.repaint();
 	}
