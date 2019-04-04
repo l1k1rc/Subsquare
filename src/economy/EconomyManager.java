@@ -3,6 +3,7 @@ package economy;
 import java.util.Collection;
 import city.City;
 import city.District;
+import engine.DistrictGrowth;
 import engine.TimeSimulator;
 
 public class EconomyManager
@@ -115,7 +116,7 @@ public class EconomyManager
 					tx += EcoCalculator.calcTaxes(dist);
 					pr += EcoCalculator.calcProsperity(city, dist);
 				}
-				
+				DistrictGrowth.populationGrowth(city);
 				pr/=city.getNbDistricts();
 				city.setProsperity(pr);
 				emp = EcoCalculator.calcUnemployement(city.getCitizens());

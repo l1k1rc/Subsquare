@@ -12,7 +12,7 @@ public class EcoData
 	public static final float TAX_PRV = 15;
 	
 	// maintenance:
-	public static final float MAINT_COST = 5;
+	public static final float MAINT_COST = 10;
 	
 	// travel cost
 	public static final float travelOnFoot_Cost = 5;

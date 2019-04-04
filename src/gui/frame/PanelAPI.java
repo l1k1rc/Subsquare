@@ -69,11 +69,11 @@ public class PanelAPI extends JPanel {
 			tabButtonAPI[index].setFont(Fonts.getF2());
 			tabButtonAPI[index].setBackground(Color.DARK_GRAY);
 		}
-		tabButtonAPI[0].setToolTipText("Construire un quartier résidentiel");
-		tabButtonAPI[1].setToolTipText("Construire un quartier commercial (privé)");
-		tabButtonAPI[2].setToolTipText("Construire un quartier des services publics");
-		tabButtonAPI[3].setToolTipText("COnstruire une station de métro");
-		tabButtonAPI[4].setToolTipText("Construire une ligne de métro");
+		tabButtonAPI[0].setToolTipText("Build a residential district");
+		tabButtonAPI[1].setToolTipText("Build a private district");
+		tabButtonAPI[2].setToolTipText("Build a public district");
+		tabButtonAPI[3].setToolTipText("Display subway line map");
+		tabButtonAPI[4].setToolTipText("Build a subway liness");
 
 		/* BUTTON :: build a residential area */
 		tabButtonAPI[0].addActionListener(new ActionListener() {

@@ -5,12 +5,16 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import city.Citizen;
 import city.City;
@@ -19,6 +23,7 @@ import city.Station;
 import city.SubwayLine;
 import engine.GridParameters;
 import grid.Grid;
+import gui.fontElements.Fonts;
 import used.Point;
 
 /**
@@ -37,14 +42,38 @@ public class Scene extends JPanel {
 	private boolean drawGrid = false;
 	private static boolean stationView = false;
 	private Point pos_gridPoint;
+	
+	private JLabel game_over = new JLabel("GAME OVER");
 
 	public Scene() {
 		super();
 		setPreferredSize(new Dimension(GridParameters.WIDTH * 28, GridParameters.HEIGHT * 28));
 		setBorder(BorderFactory.createEtchedBorder());
 		setBackground(Color.DARK_GRAY);
+		game_over.setForeground(Color.RED);
+		game_over.setOpaque(false);
+		int delay = 200;
+		ActionListener taskPerformer = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if ((game_over.getForeground() == (Color.RED)) ) {
+					game_over.setForeground(Color.GREEN);
+				} else if ((game_over.getForeground() == (Color.GREEN))) {
+					game_over.setForeground(new Color(30, 170, 255, 60));
+				} else {
+					game_over.setForeground(Color.RED);
+				}
+				repaint();
+			}
+		};
+		Timer t1 = new Timer(delay, taskPerformer);
+		t1.start();
+		game_over.setBounds(50,50,200,200);
+		game_over.setFont(Fonts.getF4().deriveFont(150.0f));
+		game_over();
 	}
-
+	public void game_over() {
+		add(game_over);
+	}
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -126,7 +155,6 @@ public class Scene extends JPanel {
 			}
 		}
 	}
-
 	private void drawCity(Graphics g) {
 		for (Iterator<District> it = city.getDistricts().values().iterator(); it.hasNext();) {
 			District d = it.next();

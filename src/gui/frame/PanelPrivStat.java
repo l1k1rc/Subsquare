@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -15,28 +16,23 @@ import javax.swing.SwingConstants;
 import gui.fontElements.Fonts;
 
 public class PanelPrivStat extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	private JLabel prosperityLabel = new JLabel("District Prosperity", JLabel.CENTER);
-	private JLabel price_information = new JLabel("");
-	private JLabel position = new JLabel("");
-	private JLabel typeDistrict = new JLabel("");
-	private JLabel isSubwayStation = new JLabel("");
-	private JLabel densityLabel = new JLabel("");
-	
-	
+
 	private JPanel scorepan = new JPanel();
 	private JPanel prosperity = new JPanel();
 	private JProgressBar prosperityBar;
 	private GridBagConstraints gbc = new GridBagConstraints();
-	
-	
+
+	private ArrayList<JLabel[]> arrayListJLabelPriv = new ArrayList<JLabel[]>();
+
 	public PanelPrivStat() {
 		super();
-		
+
 		setBorder(BorderFactory.createEtchedBorder());
 
+		JLabel[] infoDistrict = { new JLabel("District Prosperity", JLabel.CENTER), new JLabel("1"), new JLabel("2"),
+				new JLabel("3"), new JLabel("4"), new JLabel("5"), new JLabel("6"), new JLabel("7"), new JLabel("8") };
 		JPanel[] tabCells = { new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(),
 				new JPanel(), new JPanel(), new JPanel() };
 
@@ -46,38 +42,37 @@ public class PanelPrivStat extends JPanel {
 		prosperity.setLayout(new GridBagLayout());
 		prosperityBar = new JProgressBar(SwingConstants.VERTICAL);
 		prosperityBar.setBackground(Color.DARK_GRAY);
-		prosperityLabel.setFont(Fonts.getF3());
-		price_information.setFont(Fonts.getF3());
-		typeDistrict.setFont(Fonts.getF3());
-		isSubwayStation.setFont(Fonts.getF3());
-		densityLabel.setFont(Fonts.getF3());
+
+		for (int i = 0; i < infoDistrict.length; i++) {
+			infoDistrict[i].setFont(Fonts.getF3());
+		}
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		//gbc.fill = GridBagConstraints.VERTICAL;
+		// gbc.fill = GridBagConstraints.VERTICAL;
 		prosperityBar.setPreferredSize(new Dimension(200, 35));
 		prosperity.add(prosperityBar, gbc);
 		gbc.gridy = 1;
-		prosperityLabel.setPreferredSize(new Dimension(150, 50));
-		prosperity.add(prosperityLabel, gbc);
+		infoDistrict[0].setPreferredSize(new Dimension(150, 50));
+		prosperity.add(infoDistrict[0], gbc);
 		gbc.gridy = 2;
-		prosperity.add(price_information, gbc);
+		prosperity.add(infoDistrict[1], gbc);
 		gbc.gridy = 3;
-		prosperity.add(position, gbc);
+		prosperity.add(infoDistrict[2], gbc);
 		gbc.gridy = 4;
-		prosperity.add(typeDistrict, gbc);
+		prosperity.add(infoDistrict[3], gbc);
 		gbc.gridy = 5;
-		prosperity.add(isSubwayStation, gbc);
+		prosperity.add(infoDistrict[4], gbc);
 		gbc.gridy = 6;
-		prosperity.add(densityLabel, gbc);
-		
-		
-		
-		//prosperityLabel.setFont(Fonts.getF3());
+		prosperity.add(infoDistrict[5], gbc);
+		gbc.gridy = 7;
+		prosperity.add(infoDistrict[6], gbc);
+
+		// prosperityLabel.setFont(Fonts.getF3());
 		for (int index = 0; index < tabCells.length; index++) {
 			tabCells[index].setPreferredSize(new Dimension(200, 30));
 		}
-		
+		infoDistrict[1].setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		prosperity.add(tabCells[0], gbc);
@@ -93,37 +88,18 @@ public class PanelPrivStat extends JPanel {
 		prosperity.add(tabCells[5], gbc);
 		gbc.gridy = 6;
 		prosperity.add(tabCells[6], gbc);
-		
-		
+
 		scorepan.add(prosperity);
 		add(scorepan, BorderLayout.CENTER);
-		
-		
-		
+
+		arrayListJLabelPriv.add(infoDistrict);
 	}
-	
+
+	public void setLabelDistrict(int position, String text) {
+		arrayListJLabelPriv.get(0)[position].setText(text);
+	}
+
 	public JProgressBar getProsperityBar() {
 		return prosperityBar;
 	}
-	
-	public void setposLabel(String s) {
-		position.setText(s);
-	}
-	
-	public void setTypeLabel(String type) {
-		typeDistrict.setText(type);
-	}
-	
-	public void setPriceInformation(String price) {
-		this.price_information.setText(price);
-	}
-	
-	public void setIsSubwayStation(String subway) {
-		this.isSubwayStation.setText(subway);
-	}
-	public void setdensityLabelPriv(String density) {
-		this.densityLabel.setText(density);
-	}
-	
-
 }

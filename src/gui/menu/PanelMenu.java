@@ -18,6 +18,7 @@ import javax.swing.Timer;
 
 import gui.fontElements.Fonts;
 import gui.frame.MainFrame;
+import gui.frame.ManualFrame;
 
 /**
  * <strong>Class declaring the menu of the software. This one allows to start
@@ -71,14 +72,17 @@ public class PanelMenu extends JPanel {
 		int delay = 200;
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if ((b1.getBackground() == (Color.RED)) && (b4.getBackground() == (Color.RED))) {
+				if ((b1.getBackground() == (Color.RED)) && (b4.getBackground() == (Color.RED)) && (b3.getBackground()==(Color.RED))) {
 					b1.setBackground(Color.GREEN);
+					b3.setBackground(Color.GREEN);
 					b4.setBackground(Color.GREEN);
-				} else if ((b1.getBackground() == (Color.GREEN)) && (b4.getBackground() == (Color.GREEN))) {
+				} else if ((b1.getBackground() == (Color.GREEN)) && (b4.getBackground() == (Color.GREEN))&&(b3.getBackground()==(Color.GREEN))) {
 					b1.setBackground(new Color(30, 170, 255, 60));
 					b4.setBackground(new Color(30, 170, 255, 60));
+					b3.setBackground(new Color(30, 170, 255, 60));
 				} else {
 					b1.setBackground(Color.RED);
+					b3.setBackground(Color.RED);
 					b4.setBackground(Color.RED);
 				}
 				repaint();
@@ -145,7 +149,7 @@ public class PanelMenu extends JPanel {
 
 		b3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// UserGuide.openGuide();
+				new ManualFrame();
 			}
 		});
 		b4.addActionListener(new ActionListener() {

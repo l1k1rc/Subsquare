@@ -25,7 +25,6 @@ import city.District;
 import city.PrivateDistrict;
 import city.PublicDistrict;
 import city.ResidentialDistrict;
-import economy.EcoData;
 import economy.EconomyManager;
 import engine.GridParameters;
 import engine.Simulation;
@@ -232,21 +231,22 @@ public class MainFrame extends JFrame implements Runnable {
 					scene.setPos_gridPoint(position);
 					pStat = new PanelPrivStat();
 					pStat.setBounds(1400, 0, 250, 1150);
-					pStat.setposLabel("Position de ce quartier : " + position);
+
+					// pStat.setposLabel("Position de ce quartier : " + position);
 					if (scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getGroundType()
 							.isContainsTree()) {
-						pStat.setPriceInformation("Prix de la zone : "
-								+ scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse())
-										.getGroundType().getDegre() * EcoData.CONST_DISTRICT * 4);
+						// pStat.setPriceInformation("Prix de la zone : "
+						// + scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse())
+						// .getGroundType().getDegre() * EcoData.CONST_DISTRICT * 4);
 
 					} else {
-						pStat.setPriceInformation("Prix de la zone : "
-								+ scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse())
-										.getGroundType().getDegre() * EcoData.CONST_DISTRICT);
+						// pStat.setPriceInformation("Prix de la zone : "
+						// + scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse())
+						// .getGroundType().getDegre() * EcoData.CONST_DISTRICT);
 
 					}
-					pStat.setTypeLabel("Pas de type de quartier");
-					getContentPane().add(pStat);
+					// pStat.setTypeLabel("Pas de type de quartier");
+					// getContentPane().add(pStat);
 					/*
 					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
 					 * obstacle
@@ -257,20 +257,26 @@ public class MainFrame extends JFrame implements Runnable {
 					 * position/district will be displayed
 					 */
 					if (city.isDistrictPosition(position)) {
-						pStat.setposLabel("Attention : cette place est occupée");
-						pStat.setPriceInformation("Prix :");
-						pStat.setTypeLabel(city.getDistrictByPosition(position).getType().toString());
-						pStat.setIsSubwayStation(
-								"Station de Métro : " + city.getDistrictByPosition(position).getStation());
-						pStat.setdensityLabelPriv(
-								"Population : " + city.getDistrictByPosition(position).getType().getNbCitizens());
-						updateProsperityBacPrivate(city.getDistrictByPosition(position));
-						/* To draw a line between 2 points */
-						/*
-						 * if (buildLine_A == false && buildLine_B == false) { buildLine_A = true;
-						 * if(buildLineA = true) }
-						 */
+						// pStat.setposLabel("Attention : cette place est occupée");
+						// pStat.setPriceInformation("Prix :");
+						// pStat.setTypeLabel(city.getDistrictByPosition(position).getType().toString());
+						// pStat.setIsSubwayStation(
+						// "Station de Métro : " + city.getDistrictByPosition(position).getStation());
+						// pStat.setdensityLabelPriv(
+						// "Population : " +
+						// city.getDistrictByPosition(position).getType().getNbCitizens());
+						pStat.setLabelDistrict(1, city.getDistrictByPosition(position).getName());
+						pStat.setLabelDistrict(2, city.getDistrictByPosition(position).getType().toString());
+						pStat.setLabelDistrict(3,
+								"Population :" + city.getDistrictByPosition(position).getType().getNbCitizens());
+						pStat.setLabelDistrict(4,
+								"Workers :" + city.getDistrictByPosition(position).getType().getNbWorkers());
+						pStat.setLabelDistrict(5,
+								"Tax :" + city.getDistrictByPosition(position).getType().getTaxes() + "€");
+						pStat.setLabelDistrict(6,
+								"Unemployement :" + (int) city.getDistrictByPosition(position).getUnemployement());
 
+						updateProsperityBacPrivate(city.getDistrictByPosition(position));
 					}
 				}
 			}
@@ -305,7 +311,6 @@ public class MainFrame extends JFrame implements Runnable {
 		getContentPane().add(api);
 		getContentPane().add(scene);
 		getContentPane().add(pScore);
-		// getContentPane().add(pStat);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -318,10 +323,12 @@ public class MainFrame extends JFrame implements Runnable {
 		updateDensity();
 		updateServicing();
 		updateProsperityBar();
+		if (pScore.getProsperityBar().getValue() == 100) {
+			stop = true;
+		}
 		scene.updateUI();
 		scene.repaint();
 	}
-
 	public void updateTime() {
 		TimeSimulator timeSim = city.getTimeSimulator();
 		timeSim.update();
