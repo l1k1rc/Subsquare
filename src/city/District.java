@@ -25,7 +25,7 @@ public class District
 		this.position = position;
 		this.level= level;
 		
-		this.prosperity = 0;
+		this.prosperity = 50;
 		this.station = null;
 		this.hasStation = false;
 		

@@ -111,7 +111,6 @@ public class EconomyManager
 			if(time.isEndOfDay())
 			{
 				for(District dist : districts) {
-					EcoCalculator.calcDistUnemployement(city,dist);
 					mc += EcoCalculator.calcMaintenanceCost(dist);
 					tx += EcoCalculator.calcTaxes(dist);
 					pr += EcoCalculator.calcProsperity(city, dist);

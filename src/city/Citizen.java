@@ -13,9 +13,9 @@ public class Citizen {
 	private Station closestStation;
 	private Point position;
 	private boolean employed,SearchArrive;
-	private int QI;
+	private int QI, timeToSearchWork;
 	private boolean move;
-	private int timeToSearchWork;
+	private double travelFoot, travelSubWay;
 	private ArrayList<Point> path = new ArrayList<Point>();
 	private ArrayList<District> noWork = new ArrayList<District>();
 	
@@ -179,5 +179,21 @@ public class Citizen {
 	
 	public void setSearchArrive(boolean searchArrive) {
 		SearchArrive = searchArrive;
+	}
+	
+	public double getTravelFoot() {
+		return travelFoot;
+	}
+	
+	public void increaseTravelFoot(double travel) {
+		this.travelFoot += travel;
+	}
+	
+	public double getTravelSubWay() {
+		return travelSubWay;
+	}
+	
+	public void icreaseTravelSubWay(double travel) {
+		this.travelSubWay += travel;
 	}
 }

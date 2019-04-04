@@ -66,7 +66,7 @@ public class PanelScore extends JPanel {
 		timeButtonPanel.setLayout(new FlowLayout());
 		statsPanel.setPreferredSize(new Dimension(160, 55));
 		
-		prosperityBar = new JProgressBar(SwingConstants.VERTICAL);
+		prosperityBar = new JProgressBar(SwingConstants.HORIZONTAL);
 		prosperityBar.setBackground(Color.red);
 		
 		prosperityLabel.setFont(Fonts.getF3());

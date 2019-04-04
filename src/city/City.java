@@ -28,6 +28,7 @@ public class City {
 		subwayLines = new ArrayList<SubwayLine>();
 		citizens = new ArrayList<Citizen>();
 		nbStation = 0;
+		prosperity = 50;
 	}
 
 	public static City getInstance() {
@@ -129,7 +130,7 @@ public class City {
 	public ArrayList<Citizen> getCitizensByDistrict(District dist) {
 		ArrayList<Citizen> result = new ArrayList<Citizen>();
 		for (Citizen c : citizens) {
-			if (c.getOriginDistrict().equals(dist)) {
+			if (c.getOriginDistrict().getPosition().equals(dist.getPosition())) {
 				result.add(c);
 			}
 		}
@@ -201,7 +202,7 @@ public class City {
 	}
 
 	public boolean isEmpty() {
-		return districts.isEmpty();
+		return districts.isEmpty() || citizens.isEmpty();
 	}
 
 	public void setCitizens(ArrayList<Citizen> citizens) {

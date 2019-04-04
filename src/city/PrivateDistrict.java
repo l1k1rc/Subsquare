@@ -10,7 +10,7 @@ public class PrivateDistrict extends DistrictType
 	public PrivateDistrict() {
 		nbWorkers = 0;
 		taxes = 0;
-		setImage("/images/City/Private/0.png");
+		setImage("/images/City/Private/1.png");
 	}
 
 	public int getNbWorkers() {
