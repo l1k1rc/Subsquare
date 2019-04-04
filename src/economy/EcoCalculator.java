@@ -12,8 +12,26 @@ import used.Point;
 public class EcoCalculator
 {	
 	
-	public static float calcStationOverload(Station station) {
-		return 0;
+	public static float calcStationOverload(City city, District district) {
+		Station targetStation = district.getStation();
+		int result;
+		if(district.getStation() != null) {
+			int userStationCompt = 0;
+			ArrayList<Citizen> citizens = city.getCitizens();
+			for (Citizen citizen : citizens) {
+				if (citizen.getClosestStation() == district.getStation()) userStationCompt++;
+			}
+			result = targetStation.getMaxCapacity()-userStationCompt;
+			if (result<20) {
+				return 20;
+			} else if (result<0) {
+				return result*(-1);
+			} else {
+				return 0;
+			}
+		} else {
+			return 0;
+		}
 	}
 	
 	public static float calcMaintenanceCost(District dist) {
@@ -66,28 +84,46 @@ public class EcoCalculator
 		citizens = city.getCitizensByDistrict(district);
 
 		if(citizens.size()==0) return 0;
-
+		
+		Point actualPos;
 		int totalTravelTime = 0;
-		int travelTime;
+		int travelTimeSubway, travelTimeFoot;
+		int beginWork, endWork;
+		Point beginWalk, endWalk;
+		double distanceSubway, distanceWalk;
 		for (Citizen i : citizens) {
-			travelTime = 0;
+			travelTimeSubway = 0;
+			travelTimeFoot = 0;
 			if(i.isEmployed()) {
 				if(!i.getPosition().equals(i.getWorkDistrict().getPosition())) {
-					int begin = city.getIdByPosition(i.getOriginDistrict().getPosition());
-					int end = city.getIdByPosition(i.getWorkDistrict().getPosition());
-					ArrayList<Point> path = Simulation.getStationsPosByFloyd(begin, end);
-					Point actualPos = i.getPosition();
+					if((district.getStation() == null) || (i.getClosestStation() != district.getStation())) {
+						beginWalk = i.getOriginDistrict().getPosition();
+						endWalk =  i.getClosestStation().getStationPos();
+						
+						distanceWalk = Math.sqrt(sqr(beginWalk.getOrdonne() - endWalk.getOrdonne()) + sqr(beginWalk.getAbscisse() - endWalk.getAbscisse()));
+						if(distanceWalk<0) {
+							distanceWalk*= (-1);
+						}
+						travelTimeFoot+=distanceWalk;
+					}
+					
+					
+					
+					beginWork = city.getIdByPosition(i.getOriginDistrict().getPosition());
+					endWork = city.getIdByPosition(i.getWorkDistrict().getPosition());
+					ArrayList<Point> path = Simulation.getStationsPosByFloyd(beginWork, endWork);
+					actualPos = i.getPosition();
 					for (Point target : path) {
-						double distance = Math.sqrt(sqr(actualPos.getOrdonne() - target.getOrdonne()) + sqr(actualPos.getAbscisse() - target.getAbscisse()));
-						if(distance<0) {
-							distance*= (-1);
+						distanceSubway = Math.sqrt(sqr(actualPos.getOrdonne() - target.getOrdonne()) + sqr(actualPos.getAbscisse() - target.getAbscisse()));
+						if(distanceSubway<0) {
+							distanceSubway*= (-1);
 						}
 						actualPos = target;
-						travelTime+=distance;
+						travelTimeSubway+=distanceSubway;
 					}
 				}
 			}
-			totalTravelTime+=travelTime;
+			totalTravelTime+= (travelTimeSubway + travelTimeFoot);
 		}
 		
 		float moyTravelTime = totalTravelTime/citizens.size();
@@ -98,7 +134,7 @@ public class EcoCalculator
 	public static int calcProsperity(City city, District district) {
 		float unemployementRate = 1-calcDistUnemployement(city, district);
 		float travelTime = (float) (100-(calcTravelTime(city, district)*2.127));
-		float stationOverloadRate = (calcStationOverload(district.getStation())*20);
+		float stationOverloadRate = calcStationOverload(city,district);
 		
 		float prosperity = (float) (unemployementRate*((travelTime)-(stationOverloadRate)));
 		
