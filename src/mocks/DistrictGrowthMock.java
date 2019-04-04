@@ -7,7 +7,6 @@ import used.Point;
 
 public class DistrictGrowthMock {
 	private City city;
-	private City city2;
 
 	private Point point;
 	private DistrictLevelUpMock dlum;

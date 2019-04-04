@@ -15,6 +15,7 @@ import economy.EconomyManager;
 import grid.Box;
 import grid.Grid;
 import used.Point;
+import used.Random;
 
 public class Simulation {
 	
@@ -41,57 +42,241 @@ public class Simulation {
 	
 	public void simulationNextTurn() {
 		
-		for(Citizen citizen : city.getCitizens()) {
-			if(!city.getTimeSimulator().isWeekEnd()) {
-				if(!citizen.isMove()) {
-					if(city.getTimeSimulator().getHour()==9 && city.getTimeSimulator().AM_PM())
-						citizenGoToWork(citizen);
-					else if(city.getTimeSimulator().getHour()==6 && !city.getTimeSimulator().AM_PM())
-						citizenGoToHome(citizen);
-				}
-				else {
-					citizen.move();
+		if(city.getTimeSimulator().getHour() == 0 && city.getTimeSimulator().AM_PM()) {
+			for(Citizen citizen : city.getCitizens()) {
+				if(!citizen.employed()) {
+					citizen.setTimeToSearchWork(Random.randomInt(9, 13));
 				}
 			}
-			//TODO weekends
 		}
 		
-		ecoMan.updateData();
+		for(Citizen citizen : city.getCitizens()) {
+			if(!citizen.isMove()) {
+				if(city.getTimeSimulator().isWeekEnd()) {
+					if(citizen.getQI() < 90) {
+						if(citizen.employed()) {
+							if(city.getTimeSimulator().getHour() == 9 && city.getTimeSimulator().AM_PM() && citizen.employed()) {
+								citizenGoToWork(citizen);
+							}
+							else if(city.getTimeSimulator().getHour() == 5 && !city.getTimeSimulator().AM_PM()){
+								citizenGoToHome(citizen);
+							}						
+						}
+					}
+					else {
+						if(city.getTimeSimulator().getHour() == 9 && city.getTimeSimulator().AM_PM()) {
+							citizenWeekEnd(citizen);
+						}
+						else {
+							citizenGoToHome(citizen);
+						}
+					}
+				}
+				else {
+					if(citizen.employed()) {
+						if(city.getTimeSimulator().getHour() == 9 && city.getTimeSimulator().AM_PM()) {
+							citizenGoToWork(citizen);
+						}
+						else if(city.getTimeSimulator().getHour() == 5 && !city.getTimeSimulator().AM_PM()){
+							citizenGoToHome(citizen);
+						}
+					}
+					else {
+						if(citizen.getTimeToSearchWork() == city.getTimeSimulator().getHour() 
+								&& city.getTimeSimulator().AM_PM()) {
+							citizenSearchWork(citizen);
+						}
+						else if(citizen.isSearchArrive()) {
+							citizenGoToHome(citizen);
+						}
+					}	
+				}
+			}
+			else {
+				citizen.move();
+			}
+		}
+		
+		//ecoMan.updateData();
 		simulationNumberOfTurn++;
 	}
 	
 	public void citizenGoToHome(Citizen citizen) {
-
+		if(!citizen.getPosition().equals(citizen.getOriginDistrict().getPosition())) {
+			ArrayList<Point> path = calculPath(citizen, citizen.getOriginDistrict());
+			if(path.size()>0) {
+				citizen.setPath(path);
+				citizen.setMove(true);
+			}
+		}
 	}
 
 	public void citizenGoToWork(Citizen citizen) {
-		if(!citizen.isMove()) {
-			if(citizen.employed()) {
-				if(!citizen.getPosition().equals(citizen.getWorkDistrict().getPosition())) {
-					int begin = city.getIdByPosition(citizen.getOriginDistrict().getPosition());
-					int end = city.getIdByPosition(citizen.getWorkDistrict().getPosition());
-					ArrayList<Point> path = getStationsPosByFloyd(begin, end);
-					if(path.size()>0) {
-						citizen.setPath(path);
-						citizen.setMove(true);
-					}
-				}
-			}
-			else {
-				ArrayList<District> searchWork = city.getDistrictByType((citizen.getQI() > 120) ? "pri" : "pub");
-				District closest = getClosestDistrict(citizen.getPosition(), searchWork, citizen);
-				if(closest != null) {
-					ArrayList<Point> path = aStar.aStart(citizen.getPosition(), closest.getPosition());
-					if(path.size()>0) {
-						citizen.setPath(path);
-						citizen.setMove(true);
-					}
-				}
+		if(!citizen.getPosition().equals(citizen.getWorkDistrict().getPosition())) {
+			ArrayList<Point> path = calculPath(citizen, citizen.getWorkDistrict());
+			if(path.size()>0) {
+				citizen.setPath(path);
+				citizen.setMove(true);
 			}
 		}
 	}
 	
-	public static District getClosestDistrict(Point position, ArrayList<District> searchWork, Citizen citizen) {
+	public void citizenSearchWork(Citizen citizen) {
+		ArrayList<District> searchWork = city.getDistrictByType((citizen.getQI() > 120) ? "pri" : "pub");
+		District closest = getClosestDistrictWork(citizen.getPosition(), searchWork, citizen);
+		if(closest != null) {
+			ArrayList<Point> path = calculPath(citizen, closest);
+			if(path.size() > 0) {
+				citizen.setPath(path);
+				citizen.setMove(true);
+			}
+		}
+	}
+	
+	public void citizenWeekEnd(Citizen citizen) {
+		ArrayList<District> weekEnd = city.getDistrictByType("pub");
+		District closest = getClosestPublicDistrict(weekEnd, citizen);
+		if(closest != null) {
+			ArrayList<Point> path = calculPath(citizen, closest);
+			if(path.size() > 0) {
+				citizen.setPath(path);
+				citizen.setMove(true);
+			}
+		}
+	}
+	
+	public ArrayList<Point> calculPath(Citizen citizen, District toGo){
+		ArrayList<Point> path = new ArrayList<Point>();
+		District distIn = city.getDistrictByPosition(citizen.getPosition());
+		
+		if(distIn != null) {
+			if(distIn.hasStation()) {
+				if(toGo.hasStation()) {
+					int begin = distIn.getStation().getId();
+					int end = toGo.getStation().getId();
+					
+					path = getStationsPosByFloyd(begin, end);
+					if(path == null || path.size() == 0) {
+						path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+					}
+				}
+				else {
+					District closest = getClosestDistrictStation(toGo.getPosition());
+					if(closest != null) {
+						int begin = distIn.getStation().getId();
+						int end = closest.getStation().getId();
+						
+						path = getStationsPosByFloyd(begin, end);
+						if(path == null || path.size() == 0) {
+							path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+						}
+						else {
+							ArrayList<Point> path_tmp = aStar.aStart(closest.getPosition(), toGo.getPosition());
+							if(path_tmp != null)
+								path.addAll(path_tmp);	
+						}
+					}
+					else {
+						path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+					}
+				}
+			}
+			else {
+				if(toGo.hasStation()) {
+					District closest = getClosestDistrictStation(citizen.getPosition());
+					if(closest != null) {
+						int begin = closest.getStation().getId();
+						int end = toGo.getStation().getId();
+						
+						path = aStar.aStart(citizen.getPosition(), closest.getPosition());
+						ArrayList<Point> path_tmp = getStationsPosByFloyd(begin, end);
+							if(path_tmp != null)
+								path.addAll(path_tmp);
+							else {
+								path_tmp = aStar.aStart(closest.getPosition(), toGo.getPosition());
+							}
+					}
+					else {
+						path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+					}
+				}
+				else {
+					path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+				}
+			}
+		}
+		else {
+			District closest = getClosestDistrictStation(citizen.getPosition());
+			if(closest != null) {
+				path = aStar.aStart(citizen.getPosition(), closest.getPosition());
+				if(toGo.hasStation()) {
+					int begin = closest.getStation().getId();
+					int end = toGo.getStation().getId();
+						
+					ArrayList<Point>tmp_path = getStationsPosByFloyd(begin, end);
+					if(tmp_path == null || tmp_path.size() == 0) {
+						tmp_path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+					}
+					if(tmp_path != null && tmp_path.size() > 0) {
+						path.addAll(tmp_path);
+					}
+				}
+				else {
+					District closest1 = getClosestDistrictStation(toGo.getPosition());
+					if(closest1 != null) {
+						int begin = closest.getStation().getId();
+						int end = closest1.getStation().getId();
+						
+						ArrayList<Point>tmp_path = getStationsPosByFloyd(begin, end);
+						if(tmp_path == null || tmp_path.size() == 0) {
+							tmp_path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+						}
+						if(tmp_path != null && tmp_path.size() > 0) {
+							path.addAll(tmp_path);
+						}
+						
+						ArrayList<Point>tmp_path1 = aStar.aStart(closest1.getPosition(), toGo.getPosition());
+						if(tmp_path1 != null && tmp_path1.size() > 0) {
+							path.addAll(tmp_path1);
+						}
+					}
+				}
+			}
+			else {
+				path = aStar.aStart(citizen.getPosition(), toGo.getPosition());
+			}
+		}
+				
+		return path;
+	}
+
+	public District getClosestDistrictStation(Point position) {
+		District result = null;
+		double min = Double.MAX_VALUE;
+		for(District dist : city.getDistricts().values()) {
+			double tmp = position.distance(dist.getPosition());
+			if(tmp < min && dist.hasStation()) {
+				result = dist;
+				min = tmp;
+			}
+		}
+		return result;
+	}
+	
+	public static District getClosestPublicDistrict(ArrayList<District> publicDis, Citizen citizen) {
+		District result = null;
+		double min = Double.MAX_VALUE;
+		for(District dist : publicDis) {
+			double tmp = citizen.getPosition().distance(dist.getPosition());
+			if(tmp < min) {
+				min = tmp;
+				result = dist;
+			}
+		}
+		return result;
+	}
+	
+	public static District getClosestDistrictWork(Point position, ArrayList<District> searchWork, Citizen citizen) {
 		District result = null;
 		double min = Double.MAX_VALUE;
 		for(District dist : searchWork) {
@@ -148,7 +333,7 @@ public class Simulation {
 					cost = cost*4;
 				ecoMan.setMoney(cost,"const");
 			}else if(type.isResidential()){
-				creatCitizens(null, ds, false, 5);
+				creatCitizens(null, ds, true, 5);
 			}
 			box.setIsFree(false);
 		}	

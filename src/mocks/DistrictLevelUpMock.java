@@ -1,7 +1,6 @@
 package mocks;
 
 import city.District;
-import city.DistrictType;
 import city.PrivateDistrict;
 import city.Station;
 import used.Point;
@@ -44,5 +43,13 @@ public class DistrictLevelUpMock {
 
 	public void setPoint(Point point) {
 		this.point = point;
+	}
+	
+	public Station getStation() {
+		return station;
+	}
+	
+	public void setStation(Station station) {
+		this.station = station;
 	}
 }

@@ -2,7 +2,6 @@ package city;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 
 import engine.TimeSimulator;
@@ -104,12 +103,6 @@ public class City
 			}
 		}	
 		return contains;
-	}
-
-	public void displayPositions() {
-		for (Iterator<District> it = getDistricts().values().iterator(); it.hasNext();) {
-			District d = it.next();
-		}
 	}
 	
 	public Point getPositionById(int id) {

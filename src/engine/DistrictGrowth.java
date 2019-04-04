@@ -29,7 +29,8 @@ public class DistrictGrowth {
 		Citizen citizen;
 		//
 	    while (iterator.hasNext()) {
-	    	Map.Entry mapentry = (Map.Entry) iterator.next();
+	    	@SuppressWarnings("rawtypes")
+			Map.Entry mapentry = (Map.Entry) iterator.next();
 	        District dist =  (District) mapentry.getValue();
 	        randNbr =  used.Random.randomInt(1,7);
 	        resultDLU = DistrictLevelUp.automatedLevelUpper(city, dist, randNbr);
@@ -63,7 +64,8 @@ public class DistrictGrowth {
 		Citizen citizen;
 		//
 	    while (iterator.hasNext()) {
-	    	Map.Entry mapentry = (Map.Entry) iterator.next();
+	    	@SuppressWarnings("rawtypes")
+			Map.Entry mapentry = (Map.Entry) iterator.next();
 	        District dist =  (District) mapentry.getValue();
         	randNbr =  6;
 	        resultDLU = DistrictLevelUp.automatedLevelUpper(city, dist, randNbr);
