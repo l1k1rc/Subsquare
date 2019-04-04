@@ -58,7 +58,7 @@ public class Simulation {
 							if(city.getTimeSimulator().getHour() == 9 && city.getTimeSimulator().AM_PM() && citizen.employed()) {
 								citizenGoToWork(citizen);
 							}
-							else if(city.getTimeSimulator().getHour() == 5 && !city.getTimeSimulator().AM_PM()){
+							else if(city.getTimeSimulator().getHour() == 9 && !city.getTimeSimulator().AM_PM()){
 								citizenGoToHome(citizen);
 							}						
 						}
@@ -67,7 +67,7 @@ public class Simulation {
 						if(city.getTimeSimulator().getHour() == 9 && city.getTimeSimulator().AM_PM()) {
 							citizenWeekEnd(citizen);
 						}
-						else {
+						else if(city.getTimeSimulator().getHour() == 9 && !city.getTimeSimulator().AM_PM()){
 							citizenGoToHome(citizen);
 						}
 					}
@@ -77,7 +77,7 @@ public class Simulation {
 						if(city.getTimeSimulator().getHour() == 9 && city.getTimeSimulator().AM_PM()) {
 							citizenGoToWork(citizen);
 						}
-						else if(city.getTimeSimulator().getHour() == 5 && !city.getTimeSimulator().AM_PM()){
+						else if(city.getTimeSimulator().getHour() == 9 && !city.getTimeSimulator().AM_PM()){
 							citizenGoToHome(citizen);
 						}
 					}
@@ -97,7 +97,6 @@ public class Simulation {
 			}
 		}
 		
-
 		if(simulationNumberOfTurn > 40)
 			ecoMan.updateData();
 		
