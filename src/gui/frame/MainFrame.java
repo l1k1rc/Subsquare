@@ -25,6 +25,7 @@ import city.District;
 import city.PrivateDistrict;
 import city.PublicDistrict;
 import city.ResidentialDistrict;
+import economy.EcoData;
 import economy.EconomyManager;
 import engine.GridParameters;
 import engine.Simulation;
@@ -43,6 +44,7 @@ import used.Random;
  * @see PanelPrivStat {@link PanelPrivStat}
  * @see PanelScore {@link PanelScore}
  *
+ *@author CHEF, MOA RVR
  */
 public class MainFrame extends JFrame implements Runnable {
 
@@ -235,18 +237,20 @@ public class MainFrame extends JFrame implements Runnable {
 					// pStat.setposLabel("Position de ce quartier : " + position);
 					if (scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getGroundType()
 							.isContainsTree()) {
+						pStat.setLabelDistrict(1,
+								"Prix de la zone :"+scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getGroundType()
+										.getDegre() * EcoData.CONST_DISTRICT * 4);
 						// pStat.setPriceInformation("Prix de la zone : "
 						// + scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse())
 						// .getGroundType().getDegre() * EcoData.CONST_DISTRICT * 4);
 
 					} else {
-						// pStat.setPriceInformation("Prix de la zone : "
-						// + scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse())
-						// .getGroundType().getDegre() * EcoData.CONST_DISTRICT);
-
+						pStat.setLabelDistrict(1,
+								"Prix de la zone :"+scene.getGrid().getBoxAt(position.getOrdonne(), position.getAbscisse()).getGroundType()
+										.getDegre() * EcoData.CONST_DISTRICT);
 					}
 					// pStat.setTypeLabel("Pas de type de quartier");
-					 getContentPane().add(pStat);
+					getContentPane().add(pStat);
 					/*
 					 * In a nutshell, the user gotta pay a price if the place isn't free and have an
 					 * obstacle
@@ -323,16 +327,18 @@ public class MainFrame extends JFrame implements Runnable {
 		updateDensity();
 		updateServicing();
 		updateProsperityBar();
+
 		if (pScore.getProsperityBar().getValue() >= 90) {
 			stop = true;
 			scene.win();
-		}else if(pScore.getProsperityBar().getValue()<=15 || general_economy.getBudget() <=10) {
-			stop=true;
+		} else if (pScore.getProsperityBar().getValue() <= 15 || general_economy.getBudget() <= 10) {
+			stop = true;
 			scene.game_over();
 		}
 		scene.updateUI();
 		scene.repaint();
 	}
+
 	public void updateTime() {
 		TimeSimulator timeSim = city.getTimeSimulator();
 		timeSim.update();
@@ -417,4 +423,5 @@ public class MainFrame extends JFrame implements Runnable {
 
 		}
 	}
+
 }

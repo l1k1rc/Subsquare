@@ -40,8 +40,8 @@ public class PanelPrivStat extends JPanel {
 
 		setBorder(BorderFactory.createEtchedBorder());
 
-		JLabel[] infoDistrict = { new JLabel("District Prosperity", JLabel.CENTER), new JLabel("1"), new JLabel("2"),
-				new JLabel("3"), new JLabel("4"), new JLabel("5"), new JLabel("6"), new JLabel("7"), new JLabel("8") };
+		JLabel[] infoDistrict = { new JLabel("District Prosperity", JLabel.CENTER), new JLabel(""), new JLabel(""),
+				new JLabel(""), new JLabel(""), new JLabel(""), new JLabel(""), new JLabel(""), new JLabel("") };
 		JPanel[] tabCells = { new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(),
 				new JPanel(), new JPanel(), new JPanel() };
 

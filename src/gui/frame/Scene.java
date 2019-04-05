@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -24,13 +25,15 @@ import city.SubwayLine;
 import engine.GridParameters;
 import grid.Grid;
 import gui.fontElements.Fonts;
+import gui.menu.LauncherMenu;
+import gui.menu.PanelMenu;
 import used.Point;
 
 /**
  * Allow to manage the map and build it with some sprites with paintComponent
  * method.
  * 
- * @author l1k1
+ * @author CHEF, MOA
  *
  */
 public class Scene extends JPanel {
@@ -46,6 +49,8 @@ public class Scene extends JPanel {
 	private JLabel game_over = new JLabel("GAME OVER");
 	private JLabel win = new JLabel("YOU WIN");
 
+	private JButton restart = new JButton("Restart");
+	
 	public Scene() {
 		super();
 		setPreferredSize(new Dimension(GridParameters.WIDTH * 28, GridParameters.HEIGHT * 28));
@@ -72,10 +77,12 @@ public class Scene extends JPanel {
 		};
 		Timer t1 = new Timer(delay, taskPerformer);
 		t1.start();
+		restart.setBounds(200,200,200,100);
 		game_over.setBounds(50,50,200,200);
 		win.setBounds(50, 50, 200, 200);
 		game_over.setFont(Fonts.getF4().deriveFont(150.0f));
 		win.setFont(Fonts.getF4().deriveFont(150.0f));
+
 	}
 	public void game_over() {
 		add(game_over);
