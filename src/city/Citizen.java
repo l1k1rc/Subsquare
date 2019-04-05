@@ -2,6 +2,7 @@ package city;
 
 import java.util.ArrayList;
 
+import engine.Simulation;
 import used.Direction;
 import used.Point;
 import used.Random;
@@ -135,15 +136,21 @@ public class Citizen {
 			if(!employed) {
 				District work = City.getInstance().getDistrictByPosition(newPos);
 				SearchArrive = true;
-				if(work != null && (work.getType().isPrivate() || work.getType().isPublic())) {
-					if(work.getMaxCapacity() - work.getType().getNbWorkers() > 10) {
-						setWorkDistrict(work);
-						work.getType().setNbWorkers(work.getType().getNbWorkers()+1);
-						employed = true;
+				if(work != null) {
+					if((work.getType().isPrivate() || work.getType().isPublic())) {
+						if(work.getMaxCapacity() > work.getType().getNbWorkers()) {
+							setWorkDistrict(work);
+							int new_nb = work.getType().getNbWorkers()+1;
+							work.getType().setNbWorkers(new_nb);
+							employed = true;
+						}
+						else {
+							noWork.add(work);
+						}
 					}
-					else {
-						noWork.add(work);
-					}
+				}
+				else {
+					Simulation.citizenGoToHome(this);
 				}
 			}
 		}
