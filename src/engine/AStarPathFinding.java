@@ -69,7 +69,7 @@ public class AStarPathFinding {
 		HashMap<Point, Double> gScore = new HashMap<Point, Double>();
 		for(int s = 0; s < grid.height; s++) {
 			for(int t = 0; t < grid.width; t++) {
-				if(grid.getBoxAt(s, t).getIsFree() && !grid.getBoxAt(s, t).getGroundType().containsTree) {
+				if(grid.getBoxAt(s, t).getIsFree()) {
 					Point pos = new Point(t, s);
 					if(pos.equals(start))
 						// The cost of going from start to start is zero.
@@ -85,7 +85,7 @@ public class AStarPathFinding {
 		HashMap<Point, Double> fScore = new HashMap<Point, Double>();
 		for(int s = 0; s < grid.height; s++) {
 			for(int t = 0; t < grid.width; t++) {
-				if(!grid.getBoxAt(s, t).getGroundType().isWall() && !grid.getBoxAt(s, t).getGroundType().containsTree) {
+				if(!grid.getBoxAt(s, t).getGroundType().isWall()) {
 					Point pos = new Point(t, s);
 					if(pos.equals(start))
 						// For the first node, that value is completely heuristic.
@@ -107,7 +107,7 @@ public class AStarPathFinding {
 			
 			for(int i = current.getOrdonne()-1; i <= current.getOrdonne()+1; i++) {
 				for(int j = current.getAbscisse()-1; j <= current.getAbscisse()+1; j++) {
-					if(!grid.getBoxAt(i, j).getGroundType().isWall() && !grid.getBoxAt(i, j).getGroundType().containsTree) {
+					if(!grid.getBoxAt(i, j).getGroundType().isWall()) {
 						Point neighbor = new Point(j, i);
 						// Ignore the neighbor which is already evaluated.
 						if(closedSet.contains(neighbor))

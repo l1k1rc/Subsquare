@@ -1,5 +1,7 @@
 package tests.engine;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Stack;
 
 import engine.FloydPathFinding;
@@ -44,5 +46,20 @@ public class TestFloyd {
 			Integer som = path.pop();
 			System.out.print(som+" ");
 		}
+		
+		System.out.println();
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		Stack<Integer> sommets = floyd.getPath(0, 3);
+		
+		ListIterator<Integer> iterator = sommets.listIterator(sommets.size());
+		while(iterator.hasPrevious()) {
+			Integer it = iterator.previous();
+			if(it != 0)
+				result.add(it);
+		}
+		
+		for(Integer som : result)
+			System.out.print(som+" ");
+		
 	}
 }

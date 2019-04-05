@@ -33,7 +33,9 @@ import used.Point;
  * Allow to manage the map and build it with some sprites with paintComponent
  * method.
  * 
- * @author CHEF, MOA
+ * 
+ * 
+ * @author CHEF, MOE1
  *
  */
 public class Scene extends JPanel {
@@ -45,12 +47,12 @@ public class Scene extends JPanel {
 	private boolean drawGrid = false;
 	private static boolean stationView = false;
 	private Point pos_gridPoint;
-	
+
 	private JLabel game_over = new JLabel("GAME OVER");
 	private JLabel win = new JLabel("YOU WIN");
 
 	private JButton restart = new JButton("Restart");
-	
+
 	public Scene() {
 		super();
 		setPreferredSize(new Dimension(GridParameters.WIDTH * 28, GridParameters.HEIGHT * 28));
@@ -58,11 +60,11 @@ public class Scene extends JPanel {
 		setBackground(Color.DARK_GRAY);
 		game_over.setForeground(Color.RED);
 		win.setForeground(Color.RED);
-		
+
 		int delay = 200;
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if ((game_over.getForeground() == (Color.RED) || (win.getForeground() == (Color.RED)) )) {
+				if ((game_over.getForeground() == (Color.RED) || (win.getForeground() == (Color.RED)))) {
 					game_over.setForeground(Color.GREEN);
 					win.setForeground(Color.GREEN);
 				} else if ((game_over.getForeground() == (Color.GREEN) || win.getForeground() == (Color.GREEN))) {
@@ -77,23 +79,26 @@ public class Scene extends JPanel {
 		};
 		Timer t1 = new Timer(delay, taskPerformer);
 		t1.start();
-		restart.setBounds(200,200,200,100);
-		game_over.setBounds(50,50,200,200);
+		restart.setBounds(200, 200, 200, 100);
+		game_over.setBounds(50, 50, 200, 200);
 		win.setBounds(50, 50, 200, 200);
 		game_over.setFont(Fonts.getF4().deriveFont(150.0f));
 		win.setFont(Fonts.getF4().deriveFont(150.0f));
 
 	}
+
 	public void game_over() {
 		add(game_over);
 	}
+
 	public void win() {
 		add(win);
 	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if(stationView)
+		if (stationView)
 			paintMap(g);
 		else
 			paintGlobalGrid(g);
@@ -135,51 +140,53 @@ public class Scene extends JPanel {
 		}
 		drawCity(g2);
 	}
-	
+
 	public void paintMap(Graphics g) {
 		g2 = (Graphics2D) g;
 		for (int y = 0; y < grid.height; y++) {
 			for (int x = 0; x < grid.width; x++) {
-					
-				if(grid.getBoxAt(y, x).getGroundType().containsTree)
+
+				if (grid.getBoxAt(y, x).getGroundType().containsTree)
 					g2.setColor(Color.GREEN);
 				else
 					g2.setColor(Color.WHITE);
-			
+
 				g2.fillRect(x * 28, y * 28, 28, 28);
 			}
 		}
 		for (District dist : city.getDistricts().values()) {
 			int x = dist.getPosition().getAbscisse();
 			int y = dist.getPosition().getOrdonne();
-			if(dist.getType().isPrivate())
+			if (dist.getType().isPrivate())
 				g2.setColor(Color.GRAY);
-			else if(dist.getType().isPublic())
+			else if (dist.getType().isPublic())
 				g2.setColor(Color.BLUE);
 			else
 				g2.setColor(Color.YELLOW);
-			
+
 			g2.fillRect(x * 28, y * 28, 28, 28);
-			if(dist.hasStation()) {
-				g2.setColor(Color.BLACK);			
-				for(SubwayLine sub : dist.getStation().getSubwayLines()) {
+			if (dist.hasStation()) {
+				g2.setColor(Color.BLACK);
+				for (SubwayLine sub : dist.getStation().getSubwayLines()) {
 					Station from = sub.getStationFrom();
 					Station end = sub.getStationEnd();
-					g2.drawLine(from.getStationPos().getAbscisse() * 28, from.getStationPos().getOrdonne() * 28, 
-								end.getStationPos().getAbscisse() * 28, end.getStationPos().getOrdonne() * 28);
+					g2.drawLine(from.getStationPos().getAbscisse() * 28, from.getStationPos().getOrdonne() * 28,
+							end.getStationPos().getAbscisse() * 28, end.getStationPos().getOrdonne() * 28);
 				}
 			}
 		}
-		
+
 		g2.setColor(Color.RED);
 		for (Citizen ctzn : city.getCitizens()) {
 			g.fillOval(ctzn.getPosition().getAbscisse() * 28, ctzn.getPosition().getOrdonne() * 28, 5, 5);
 		}
 	}
+
 	private void drawCity(Graphics g) {
 		for (Iterator<District> it = city.getDistricts().values().iterator(); it.hasNext();) {
 			District d = it.next();
-			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28, null);
+			g.drawImage(d.getType().getImage(), d.getPosition().getAbscisse() * 28, d.getPosition().getOrdonne() * 28,
+					null);
 		}
 	}
 
@@ -208,8 +215,7 @@ public class Scene extends JPanel {
 	}
 
 	public void setPos_gridPoint(Point pos_gridPoint) {
-		if(pos_gridPoint.getAbscisse() < GridParameters.WIDTH 
-					&& pos_gridPoint.getOrdonne() < GridParameters.HEIGHT) {
+		if (pos_gridPoint.getAbscisse() < GridParameters.WIDTH && pos_gridPoint.getOrdonne() < GridParameters.HEIGHT) {
 			this.pos_gridPoint = pos_gridPoint;
 		}
 	}

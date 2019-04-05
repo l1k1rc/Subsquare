@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Stack;
 
 import city.Citizen;
@@ -32,7 +33,7 @@ public class Simulation {
 	private static int simulationNumberOfTurn;
 	private int idStation = 0;
 	private static FloydPathFinding floyd = new FloydPathFinding(city.nbStations(), city);
-	private AStarPathFinding aStar;
+	private static AStarPathFinding aStar;
 
 	private EconomyManager ecoMan = new EconomyManager(city);
 
@@ -104,7 +105,7 @@ public class Simulation {
 		simulationNumberOfTurn++;
 	}
 
-	public void citizenGoToHome(Citizen citizen) {
+	public static void citizenGoToHome(Citizen citizen) {
 		if (!citizen.getPosition().equals(citizen.getOriginDistrict().getPosition())) {
 			ArrayList<Point> path = calculPath(citizen, citizen.getOriginDistrict());
 			if (path.size() > 0) {
@@ -148,7 +149,7 @@ public class Simulation {
 		}
 	}
 
-	public ArrayList<Point> calculPath(Citizen citizen, District toGo) {
+	public static ArrayList<Point> calculPath(Citizen citizen, District toGo) {
 		ArrayList<Point> path = new ArrayList<Point>();
 		District distIn = city.getDistrictByPosition(citizen.getPosition());
 
@@ -280,7 +281,7 @@ public class Simulation {
 		return path;
 	}
 
-	public double calculateTravelDistance(ArrayList<Point> path, boolean isFoot) {
+	public static double calculateTravelDistance(ArrayList<Point> path, boolean isFoot) {
 		double dist = 0d;
 		if (path != null) {
 			for (int i = 0; i < path.size(); i++) {
@@ -296,7 +297,7 @@ public class Simulation {
 		return dist;
 	}
 
-	public District getClosestDistrictStation(Point position) {
+	public static District getClosestDistrictStation(Point position) {
 		District result = null;
 		double min = Double.MAX_VALUE;
 		for (District dist : city.getDistricts().values()) {
@@ -338,10 +339,15 @@ public class Simulation {
 	public static ArrayList<Point> getStationsPosByFloyd(int begin, int end) {
 		ArrayList<Point> result = new ArrayList<Point>();
 		Stack<Integer> sommets = floyd.getPath(begin, end);
-		for (Integer som : sommets) {
-			Point pos = city.getPositionById(som);
-			if (pos != null)
-				result.add(pos);
+		
+		ListIterator<Integer> iterator = sommets.listIterator(sommets.size());
+		while(iterator.hasPrevious()) {
+			Integer som = iterator.previous();
+			if(som != begin) {
+				Point pos = city.getPositionById(som);
+				if (pos != null)
+					result.add(pos);
+			}
 		}
 		return result;
 	}
@@ -433,10 +439,6 @@ public class Simulation {
 
 	public AStarPathFinding getaStar() {
 		return aStar;
-	}
-
-	public void setaStar(AStarPathFinding aStar) {
-		this.aStar = aStar;
 	}
 
 	public City getCity() {
