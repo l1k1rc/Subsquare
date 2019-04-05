@@ -30,7 +30,7 @@ import used.Point;
  * Allow to manage the map and build it with some sprites with paintComponent
  * method.
  * 
- * @author l1k1
+ * @author CHEF, MOE1
  *
  */
 public class Scene extends JPanel {
