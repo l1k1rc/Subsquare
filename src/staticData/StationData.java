@@ -6,7 +6,7 @@ package staticData;
  */
 public class StationData {
 	
-	public static final int maxInhabitantsCapacityLevel1 = 25;
+	public static final int maxInhabitantsCapacityLevel1 = 50;
 	public static final int maxInhabitantsCapacityLevel2 = 60;
 	public static final int maxInhabitantsCapacityLevel3 = 120;
 
