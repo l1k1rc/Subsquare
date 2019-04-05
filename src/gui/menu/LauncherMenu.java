@@ -9,7 +9,7 @@ import com.jtattoo.plaf.JTattooUtilities;
  * .jar to launch the program.
  * 
  * @see JTattooUtilities
- * @author l1k1
+ * @author CHEF, MOA
  *
  */
 public class LauncherMenu {

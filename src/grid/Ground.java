@@ -6,7 +6,7 @@ import used.Point;
 
 /**
  * This class is contained in each Box.
- * @author ishak
+ * @author MOEs
  */
 
 public abstract class Ground {

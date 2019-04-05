@@ -8,7 +8,7 @@ import city.District;
 import city.Station;
 
 /**
- * 
+ * Operations about economic data
  * 
  * @author MOEs, QA
  *
@@ -99,8 +99,9 @@ public class EcoCalculator {
 		float travelTime = (float) (100 - (calcTravelTime(city, district) * 2.127));
 		float stationOverloadRate = calcStationOverload(city, district);
 
-		float prosperity = (float) (unemployementRate * ((travelTime) - (stationOverloadRate)));
-
+		float gain = district.getType().getTaxes() - district.getType().getMaintenanceCost();
+		float prosperity = (float) (unemployementRate * ((travelTime) - (stationOverloadRate))) + gain;
+		
 		if (prosperity > 100) {
 			prosperity = 100;
 		} else if (prosperity < 0) {

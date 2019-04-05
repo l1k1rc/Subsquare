@@ -4,7 +4,7 @@ import grid.Ground;
 
 /**
  * This class designates a Box of which the grid is composed
- * @author ishak
+ * @author MOEs
  *
  */
 

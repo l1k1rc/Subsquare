@@ -25,14 +25,11 @@ import city.SubwayLine;
 import engine.GridParameters;
 import grid.Grid;
 import gui.fontElements.Fonts;
-import gui.menu.LauncherMenu;
-import gui.menu.PanelMenu;
 import used.Point;
 
 /**
  * Allow to manage the map and build it with some sprites with paintComponent
  * method.
- * 
  * 
  * 
  * @author CHEF, MOE1

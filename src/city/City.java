@@ -7,6 +7,13 @@ import java.util.Set;
 import engine.TimeSimulator;
 import used.Point;
 
+/**
+ * Implements a design pattern "Singleton" to call only one instance of the
+ * object.
+ * 
+ * @author MOEs
+ *
+ */
 public class City {
 	private static City instance = new City();
 	private static City instanceTest = new City();

@@ -25,8 +25,8 @@ import gui.frame.ManualFrame;
  * the simulation, load a previous simulation, consult the user guide and quit
  * the software.</strong>
  * 
- * @author l1k1
- *
+ * @author CHEF
+ * @see MainFrame {@link MainFrame}
  */
 public class PanelMenu extends JPanel {
 
@@ -72,11 +72,13 @@ public class PanelMenu extends JPanel {
 		int delay = 200;
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if ((b1.getBackground() == (Color.RED)) && (b4.getBackground() == (Color.RED)) && (b3.getBackground()==(Color.RED))) {
+				if ((b1.getBackground() == (Color.RED)) && (b4.getBackground() == (Color.RED))
+						&& (b3.getBackground() == (Color.RED))) {
 					b1.setBackground(Color.GREEN);
 					b3.setBackground(Color.GREEN);
 					b4.setBackground(Color.GREEN);
-				} else if ((b1.getBackground() == (Color.GREEN)) && (b4.getBackground() == (Color.GREEN))&&(b3.getBackground()==(Color.GREEN))) {
+				} else if ((b1.getBackground() == (Color.GREEN)) && (b4.getBackground() == (Color.GREEN))
+						&& (b3.getBackground() == (Color.GREEN))) {
 					b1.setBackground(new Color(30, 170, 255, 60));
 					b4.setBackground(new Color(30, 170, 255, 60));
 					b3.setBackground(new Color(30, 170, 255, 60));

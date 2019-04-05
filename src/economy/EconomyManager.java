@@ -4,29 +4,30 @@ import java.util.Collection;
 
 import city.City;
 import city.District;
+import engine.Simulation;
 import engine.TimeSimulator;
+
 /**
  * 
  * @author QA
- *
+ * @see Simulation {@link Simulation}
  */
-public class EconomyManager
-{
+public class EconomyManager {
 	private City city;
-	
+
 	private float budget = 1000;
-	
+
 	private float maintenanceCost = 0;
 	private float taxes = 0;
-	
+
 	private float totalConstructionCost = 0;
 	private float totalMaintenanceCost = 0;
 	private float totalTaxes = 0;
-	
+
 	public EconomyManager(City city) {
 		this.city = city;
 	}
-	
+
 	public float getBudget() {
 		return budget;
 	}
@@ -60,7 +61,7 @@ public class EconomyManager
 	}
 
 	public float getTotalExpenses() {
-		return totalConstructionCost+totalMaintenanceCost;
+		return totalConstructionCost + totalMaintenanceCost;
 	}
 
 	public float getTotalIncomes() {
@@ -82,69 +83,63 @@ public class EconomyManager
 	public void setMaintenanceCost(float maintenanceCost) {
 		this.maintenanceCost = maintenanceCost;
 	}
-		
-	public void setMoney(float money,String src) {
-		switch (src) {
-			case "const":
-				 budget-=money;
-				 totalConstructionCost+=money;
-				 break;
 
-			case "maint":
-				 budget-=money;
-				 maintenanceCost = money;
-				 totalMaintenanceCost+=money;
-				 break;
-				 
-			case "tax":
-				 budget+=money;
-				 taxes = money;
-				 totalTaxes+=money;
-				break;
+	public void setMoney(float money, String src) {
+		switch (src) {
+		case "const":
+			budget -= money;
+			totalConstructionCost += money;
+			break;
+
+		case "maint":
+			budget -= money;
+			maintenanceCost = money;
+			totalMaintenanceCost += money;
+			break;
+
+		case "tax":
+			budget += money;
+			taxes = money;
+			totalTaxes += money;
+			break;
 		}
 	}
-	
-	public void updateData() 
-	{	
+
+	public void updateData() {
 		TimeSimulator time = city.getTimeSimulator();
 		Collection<District> districts = city.getDistricts().values();
-		
-		float mc=0, tx=0,pr=0,emp=0;
-		
-		if(!city.isEmpty()) {
-			if(time.isEndOfDay())
-			{
-				for(District dist : districts) {
+
+		float mc = 0, tx = 0, pr = 0, emp = 0;
+
+		if (!city.isEmpty()) {
+			if (time.isEndOfDay()) {
+				for (District dist : districts) {
 					mc += EcoCalculator.calcMaintenanceCost(dist);
 					tx += EcoCalculator.calcTaxes(dist);
 					pr += EcoCalculator.calcProsperity(city, dist);
 				}
-				//DistrictGrowth.populationGrowth(city);
-				pr/=city.getNbDistricts();
+				// DistrictGrowth.populationGrowth(city);
+				pr /= city.getNbDistricts();
 				city.setProsperity(pr);
 				emp = EcoCalculator.calcUnemployement(city.getCitizens());
 				city.setUnemployement(emp);
-				
-				setMoney(mc,"maint");
-				setMoney(tx,"tax");
+
+				setMoney(mc, "maint");
+				setMoney(tx, "tax");
 			}
 		}
-	}		
-	
-	@Override
-	public String toString()
-	{
-		return 	"Budget = " + budget +"\n"+
-	
-				"maintenanceCost = " + maintenanceCost +"\n"+
-				"taxes = " + taxes +"\n"+
-				
-				"totalConstructionCost = "+ totalConstructionCost +"\n"+
-				"totalMaintenanceCost = " + totalMaintenanceCost +"\n"+
-				"totalTaxes = " + totalTaxes +"\n"+
+	}
 
-				"totalExpenses=" + getTotalExpenses()+"\n"+
-				"totalIncomes=" +getTotalIncomes()+"\n";
+	@Override
+	public String toString() {
+		return "Budget = " + budget + "\n" +
+
+				"maintenanceCost = " + maintenanceCost + "\n" + "taxes = " + taxes + "\n" +
+
+				"totalConstructionCost = " + totalConstructionCost + "\n" + "totalMaintenanceCost = "
+				+ totalMaintenanceCost + "\n" + "totalTaxes = " + totalTaxes + "\n" +
+
+				"totalExpenses=" + getTotalExpenses() + "\n" + "totalIncomes=" + getTotalIncomes() + "\n";
 	}
 
 }

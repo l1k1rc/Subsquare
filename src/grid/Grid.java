@@ -4,18 +4,20 @@ import engine.GridParameters;
 
 /**
  * This class contains the grid where the simulation will operate.
- * @author ishak
+ * 
+ * @author MOEs
  */
 
 public class Grid {
-	
+
 	public int height;
 	public int width;
-	
-	/**********		attributes		*************/
+
+	/********** attributes *************/
 	private Box[][] boxs;
 	private GridParameters parameters;
-	/**********		Construct		************/
+
+	/********** Construct ************/
 	/**
 	 * creat a new Grid.
 	 */
@@ -24,84 +26,89 @@ public class Grid {
 		width = GridParameters.WIDTH;
 		boxs = new Box[height][width];
 	}
-	
+
 	public Grid(int height, int width) {
 		this.height = height;
 		this.width = width;
 		boxs = new Box[height][width];
 	}
 
-	/**********		methodes		**********/
-	
-				//getters
-	
+	/********** methodes **********/
+
+	// getters
+
 	/**
 	 * return the Box at the position abscisse,ordonne
+	 * 
 	 * @param abscisse
 	 * @param ordonne
 	 * @return Box
 	 */
-	public Box getBoxAt(int abscisse,int ordonne) {
+	public Box getBoxAt(int abscisse, int ordonne) {
 		return boxs[abscisse][ordonne];
 	}
-	
+
 	/**
 	 * set the Box.
+	 * 
 	 * @param abscisse
 	 * @param ordonne
 	 * @param box
 	 */
-	public void setBoxAt(int abscisse ,int ordonne,Box box) {
+	public void setBoxAt(int abscisse, int ordonne, Box box) {
 		boxs[abscisse][ordonne] = box;
-		
+
 	}
+
 	/**
 	 * set the accessibility of the Box
+	 * 
 	 * @param x
 	 * @param y
 	 * @param bl
 	 */
-	public void setBoxAtFree(int x, int  y, boolean bl) {
+	public void setBoxAtFree(int x, int y, boolean bl) {
 		boxs[x][y].setIsFree(bl);
 	}
-	
-	public void setBox(int x , int y ,Ground gr ) {
+
+	public void setBox(int x, int y, Ground gr) {
 		boxs[x][y].setGroundType(gr);
 	}
-	
-	public Box[][] getBoxs(){
+
+	public Box[][] getBoxs() {
 		return boxs;
 	}
-	
-	public void setBoxs(Box[][] boxs){
-		this.boxs =boxs;
+
+	public void setBoxs(Box[][] boxs) {
+		this.boxs = boxs;
 	}
 
 	/**
 	 * gives us the Grid parameters
+	 * 
 	 * @return GridParameters
 	 */
 	public GridParameters getGridParameters() {
 		return parameters;
 	}
-	
-				//setters
+
+	// setters
 	public void setGridParameters(GridParameters parameters) {
-		this.parameters=parameters;
+		this.parameters = parameters;
 	}
-				//others
-	
+	// others
+
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("\t\t\t\t\t\t\t\t\t");
-		for(int i=0; i<height; i++) {
-			for(int j=0; j<width; j++) {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
 				Ground ground = getBoxAt(i, j).getGroundType();
-					if(ground.isWall()) {
-						sb.append(".");
-					}else if(ground.isGrass()) {
-						sb.append(" ");
-					}
+				if (ground.isWall()) {
+					sb.append(".");
+				} else if (ground.isGrass()) {
+					sb.append(" ");
+				}
 			}
 			sb.append("\n");
 			sb.append("\t\t\t\t\t\t\t\t\t");
