@@ -44,6 +44,7 @@ public class Scene extends JPanel {
 	private Point pos_gridPoint;
 	
 	private JLabel game_over = new JLabel("GAME OVER");
+	private JLabel win = new JLabel("YOU WIN");
 
 	public Scene() {
 		super();
@@ -51,16 +52,20 @@ public class Scene extends JPanel {
 		setBorder(BorderFactory.createEtchedBorder());
 		setBackground(Color.DARK_GRAY);
 		game_over.setForeground(Color.RED);
-		game_over.setOpaque(false);
+		win.setForeground(Color.RED);
+		
 		int delay = 200;
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if ((game_over.getForeground() == (Color.RED)) ) {
+				if ((game_over.getForeground() == (Color.RED) || (win.getForeground() == (Color.RED)) )) {
 					game_over.setForeground(Color.GREEN);
-				} else if ((game_over.getForeground() == (Color.GREEN))) {
+					win.setForeground(Color.GREEN);
+				} else if ((game_over.getForeground() == (Color.GREEN) || win.getForeground() == (Color.GREEN))) {
 					game_over.setForeground(new Color(30, 170, 255, 60));
+					win.setForeground(new Color(30, 170, 255, 60));
 				} else {
 					game_over.setForeground(Color.RED);
+					win.setForeground(Color.RED);
 				}
 				repaint();
 			}
@@ -68,10 +73,15 @@ public class Scene extends JPanel {
 		Timer t1 = new Timer(delay, taskPerformer);
 		t1.start();
 		game_over.setBounds(50,50,200,200);
+		win.setBounds(50, 50, 200, 200);
 		game_over.setFont(Fonts.getF4().deriveFont(150.0f));
+		win.setFont(Fonts.getF4().deriveFont(150.0f));
 	}
 	public void game_over() {
 		add(game_over);
+	}
+	public void win() {
+		add(win);
 	}
 	@Override
 	public void paintComponent(Graphics g) {
