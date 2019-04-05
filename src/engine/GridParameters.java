@@ -4,7 +4,7 @@ public class GridParameters {
 	
 	/**
 	 * This class is used to stock informations about the grid.
-	 * @author ishak
+	 * @author MOEs
 	 *
 	 */
 	

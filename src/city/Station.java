@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 import staticData.StationData;
 import used.Point;
-
+/**
+ * implements a station
+ * @author MOEs
+ *
+ */
 public class Station {
 	private ArrayList<SubwayLine> subwayLines;
 	private int level;
